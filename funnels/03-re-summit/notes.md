@@ -14,3 +14,19 @@
 - Exact ticket prices per tier.
 - What "BAC" stands for in the AI-Outbound sub-flow (Book A Call? Booked-Appt Confirmation?).
 - Whether the virtual ticket has its own checkout vs. the in-person tickets.
+
+## 2026-06-19 — live opt-in capture (Chrome DevTools)
+Pulled live page `grantcardonerealestate.com/selectyourresummit-2` (real source, not screenshots).
+- **Event:** Miami, FL · July 27–28, 2026. ~8,770px sales page.
+- **Ticket tiers (CORRECTION to README):** live tiers are **Virtual / Executive / VIP** — not "front-row + general admission." VIP = front-row + private Q&A lunch; Executive = in-person + exec reception; Virtual = remote.
+- **Brand confirmed = blues + Gotham.** Palette: `#023681` deep blue, `#155EEF` bright blue, `#1BB4ED` cyan. Font: Gotham (loaded by GHL under hashed names → use `font-family:inherit`).
+- **CRO flags to verify in full audit:**
+  - CTAs are `<button>`s with **no href/onclick** — need to confirm they actually route to checkout (top funnel-leak risk).
+  - **No prices** on page; 3 tiers described but **no per-tier select CTA** (one generic CTA for all).
+  - Stat counters render `0K+ / $0B+` — likely scroll-animated; verify they fire (literal zeros = credibility hit).
+- **Open:** is `selectyourresummit-2` the canonical/live opt-in, or a split-test variant? (README had no `-2`.)
+
+### Code convention (set 2026-06-19)
+All opt-in code lands in `steps/01-optin/blocks/` as GHL-paste-ready Custom Code/HTML blocks
+(self-contained, scoped CSS, IIFE JS, blue CSS variables, fluid/mobile, real `<a>` CTAs).
+See `steps/01-optin/blocks/README.md` for the standard and `_template.html` for the skeleton.
