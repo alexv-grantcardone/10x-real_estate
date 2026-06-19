@@ -8,7 +8,7 @@ _Last updated: 2026-06-19_
 
 ## Team
 - **Alex Velazquez** — Digital Marketing Manager. Owns the system, traffic, strategy, this repo.
-- **Sherman** — Head of Conversion Funnels Specialist. Owns funnel build quality (look + conversion).
+- **Cherlon** — Head of Conversion Funnels Specialist. Owns funnel build quality (look + conversion).
 - **Paige** — Brand/Design. Owes us the brand guidelines (see `brand.md`).
 
 ## Platform

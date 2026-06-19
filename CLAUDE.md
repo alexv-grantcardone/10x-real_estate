@@ -12,10 +12,10 @@ Claude) working in this repo — **read it first, every session.**
 | Person | Role | Responsibility |
 |---|---|---|
 | **Alex Velazquez** | Digital Marketing Manager | Owns the system, traffic, strategy, and this repo. |
-| **Sherman** | Head of Conversion Funnels Specialist | Owns funnel build quality — funnels must look incredible and convert. |
+| **Cherlon** | Head of Conversion Funnels Specialist | Owns funnel build quality — funnels must look incredible and convert. |
 | **Paige** | Brand/Design | Will deliver the brand guidelines (not yet written down — see §6). |
 
-This repo is shared primarily between **Alex and Sherman**, possibly others later.
+This repo is shared primarily between **Alex and Cherlon**, possibly others later.
 
 ---
 
@@ -41,7 +41,7 @@ doesn't plausibly improve lead capture or sales conversion, it's not a priority.
 
 **One folder per funnel.** Each funnel folder is self-contained.
 
-Current folders (funnel stages / funnels — confirm grouping with Alex/Sherman):
+Current folders (funnel stages / funnels — confirm grouping with Alex/Cherlon):
 ```
 1. optin/                    opt-in / lead capture
 2. vip - home study manual/  VIP home study manual offer
@@ -69,12 +69,22 @@ We run a **layered** memory system. Each layer has a clear job:
 | Layer | Scope | Job | Status |
 |---|---|---|---|
 | **A. `/knowledge/` (git)** | Shared, versioned | Durable source of truth — curated facts, playbook, decisions. Syncs to everyone via `git pull`. | ✅ live |
-| **B. Supabase cloud memory** | Shared, live | Semantic, ever-growing team brain. Store + similarity-recall across Alex & Sherman without git commits. Backed by `pgvector`. | ⏳ pending Supabase auth |
-| **C. claude-mem** | Per-machine, personal | Automatic session capture/compression on each person's own machine. **Does NOT sync between people** — personal booster only. | ✅ installed (local) |
+| **B. Supabase shared memory** | Shared, live | Ever-growing team brain. Both Alex & Cherlon store + recall via the Supabase MCP — no git commits. Table `public.memories` + `remember()`/`recall()` helpers. | ✅ live |
+| **C. claude-mem** | Per-machine, personal | Automatic session capture/compression on each person's own machine. **Does NOT sync between people via Supabase** — its only cross-machine sharing is a remote Chroma backend (`CLAUDE_MEM_CHROMA_*`), which we are *not* using. Treat it as a personal booster only. | ✅ installed (local) |
 
 **Source of truth = Layer A (git).** If anything ever conflicts, the committed
-`/knowledge/` files win. Layer B is for fast, fuzzy, live shared recall; Layer C is
+`/knowledge/` files win. Layer B is for fast, live shared recall; Layer C is
 each person's private autopilot.
+
+> **How to use Layer B (the shared brain), via the Supabase MCP:**
+> - **Save:** `select * from remember('the fact', 'alex'|'cherlon', array['tag1','tag2'], 'source');`
+> - **Recall:** `select * from recall('what you''re looking for', 10);` (keyword + fuzzy match)
+>
+> Backed by Postgres full-text + trigram search today (no embeddings needed). The
+> `memories.embedding` column is reserved for a future semantic upgrade (would require
+> an embedding provider — e.g. Voyage/OpenAI via an edge function; Anthropic has no
+> embeddings API). The `remember()`/`recall()` functions are locked to the MCP
+> connection only — not exposed on the public REST API.
 
 ### Protocol — follow this every session
 

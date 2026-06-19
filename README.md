@@ -11,7 +11,7 @@ real estate. Every funnel lives here, organized by folder, and is delivered as
 
 ## Team
 - **Alex Velazquez** — Digital Marketing Manager
-- **Sherman** — Head of Conversion Funnels Specialist
+- **Cherlon** — Head of Conversion Funnels Specialist
 
 ## Goal
 Increase conversions — more leads, more sales.
