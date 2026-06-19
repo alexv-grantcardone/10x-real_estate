@@ -9,9 +9,16 @@
 -- to the live project via MCP migrations. Re-running it is safe-ish but review
 -- first — the table create is not idempotent.
 --
+-- AUTHOR STAMPING: the MCP connection is identical for everyone, so identity is
+-- set client-side. Each machine has a gitignored `.author` file at the repo root
+-- (`alex` here, `cherlon` on Cherlon's machine). Sessions read it and pass it as
+-- the author. Author is normalized to lowercase on write.
+--
 -- Usage from any session with the Supabase MCP connected:
---   save:   select * from remember('the fact', 'alex', array['ghl','optin'], 'session');
---   recall: select * from recall('ghl code block gotcha', 10);
+--   save:            select * from remember('the fact', 'alex', array['ghl','optin'], 'session');
+--   recall everyone: select * from recall('ghl code block gotcha', 10);
+--   recall one:      select * from recall('ghl code block gotcha', 10, 'cherlon');
+--   overview:        select * from memory_counts;
 -- ============================================================================
 
 create extension if not exists vector;
@@ -51,13 +58,15 @@ security definer
 set search_path = public
 as $$
   insert into public.memories (content, author, tags, source)
-  values (p_content, p_author, p_tags, p_source)
+  values (p_content, lower(trim(p_author)), p_tags, p_source)   -- normalize author
   returning *;
 $$;
 
+-- Reads EVERYONE by default; pass p_author to narrow to one teammate.
 create or replace function public.recall(
-  p_query text,
-  p_limit int default 10
+  p_query  text,
+  p_limit  int  default 10,
+  p_author text default null            -- null = both Alex & Cherlon
 )
 returns table (
   id uuid, content text, author text, tags text[],
@@ -73,12 +82,20 @@ as $$
     (ts_rank(m.fts, websearch_to_tsquery('english', p_query))
      + similarity(m.content, p_query))::real as rank
   from public.memories m
-  where m.fts @@ websearch_to_tsquery('english', p_query)
-     or m.content % p_query
+  where (m.fts @@ websearch_to_tsquery('english', p_query) or m.content % p_query)
+    and (p_author is null or m.author = lower(trim(p_author)))
   order by rank desc, m.created_at desc
   limit p_limit;
 $$;
 
+-- Per-author overview for clean sorting / "who logged what"
+create or replace view public.memory_counts as
+  select author, count(*) as memories, max(created_at) as last_added
+  from public.memories
+  group by author
+  order by memories desc;
+
 -- Lock helpers to the MCP/elevated connection only (not the public REST API).
 revoke execute on function public.remember(text, text, text[], text) from public, anon, authenticated;
-revoke execute on function public.recall(text, int)                  from public, anon, authenticated;
+revoke execute on function public.recall(text, int, text)            from public, anon, authenticated;
+revoke all on public.memory_counts from anon, authenticated;

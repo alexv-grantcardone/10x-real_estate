@@ -77,8 +77,21 @@ We run a **layered** memory system. Each layer has a clear job:
 each person's private autopilot.
 
 > **How to use Layer B (the shared brain), via the Supabase MCP:**
-> - **Save:** `select * from remember('the fact', 'alex'|'cherlon', array['tag1','tag2'], 'source');`
-> - **Recall:** `select * from recall('what you''re looking for', 10);` (keyword + fuzzy match)
+>
+> **Who am I? (author stamping).** The MCP connection is the same for everyone, so the
+> DB can't tell Alex from Cherlon — identity is stamped by the session. Each machine has
+> a **gitignored `.author` file** at the repo root (`alex` here, `cherlon` on Cherlon's
+> machine). **At the start of a session, read `.author`** and use its value as the author
+> on every `remember()` call. If `.author` is missing, ask the user once, then create it.
+>
+> - **Save:** `select * from remember('the fact', '<author from .author>', array['tag1','tag2'], 'source');`
+> - **Recall everyone (default):** `select * from recall('what you''re looking for', 10);`
+> - **Recall one teammate:** `select * from recall('...', 10, 'cherlon');`
+> - **Who has logged what:** `select * from memory_counts;`
+>
+> Every recall result carries an `author` column, so sessions always see the **whole**
+> team brain (Alex + Cherlon) but can sort/filter by person cleanly. Author is normalized
+> to lowercase on write so `Alex`/`alex` never split.
 >
 > Backed by Postgres full-text + trigram search today (no embeddings needed). The
 > `memories.embedding` column is reserved for a future semantic upgrade (would require

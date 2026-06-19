@@ -14,6 +14,10 @@ out/
 .env.local
 .env*.local
 
+# Per-machine identity for the shared memory brain (each teammate sets their own:
+# `alex` on Alex's machine, `cherlon` on Cherlon's). Never commit — it's per-machine.
+.author
+
 # Logs
 *.log
 npm-debug.log*
