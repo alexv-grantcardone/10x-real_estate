@@ -64,9 +64,17 @@ Naming: keep folder names lowercase, hyphenated, no trailing spaces (e.g. `optin
 
 ## 5. The Memory System  ⭐ (this is how the repo gets smarter over time)
 
-Our shared, ever-growing brain lives in **`/knowledge/`** and is **committed to git**,
-so it automatically syncs to every teammate and every machine. There is no
-machine-local memory plugin — **the repo is the memory.**
+We run a **layered** memory system. Each layer has a clear job:
+
+| Layer | Scope | Job | Status |
+|---|---|---|---|
+| **A. `/knowledge/` (git)** | Shared, versioned | Durable source of truth — curated facts, playbook, decisions. Syncs to everyone via `git pull`. | ✅ live |
+| **B. Supabase cloud memory** | Shared, live | Semantic, ever-growing team brain. Store + similarity-recall across Alex & Sherman without git commits. Backed by `pgvector`. | ⏳ pending Supabase auth |
+| **C. claude-mem** | Per-machine, personal | Automatic session capture/compression on each person's own machine. **Does NOT sync between people** — personal booster only. | ✅ installed (local) |
+
+**Source of truth = Layer A (git).** If anything ever conflicts, the committed
+`/knowledge/` files win. Layer B is for fast, fuzzy, live shared recall; Layer C is
+each person's private autopilot.
 
 ### Protocol — follow this every session
 
