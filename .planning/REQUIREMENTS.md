@@ -59,17 +59,34 @@ Deferred to a later milestone.
 
 ## Traceability
 
-Populated during roadmap creation.
-
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| (filled by roadmapper) | — | Pending |
+| FND-01 | Phase 1 — Foundation & GHL Reality | Pending |
+| FND-02 | Phase 1 — Foundation & GHL Reality | Pending |
+| FND-03 | Phase 1 — Foundation & GHL Reality | Pending |
+| FND-04 | Phase 1 — Foundation & GHL Reality | Pending |
+| VRF-02 | Phase 1 — Foundation & GHL Reality | Pending |
+| COMP-01 | Phase 2 — Component Library | Pending |
+| COMP-02 | Phase 2 — Component Library | Pending |
+| COMP-03 | Phase 2 — Component Library | Pending |
+| COMP-04 | Phase 2 — Component Library | Pending |
+| COMP-05 | Phase 2 — Component Library | Pending |
+| COMP-06 | Phase 2 — Component Library | Pending |
+| COMP-07 | Phase 2 — Component Library | Pending |
+| COMP-08 | Phase 2 — Component Library | Pending |
+| COMP-09 | Phase 2 — Component Library | Pending |
+| COMP-10 | Phase 2 — Component Library | Pending |
+| VRF-01 | Phase 2 — Component Library | Pending |
+| SUM-01 | Phase 3 — RE Summit Opt-in | Pending |
+| SUM-02 | Phase 3 — RE Summit Opt-in | Pending |
+| SUM-03 | Phase 3 — RE Summit Opt-in | Pending |
+| SUM-04 | Phase 3 — RE Summit Opt-in | Pending |
 
 **Coverage:**
 - v1 requirements: 18 total
-- Mapped to phases: TBD (roadmapper)
-- Unmapped: TBD
+- Mapped to phases: 18
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-06-19*
-*Last updated: 2026-06-19 after initialization*
+*Last updated: 2026-06-19 — traceability populated by roadmapper*

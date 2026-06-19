@@ -137,3 +137,50 @@ each person's private autopilot.
 ## 8. Setup / onboarding
 
 New machine or new teammate? See **`SETUP.md`** for cloning and GitHub authentication.
+
+---
+
+## 9. GSD (getshitdone) — active build workflow
+
+This repo runs an active GSD project (`.planning/`). The sections below are **GSD-managed**
+(updated in place via the `<!-- GSD:* -->` markers) — edit project facts above, not inside the markers.
+
+<!-- GSD:project-start source:PROJECT.md -->
+
+### Project
+
+**10x Real Estate — GHL Design System**
+
+A shared **design system** for the Grant Cardone Real Estate funnel vertical, delivered as
+**self-contained GoHighLevel paste-ready inline code blocks** (HTML + inline CSS + vanilla JS,
+no build step, no framework). It gives all three RE funnels (Live Training / RELT, RESS, RE
+Summit) one consistent, premium look — dark-navy base, teal/cyan accent, script-italic accent
+font — built from a reusable component library at the repo root. First application: the **RE
+Summit opt-in** page.
+
+**Core Value:** One governed, paste-ready component library that makes every RE funnel page look consistent and
+convert — themed in one place, re-skinnable per funnel, working the instant it's pasted into GHL.
+
+#### Constraints
+
+- **Platform**: GoHighLevel only. Self-contained paste-ready blocks; no build/framework/bundler (`CLAUDE.md` §3).
+- **Sharing**: hybrid — page-level Foundation + per-block fallback tokens (robust to GHL stripping header CSS, an unverified risk).
+- **Brand**: navy + teal + script-italic accent, Gotham body (inherited). Token *values* proposed pending Paige; token *structure* final. Script font = license-clean OFL, embedded self-contained, swappable.
+- **Verification**: Chrome DevTools MCP + `.preview/` harness, desktop + mobile, in foundation-present and bare states.
+
+<!-- GSD:project-end -->
+
+<!-- GSD:workflow-start source:GSD defaults -->
+
+### GSD Workflow Enforcement
+
+Before using Edit, Write, or other file-changing tools, start work through a GSD command so planning artifacts and execution context stay in sync.
+
+Use these entry points:
+
+- `/gsd-quick` for small fixes, doc updates, and ad-hoc tasks
+- `/gsd-debug` for investigation and bug fixing
+- `/gsd-execute-phase` for planned phase work
+
+Do not make direct repo edits outside a GSD workflow unless the user explicitly asks to bypass it.
+<!-- GSD:workflow-end -->
