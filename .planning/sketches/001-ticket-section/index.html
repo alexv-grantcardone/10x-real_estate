@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sketch 001 — Ticket Section</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600;6..96,700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../themes/default.css">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:var(--font-sans);background:var(--color-bg-deep);color:var(--color-text);-webkit-font-smoothing:antialiased;padding-top:52px}
+  .accent{font-family:var(--font-accent);font-style:normal;font-weight:600;color:var(--color-primary)}
+
+  /* variant tab bar */
+  #variant-nav{position:fixed;top:0;left:0;right:0;z-index:9998;background:#02101f;border-bottom:1px solid var(--color-border);padding:9px 14px;display:flex;gap:8px;align-items:center;font-family:var(--font-sans)}
+  #variant-nav .brand{font-size:12px;font-weight:800;letter-spacing:.14em;color:var(--color-primary);margin-right:8px}
+  .variant-tab{background:transparent;border:1px solid var(--color-border);color:var(--color-text-muted);font:600 12px var(--font-sans);padding:7px 13px;border-radius:6px;cursor:pointer;letter-spacing:.02em}
+  .variant-tab.active{background:var(--color-primary);color:var(--color-on-primary);border-color:var(--color-primary)}
+
+  /* viewport frame */
+  #frame{max-width:1280px;margin:0 auto;transition:max-width .2s}
+
+  /* section shell (shared) */
+  .sec{padding:clamp(40px,6vw,80px) clamp(20px,4vw,56px);background:var(--color-bg-deep)}
+  .kick{font-size:13px;font-weight:700;letter-spacing:.24em;color:var(--color-primary);margin-bottom:14px}
+  .h2{font-size:clamp(26px,3.2vw,42px);font-weight:800;color:var(--color-text-strong);letter-spacing:-.018em;line-height:1.1}
+  .lede{margin-top:14px;max-width:560px;color:#cdd8df;font-size:16px;line-height:1.55}
+  .hold{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--color-primary);border:1px solid var(--color-border);padding:9px 14px;border-radius:6px}
+  .cta{display:inline-flex;flex-direction:column;align-items:center;background:var(--color-primary);color:var(--color-on-primary);border:none;cursor:pointer;font-family:var(--font-sans);padding:17px 30px;border-radius:4px;transition:transform .2s,filter .2s;text-decoration:none}
+  .cta:hover{transform:translateY(-2px);filter:brightness(1.06)}
+  .cta .big{font-size:17px;font-weight:800;letter-spacing:.02em}
+  .cta .sub{font-size:12px;font-weight:600;opacity:.8;margin-top:3px}
+  .fine{font-size:12px;color:#9fb3c0;margin-top:10px}
+  .finp{width:100%;background:#fff;border:none;color:#0A2540;font:500 16px var(--font-sans);padding:16px 16px}
+  .finp::placeholder{color:#8a9aa6}
+  .finp:focus{outline:2px solid var(--color-primary);outline-offset:-2px}
+
+  /* ---------- VARIANT A: cards then form ---------- */
+  .a-tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
+  .a-tier{background:var(--color-bg);border:1px solid var(--color-border);border-radius:8px;padding:26px 22px;cursor:pointer;position:relative;transition:transform .2s,border-color .2s}
+  .a-tier:hover{transform:translateY(-3px)}
+  .a-tier[aria-selected=true]{border-color:var(--color-primary);box-shadow:var(--glow-primary)}
+  .a-tier .nm{font-size:13px;font-weight:700;letter-spacing:.16em;color:var(--color-primary);text-transform:uppercase}
+  .a-tier .pr{margin-top:12px;font-size:40px;font-weight:800;color:#fff;letter-spacing:-.02em}
+  .a-tier ul{list-style:none;margin-top:16px;display:grid;gap:10px}
+  .a-tier li{font-size:14px;color:#cdd8df;display:flex;gap:9px;line-height:1.4}
+  .a-tier li::before{content:"";flex:none;width:6px;height:6px;margin-top:7px;background:var(--color-primary)}
+  .a-tier .badge{position:absolute;top:-11px;right:18px;background:var(--color-primary);color:var(--color-on-primary);font-size:10px;font-weight:800;letter-spacing:.1em;padding:5px 10px;border-radius:3px}
+  .a-tier .dot{margin-top:18px;display:flex;align-items:center;gap:9px;font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--color-text-muted)}
+  .a-tier .dot i{width:16px;height:16px;border:2px solid var(--color-text-muted);border-radius:50%;display:flex;align-items:center;justify-content:center}
+  .a-tier[aria-selected=true] .dot{color:var(--color-primary)} .a-tier[aria-selected=true] .dot i{border-color:var(--color-primary)}
+  .a-tier[aria-selected=true] .dot i::after{content:"";width:7px;height:7px;background:var(--color-primary);border-radius:50%}
+  .a-panel{margin-top:26px;background:var(--color-surface);border-radius:10px;padding:clamp(24px,3vw,40px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(26px,4vw,52px);align-items:center}
+  .a-panel h3{font-size:clamp(20px,2vw,28px);font-weight:800;color:#fff;line-height:1.15}
+  .a-form{display:grid;gap:11px}
+
+  /* ---------- VARIANT B: tiers beside form ---------- */
+  .b-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(26px,4vw,48px);margin-top:34px;align-items:start}
+  .b-opt{display:flex;gap:14px;align-items:center;background:var(--color-bg);border:1px solid var(--color-border);border-radius:8px;padding:18px 20px;cursor:pointer;margin-bottom:12px;transition:border-color .2s}
+  .b-opt[aria-selected=true]{border-color:var(--color-primary);box-shadow:var(--glow-primary)}
+  .b-opt i{width:18px;height:18px;border:2px solid var(--color-text-muted);border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center}
+  .b-opt[aria-selected=true] i{border-color:var(--color-primary)} .b-opt[aria-selected=true] i::after{content:"";width:8px;height:8px;background:var(--color-primary);border-radius:50%}
+  .b-opt .info{flex:1}
+  .b-opt .nm{font-size:14px;font-weight:700;letter-spacing:.12em;color:#fff;text-transform:uppercase}
+  .b-opt .ds{font-size:13px;color:var(--color-text-muted);margin-top:3px}
+  .b-opt .pr{font-size:26px;font-weight:800;color:var(--color-primary);letter-spacing:-.02em}
+  .b-form{background:var(--color-surface);border-radius:10px;padding:clamp(24px,3vw,36px);display:grid;gap:11px;position:sticky;top:70px}
+  .b-form h3{font-size:22px;font-weight:800;color:#fff;line-height:1.2}
+  .b-form p{font-size:14px;color:#cdd8df;line-height:1.5}
+
+  /* ---------- VARIANT C: comparison table ---------- */
+  .c-wrap{margin-top:34px;overflow-x:auto;border:1px solid var(--color-border);border-radius:10px}
+  table.c{border-collapse:collapse;width:100%;min-width:640px}
+  table.c th,table.c td{padding:16px 18px;text-align:left;border-bottom:1px solid var(--color-line);font-size:14.5px}
+  table.c thead th{background:var(--color-surface);vertical-align:top}
+  .ticket-slot{margin:0 auto 18px;display:flex;align-items:center;justify-content:center}
+  .ticket-slot img{width:auto;max-height:270px;max-width:100%;display:block;filter:drop-shadow(0 12px 28px rgba(0,0,0,.45))}
+  .ticket-cap{font-family:var(--font-accent);font-style:normal;font-weight:600;font-size:18px;color:var(--color-primary);margin-bottom:10px}
+  table.c thead .nm{font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--color-primary);text-transform:uppercase}
+  table.c thead .pr{font-size:30px;font-weight:800;color:#fff;margin-top:6px;letter-spacing:-.02em}
+  table.c thead th.feat{color:var(--color-text-muted);font-weight:600;letter-spacing:.04em}
+  table.c td:first-child{color:#dce6ec;font-weight:600;width:40%}
+  table.c .col[aria-selected=true]{background:rgba(19,221,226,.07);box-shadow:inset 3px 0 0 var(--color-primary),inset -3px 0 0 var(--color-primary)}
+  table.c .yes{color:var(--color-primary);font-weight:700} table.c .no{color:#4f6878}
+  table.c tfoot td{border-bottom:none;text-align:center;padding-top:18px}
+  .c-pick{background:transparent;border:1px solid var(--color-border);color:#fff;font:700 12px var(--font-sans);padding:10px 14px;border-radius:6px;cursor:pointer;width:100%;letter-spacing:.04em}
+  .c-pick[aria-selected=true]{background:var(--color-primary);color:var(--color-on-primary);border-color:var(--color-primary)}
+  .c-cta-row{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:28px}
+
+  .variant{display:none} .variant.active{display:block}
+
+  @media (max-width:860px){
+    .a-tiers{grid-template-columns:1fr}.a-panel{grid-template-columns:1fr}
+    .b-grid{grid-template-columns:1fr}.b-form{position:static}
+  }
+
+  /* toolbar */
+  #sketch-tools{position:fixed;bottom:12px;right:12px;z-index:9999;font-family:system-ui;font-size:12px;background:rgba(0,0,0,.72);color:#fff;padding:8px 12px;border-radius:8px;opacity:.4;transition:opacity .2s;display:flex;gap:10px;align-items:center}
+  #sketch-tools:hover{opacity:1}
+  #sketch-tools select,#sketch-tools button{font:12px system-ui;background:#1a1a1a;color:#fff;border:1px solid #444;border-radius:5px;padding:4px 7px;cursor:pointer}
+</style>
+</head>
+<body>
+
+<div id="variant-nav">
+  <span class="brand">SKETCH 001 · TICKET SECTION</span>
+  <button class="variant-tab active" data-v="a" onclick="showVariant('a',this)">A: Cards → Form</button>
+  <button class="variant-tab" data-v="b" onclick="showVariant('b',this)">B: Tiers + Form</button>
+  <button class="variant-tab" data-v="c" onclick="showVariant('c',this)">C: Comparison Table ★
+</div>
+
+<div id="frame">
+
+  <!-- ===================== VARIANT A ===================== -->
+  <section class="variant active" id="variant-a">
+    <div class="sec">
+      <div class="kick">PICK YOUR EXPERIENCE</div>
+      <h2 class="h2">Reserve your seat <span class="accent">now.</span> Decide on the ticket later.</h2>
+      <p class="lede">Three ways to attend. Hold your spot today — no payment now, we keep it for 72 hours.</p>
+
+      <div class="a-tiers" data-group="a">
+        <div class="a-tier" role="button" aria-selected="false" data-tier="Virtual" data-price="$297">
+          <div class="nm">Virtual</div><div class="pr">$297</div>
+          <ul><li>Stream both days live from anywhere</li><li>Digital Summit workbook</li><li>Watch Grant teach the full system</li></ul>
+          <div class="dot"><i></i> Reserve this seat</div>
+        </div>
+        <div class="a-tier" role="button" aria-selected="true" data-tier="Executive" data-price="$497">
+          <div class="badge">MOST POPULAR</div>
+          <div class="nm">Executive</div><div class="pr">$497</div>
+          <ul><li>In-person, both days in Miami</li><li>Networking with active investors</li><li>Exclusive Summit workbook</li></ul>
+          <div class="dot"><i></i> Reserve this seat</div>
+        </div>
+        <div class="a-tier" role="button" aria-selected="false" data-tier="VIP" data-price="$2,497">
+          <div class="nm">VIP</div><div class="pr">$2,497</div>
+          <ul><li>Front-row reserved seating</li><li>Private Q&amp;A lunch with Grant</li><li>VIP networking reception</li></ul>
+          <div class="dot"><i></i> Reserve this seat</div>
+        </div>
+      </div>
+
+      <div class="a-panel">
+        <div>
+          <h3>Reserve your <span data-name="a">Executive</span> seat now.</h3>
+          <p class="lede" style="margin-top:10px">No payment today. We hold your seat for 72 hours so you can lock in your ticket on your own time.</p>
+          <div class="hold" style="margin-top:16px">⏳ Held for 72 hours after you reserve</div>
+        </div>
+        <form class="a-form" onsubmit="return false">
+          <input class="finp" placeholder="Full name" required>
+          <input class="finp" type="email" placeholder="Email address" required>
+          <input class="finp" type="tel" placeholder="Phone number" required>
+          <button class="cta" style="width:100%"><span class="big">RSVP MY SEAT</span><span class="sub">Reserving the <span data-name="a">Executive</span> seat · held 72 hours</span></button>
+          <div class="fine" style="text-align:center">No payment required to hold your seat.</div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== VARIANT B ===================== -->
+  <section class="variant" id="variant-b">
+    <div class="sec">
+      <div class="kick">PICK YOUR EXPERIENCE</div>
+      <h2 class="h2">Choose your seat. <span class="accent">Reserve it in seconds.</span></h2>
+      <div class="b-grid">
+        <div data-group="b">
+          <div class="b-opt" role="button" aria-selected="false" data-tier="Virtual" data-price="$297">
+            <i></i><div class="info"><div class="nm">Virtual</div><div class="ds">Stream both days live · digital workbook</div></div><div class="pr">$297</div>
+          </div>
+          <div class="b-opt" role="button" aria-selected="true" data-tier="Executive" data-price="$497">
+            <i></i><div class="info"><div class="nm">Executive</div><div class="ds">In-person in Miami · networking · workbook</div></div><div class="pr">$497</div>
+          </div>
+          <div class="b-opt" role="button" aria-selected="false" data-tier="VIP" data-price="$2,497">
+            <i></i><div class="info"><div class="nm">VIP</div><div class="ds">Front row · private Q&amp;A lunch · reception</div></div><div class="pr">$2,497</div>
+          </div>
+          <div class="hold" style="margin-top:8px">⏳ Whatever you pick, we hold it for 72 hours</div>
+        </div>
+        <form class="b-form" onsubmit="return false">
+          <h3>Reserve your <span data-name="b">Executive</span> seat</h3>
+          <p>No payment today. Hold your spot, decide on the ticket later.</p>
+          <input class="finp" placeholder="Full name" required>
+          <input class="finp" type="email" placeholder="Email address" required>
+          <input class="finp" type="tel" placeholder="Phone number" required>
+          <button class="cta" style="width:100%;margin-top:4px"><span class="big">RSVP MY SEAT</span><span class="sub">Held 72 hours · no payment now</span></button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== VARIANT C ===================== -->
+  <section class="variant" id="variant-c">
+    <div class="sec">
+      <div class="kick">COMPARE &amp; RESERVE</div>
+      <h2 class="h2">See what each seat gets you. <span class="accent">Then hold yours.</span></h2>
+      <div class="c-wrap">
+        <table class="c" data-group="c">
+          <thead>
+            <tr>
+              <th class="feat"><div class="ticket-cap">Your seat to the<br>10X Real Estate Summit</div>What's included</th>
+              <th class="col" data-tier="Virtual" data-price="$297" aria-selected="false">
+                <!-- GHL: swap src for PASTE_VIRTUAL_TICKET_URL -->
+                <div class="ticket-slot"><img src="assets/ticket-virtual.png" alt="Virtual ticket"></div>
+                <div class="nm">Virtual</div><div class="pr">$297</div></th>
+              <th class="col" data-tier="Executive" data-price="$497" aria-selected="true">
+                <!-- GHL: swap src for PASTE_EXEC_TICKET_URL -->
+                <div class="ticket-slot"><img src="assets/ticket-executive.png" alt="Executive ticket"></div>
+                <div class="nm">Executive</div><div class="pr">$497</div></th>
+              <th class="col" data-tier="VIP" data-price="$2,497" aria-selected="false">
+                <!-- GHL: swap src for PASTE_VIP_TICKET_URL -->
+                <div class="ticket-slot"><img src="assets/ticket-vip.png" alt="VIP ticket"></div>
+                <div class="nm">VIP</div><div class="pr">$2,497</div></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Live access to both days</td><td class="col yes" data-c="Virtual">Stream</td><td class="col yes" data-c="Executive">In-person</td><td class="col yes" data-c="VIP">In-person</td></tr>
+            <tr><td>Summit workbook</td><td class="col yes" data-c="Virtual">Digital</td><td class="col yes" data-c="Executive">✓</td><td class="col yes" data-c="VIP">✓</td></tr>
+            <tr><td>In-person networking</td><td class="col no" data-c="Virtual">—</td><td class="col yes" data-c="Executive">✓</td><td class="col yes" data-c="VIP">✓</td></tr>
+            <tr><td>Front-row reserved seating</td><td class="col no" data-c="Virtual">—</td><td class="col no" data-c="Executive">—</td><td class="col yes" data-c="VIP">✓</td></tr>
+            <tr><td>Private Q&amp;A lunch with Grant</td><td class="col no" data-c="Virtual">—</td><td class="col no" data-c="Executive">—</td><td class="col yes" data-c="VIP">✓</td></tr>
+            <tr><td>VIP networking reception</td><td class="col no" data-c="Virtual">—</td><td class="col no" data-c="Executive">—</td><td class="col yes" data-c="VIP">✓</td></tr>
+          </tbody>
+          <tfoot>
+            <tr><td></td>
+              <td class="col" data-c="Virtual"><button class="c-pick" aria-selected="false">Reserve</button></td>
+              <td class="col" data-c="Executive"><button class="c-pick" aria-selected="true">Reserve</button></td>
+              <td class="col" data-c="VIP"><button class="c-pick" aria-selected="false">Reserve</button></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div class="c-cta-row">
+        <div class="hold">⏳ Reserving the <span data-name="c">Executive</span> seat · held 72 hours, no payment today</div>
+        <a class="cta" href="#" onclick="return false"><span class="big">RSVP MY SEAT</span><span class="sub">Hold the <span data-name="c">Executive</span> seat</span></a>
+        <div class="fine">A short form opens to capture name, email &amp; phone — then your seat is held.</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- toolbar -->
+<div id="sketch-tools">
+  <span>Theme</span>
+  <select onchange="document.querySelector('link[href*=themes]').href='../themes/'+this.value+'.css'"><option value="default">Default</option></select>
+  <span>View</span>
+  <button onclick="setVP('375px')">Phone</button>
+  <button onclick="setVP('768px')">Tablet</button>
+  <button onclick="setVP('1280px')">Desktop</button>
+</div>
+
+<script>
+  function showVariant(v,btn){
+    document.querySelectorAll('.variant').forEach(function(s){s.classList.remove('active')});
+    document.getElementById('variant-'+v).classList.add('active');
+    document.querySelectorAll('.variant-tab').forEach(function(t){t.classList.remove('active')});
+    btn.classList.add('active');
+  }
+  function setVP(w){ document.getElementById('frame').style.maxWidth = w; }
+
+  /* tier selection per group, syncs the [data-name] labels for that variant */
+  function wireGroup(group){
+    var sel = group.getAttribute('data-group');
+    var nameOuts = document.querySelectorAll('[data-name="'+sel+'"]');
+    var items = group.querySelectorAll('[data-tier]');
+    function choose(nm){
+      items.forEach(function(it){ it.setAttribute('aria-selected', it.getAttribute('data-tier')===nm ? 'true':'false'); });
+      // variant C: also highlight body cells + footer buttons by column
+      if(sel==='c'){
+        group.querySelectorAll('.col[data-c]').forEach(function(c){ c.style.background = c.getAttribute('data-c')===nm ? 'rgba(19,221,226,.07)':'' ; });
+        group.querySelectorAll('tfoot .c-pick').forEach(function(b){ b.setAttribute('aria-selected', b.closest('[data-c]').getAttribute('data-c')===nm ? 'true':'false'); });
+      }
+      nameOuts.forEach(function(o){ o.textContent = nm; });
+    }
+    items.forEach(function(it){ it.addEventListener('click', function(){ choose(it.getAttribute('data-tier')); }); });
+    // C footer buttons
+    if(sel==='c'){ group.querySelectorAll('tfoot .c-pick').forEach(function(b){ b.addEventListener('click', function(){ choose(b.closest('[data-c]').getAttribute('data-c')); }); }); }
+    // initialize default selected tier so highlight + labels are consistent on load
+    var init = group.querySelector('[data-tier][aria-selected="true"]');
+    choose(init ? init.getAttribute('data-tier') : items[0].getAttribute('data-tier'));
+  }
+  document.querySelectorAll('[data-group]').forEach(wireGroup);
+</script>
+</body>
+</html>
