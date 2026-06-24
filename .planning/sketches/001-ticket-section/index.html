@@ -91,10 +91,29 @@
 
   .variant{display:none} .variant.active{display:block}
 
+  /* variant C → stacked tier cards on phones */
+  .c-mobile{display:none}
+
   @media (max-width:860px){
     .a-tiers{grid-template-columns:1fr}.a-panel{grid-template-columns:1fr}
     .b-grid{grid-template-columns:1fr}.b-form{position:static}
   }
+  @media (max-width:720px){
+    .sec{padding:36px 18px 48px}
+    .c-wrap{display:none}
+    .c-mobile{display:grid;gap:16px;margin-top:26px}
+    .cm-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:12px;padding:24px 22px;text-align:center;position:relative}
+    .cm-card[aria-selected=true]{box-shadow:var(--glow-primary);border-color:var(--color-primary)}
+    .cm-card img{max-height:210px;width:auto;margin:0 auto 14px;filter:drop-shadow(0 10px 22px rgba(0,0,0,.4))}
+    .cm-card .badge{display:inline-block;background:var(--color-primary);color:var(--color-on-primary);font-size:10px;font-weight:800;letter-spacing:.1em;padding:4px 11px;border-radius:3px;margin-bottom:12px}
+    .cm-card .nm{font-size:13px;font-weight:700;letter-spacing:.16em;color:var(--color-primary);text-transform:uppercase}
+    .cm-card .pr{font-size:38px;font-weight:800;color:var(--color-text-strong);margin-top:4px;letter-spacing:-.02em}
+    .cm-card ul{list-style:none;margin:16px 0 18px;display:grid;gap:10px;text-align:left}
+    .cm-card li{font-size:14.5px;color:var(--color-text);display:flex;gap:10px;line-height:1.4}
+    .cm-card li::before{content:"✓";color:var(--color-primary);font-weight:800}
+    .cm-card .c-pick{font-size:14px;padding:14px}
+  }
+  @media (max-width:420px){ .h2{font-size:25px} .cm-card img{max-height:180px} }
 
   /* toolbar */
   #sketch-tools{position:fixed;bottom:12px;right:12px;z-index:9999;font-family:system-ui;font-size:12px;background:rgba(0,0,0,.72);color:#fff;padding:8px 12px;border-radius:8px;opacity:.4;transition:opacity .2s;display:flex;gap:10px;align-items:center}
@@ -191,8 +210,9 @@
     <div class="sec">
       <div class="kick">COMPARE &amp; RESERVE</div>
       <h2 class="h2">See what each seat gets you. <span class="accent">Then hold yours.</span></h2>
+      <div data-group="c">
       <div class="c-wrap">
-        <table class="c" data-group="c">
+        <table class="c">
           <thead>
             <tr>
               <th class="feat"><div class="ticket-cap">Your seat to the<br>10X Real Estate Summit</div>What's included</th>
@@ -227,6 +247,28 @@
           </tfoot>
         </table>
       </div>
+      <div class="c-mobile">
+        <div class="cm-card" data-tier="Virtual" aria-selected="false">
+          <img src="assets/ticket-virtual.png" alt="Virtual ticket">
+          <div class="nm">Virtual</div><div class="pr">$297</div>
+          <ul><li>Live stream of both days</li><li>Digital Summit workbook</li></ul>
+          <button class="c-pick" aria-selected="false">Reserve Virtual</button>
+        </div>
+        <div class="cm-card" data-tier="Executive" aria-selected="true">
+          <span class="badge">MOST POPULAR</span>
+          <img src="assets/ticket-executive.png" alt="Executive ticket">
+          <div class="nm">Executive</div><div class="pr">$497</div>
+          <ul><li>In-person, both days in Miami</li><li>In-person networking with investors</li><li>Exclusive Summit workbook</li></ul>
+          <button class="c-pick" aria-selected="true">Reserve Executive</button>
+        </div>
+        <div class="cm-card" data-tier="VIP" aria-selected="false">
+          <img src="assets/ticket-vip.png" alt="VIP ticket">
+          <div class="nm">VIP</div><div class="pr">$2,497</div>
+          <ul><li>Everything in Executive</li><li>Front-row reserved seating</li><li>Private Q&amp;A lunch with Grant</li><li>VIP networking reception</li></ul>
+          <button class="c-pick" aria-selected="false">Reserve VIP</button>
+        </div>
+      </div>
+      </div><!-- /data-group c -->
       <div class="c-cta-row">
         <div class="hold">⏳ Reserving the <span data-name="c">Executive</span> seat · held 72 hours, no payment today</div>
         <a class="cta" href="#" onclick="return false"><span class="big">RSVP MY SEAT</span><span class="sub">Hold the <span data-name="c">Executive</span> seat</span></a>
@@ -266,7 +308,7 @@
       // variant C: also highlight body cells + footer buttons by column
       if(sel==='c'){
         group.querySelectorAll('.col[data-c]').forEach(function(c){ c.style.background = c.getAttribute('data-c')===nm ? 'rgba(19,221,226,.07)':'' ; });
-        group.querySelectorAll('tfoot .c-pick').forEach(function(b){ b.setAttribute('aria-selected', b.closest('[data-c]').getAttribute('data-c')===nm ? 'true':'false'); });
+        group.querySelectorAll('.c-pick').forEach(function(b){ var o=b.closest('[data-c]')||b.closest('.cm-card'); var t=o?(o.getAttribute('data-c')||o.getAttribute('data-tier')):null; b.setAttribute('aria-selected', t===nm ? 'true':'false'); });
       }
       nameOuts.forEach(function(o){ o.textContent = nm; });
     }
