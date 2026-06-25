@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "timestamp": "2026-06-24T21:54:23.332Z",
+  "timestamp": "2026-06-25T00:00:00.000Z",
   "context": "sketch",
   "phase": null,
   "phase_name": "RE Summit RSVP funnel — design sketches",
@@ -17,8 +17,8 @@
   "remaining_tasks": [
     {"id": 6, "name": "LOCK Page 1 section map (9 sections proposed) + confirm section-by-section vs whole-page approach", "status": "in_progress", "progress": "user was clarifying the map question when paused; proposed 9 sections with PDF topics grouped into sections 4 (how-to) & 5 (emotional)"},
     {"id": 7, "name": "Design remaining Page 1 sections as sketches 002+: hero/opt-in, social-proof band, what-you'll-learn, why-RE/stop-worrying, Meet Grant, testimonials, final CTA, footer", "status": "not_started"},
-    {"id": 8, "name": "Page 2 (reservation confirmed) sketch: countdown + single BUY CTA + specialist link; value-stack parked", "status": "not_started"},
-    {"id": 9, "name": "Email/automation 72h sequence spec", "status": "not_started"},
+    {"id": 8, "name": "Page 2 (reservation confirmed) sketch: live 10-minute countdown + single BUY CTA + specialist link; if value stack lands per Rosa, items visibly decay off the stack over the 10 min, else plain 10-minute countdown; value-stack parked", "status": "not_started"},
+    {"id": 9, "name": "Email/automation spec — T+0 immediate '10-minute hold' email -> checkout; post-lapse recovery email SERIES -> booking page", "status": "not_started"},
     {"id": 10, "name": "Build GHL paste-ready blocks in repo (funnels/03-re-summit/) via GSD after sketches approved", "status": "not_started"},
     {"id": 11, "name": "Optional: re-skin flow diagram artifact from navy to airy palette", "status": "not_started"}
   ],
@@ -41,11 +41,13 @@
     {"decision": "Page 2 = single primary BUY CTA + tiny 'talk to specialist' link; booking is the later recovery; booking page loops 'just buy' back to checkout", "rationale": "one job per page; booking recovers non-buyers"},
     {"decision": "Reverse value stack parked pending Rosa", "rationale": "current live-page bonuses aren't the right set to 'take away' from"},
     {"decision": "Brand copy rules: no word 'FREE', no italics", "rationale": "readability + campaign messaging; saved to memory"},
-    {"decision": "Build via GSD section-by-section sketches; repo writes routed through GSD", "rationale": "GSD workflow enforcement + incremental approval"}
+    {"decision": "Build via GSD section-by-section sketches; repo writes routed through GSD", "rationale": "GSD workflow enforcement + incremental approval"},
+    {"decision": "Reservation hold = 10 minutes (Ticketmaster-style), replacing the old multi-day window; live 10-min countdown on Page 2 checkout; value stack (if used per Rosa) visibly decays over the 10 min, else plain countdown", "rationale": "Alex 2026-06-25 — urgency/scarcity of a real short hold converts better than a multi-day window; mirrors Ticketmaster"},
+    {"decision": "Email strategy: T+0 immediate '10-min hold active, secure your seat now, not guaranteed after' email linking to Page 2 checkout; after the 10 min lapses, a recovery email SERIES drives the lead to the booking page (specialist), which loops 'just buy' back to checkout", "rationale": "Alex 2026-06-25 — replaces the old multi-day email sequence to match the 10-min hold"}
   ],
   "uncommitted_files": [
     {"path": "funnels/03-re-summit/steps/01-optin/blocks/_template.html", "note": "pre-existing deletion from before this session — NOT ours; leave as-is or confirm with user"}
   ],
   "next_action": "Resume the Page 1 section-map decision: answer the user's clarification on the 9-section map (esp. whether to keep the 7 PDF topics grouped in sections 4 & 5 or break them out), lock the map, then start sketch 002 = Hero/opt-in section.",
-  "context_notes": "Running GSD sketch flow. Sketch 001 (ticket section) is locked: light/airy default, comparison-table variant C, real ticket images in assets/, mobile = stacked ticket cards. Whole sketch is token-driven so the system re-skins from themes/. Pages live as reviewable artifacts/sketches; nothing yet written to funnels/ repo blocks. IMPORTANT TOOLING NOTES: (1) gsd-sdk = use the GLOBAL `gsd-sdk` command — local get-shit-done/bin/gsd-tools.cjs does NOT exist here. (2) The sketch toolbar 'Phone' button only narrows the #frame container, NOT the viewport, so it does NOT trigger @media breakpoints — verify mobile by resizing the actual browser viewport (Chrome DevTools resize_page)."
+  "context_notes": "Running GSD sketch flow. Sketch 001 (ticket section) is locked: light/airy default, comparison-table variant C, real ticket images in assets/, mobile = stacked ticket cards. Whole sketch is token-driven so the system re-skins from themes/. Pages live as reviewable artifacts/sketches; nothing yet written to funnels/ repo blocks. IMPORTANT TOOLING NOTES: (1) gsd-sdk = use the GLOBAL `gsd-sdk` command — local get-shit-done/bin/gsd-tools.cjs does NOT exist here. (2) The sketch toolbar 'Phone' button only narrows the #frame container, NOT the viewport, so it does NOT trigger @media breakpoints — verify mobile by resizing the actual browser viewport (Chrome DevTools resize_page). STRATEGY PIVOT 2026-06-25: the old multi-day reservation is replaced by a 10-minute Ticketmaster-style hold (live 10-min countdown on Page 2). The previously published funnel-flow artifact (old multi-day model) is now OUTDATED — re-do when convenient (folds into task 11). The 10-min checkout timer is a REAL hold on Page 2 and does NOT violate ROADMAP.md:58 (which bans artificial countdowns on the Page-1 opt-in only)."
 }
