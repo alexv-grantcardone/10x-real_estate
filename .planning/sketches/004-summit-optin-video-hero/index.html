@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sketch 004 — RE Summit Opt-in · Video Hero (3 variants)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600;6..96,700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  /* RE SUMMIT OPT-IN — Page 1, VIDEO HERO. Light/airy. Inter + Bodoni upright. No italics, no "FREE".
+     Order: Hero(video) -> Proof band -> TICKETS (moved up) -> Learn -> Meet Grant -> Final CTA -> Footer.
+     Page-1 rule: no countdown here (ROADMAP); 10-min hold lives on Page 2. */
+  :root{
+    --bg:#ffffff;--bg-deep:#EEF3F8;--surface:#F2F8FB;--surface-2:#E9F1F6;
+    --border:rgba(10,37,64,.14);--line:rgba(10,37,64,.09);
+    --text:#33475a;--text-strong:#06192c;--muted:#6a7f8e;
+    --primary:#0E97C7;--primary-deep:#0a7aa3;--on-primary:#fff;
+    --font:'Inter',system-ui,-apple-system,sans-serif;--accent:'Bodoni Moda',Georgia,serif;
+    --maxw:1180px;--shadow:0 18px 50px rgba(10,37,64,.12);--shadow-lg:0 40px 90px -40px rgba(10,37,64,.5);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#c8d2da;padding-top:46px}
+  #summit{font-family:var(--font);background:var(--bg-deep);color:var(--text);-webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:hidden}
+  #summit img{display:block;max-width:100%}#summit a{text-decoration:none;color:inherit}
+  #summit .accent{font-family:var(--accent);font-style:normal;font-weight:600;color:var(--primary)}
+  #summit .wrap{max-width:var(--maxw);margin:0 auto;padding-left:clamp(18px,4vw,48px);padding-right:clamp(18px,4vw,48px)}
+  #summit .kick{font-size:12.5px;font-weight:700;letter-spacing:.22em;color:var(--primary);text-transform:uppercase}
+  #summit h2.sec-h{font-size:clamp(26px,3.4vw,42px);font-weight:800;color:var(--text-strong);letter-spacing:-.02em;line-height:1.08;text-wrap:balance}
+  #summit .sec-sub{margin-top:12px;max-width:60ch;color:var(--text);font-size:clamp(15px,1.5vw,17px);text-wrap:pretty}
+  #summit .cta{display:inline-flex;flex-direction:column;align-items:center;background:var(--primary);color:var(--on-primary);border:0;cursor:pointer;font-family:var(--font);padding:18px 34px;text-align:center;box-shadow:0 16px 34px -14px rgba(14,151,199,.7);transition:transform .2s,filter .2s}
+  #summit .cta:hover{transform:translateY(-3px);filter:brightness(1.06)}
+  #summit .cta:focus-visible{outline:3px solid var(--text-strong);outline-offset:3px}
+  #summit .cta .big{font-size:17px;font-weight:800;letter-spacing:.03em}
+  #summit .cta .sub{font-size:12px;font-weight:600;opacity:.86;margin-top:3px}
+  #summit .cta-ghost{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px;color:var(--text-strong);border-bottom:2px solid var(--primary);padding-bottom:3px}
+  #summit .meta{display:flex;flex-wrap:wrap;gap:10px 14px}
+  #summit .meta .m{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border);padding:9px 14px;font-size:13.5px;font-weight:700;color:var(--text-strong)}
+  #summit .meta .m svg{width:16px;height:16px;stroke:var(--primary);stroke-width:2;fill:none;flex:none}
+
+  /* ---- video frame (poster shows if the embed is blocked, e.g. in a CSP preview) ---- */
+  #summit .vframe{position:relative;width:100%;background:linear-gradient(160deg,#0e2942,#06192c);box-shadow:var(--shadow-lg);overflow:hidden}
+  #summit .vbox{position:relative;padding-top:56.25%}
+  #summit .vposter{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:rgba(255,255,255,.62);text-align:center;padding:20px}
+  #summit .vposter .play{width:66px;height:66px;border-radius:50%;background:var(--primary);display:grid;place-items:center;box-shadow:0 12px 30px rgba(14,151,199,.5)}
+  #summit .vposter .play svg{width:24px;height:24px;fill:#fff;margin-left:3px}
+  #summit .vposter .lbl{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+  #summit .vbox iframe{position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;border:0}
+
+  /* ===================== HERO VARIANTS ===================== */
+  .hero-variant{display:none}.hero-variant.on{display:block}
+
+  /* A — SPLIT: copy left, video right */
+  #summit .heroA{background:radial-gradient(900px 460px at 84% 0%,rgba(14,151,199,.14),transparent 60%),linear-gradient(180deg,#F6FAFD,var(--bg-deep) 75%)}
+  #summit .heroA .wrap{display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(28px,4vw,56px);align-items:center;padding-top:clamp(38px,5vw,72px);padding-bottom:clamp(40px,5vw,76px)}
+  #summit .heroA h1{margin-top:16px;font-size:clamp(32px,5vw,58px);font-weight:800;color:var(--text-strong);letter-spacing:-.022em;line-height:1.03;text-wrap:balance;max-width:15ch}
+  #summit .heroA .lede{margin-top:18px;max-width:46ch;font-size:clamp(15.5px,1.4vw,18px);color:var(--text);line-height:1.6}
+  #summit .heroA .lede b{color:var(--text-strong);font-weight:700}
+  #summit .heroA .meta{margin-top:22px}
+  #summit .heroA .acts{margin-top:28px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+
+  /* B — CENTERED: copy on top, big video below */
+  #summit .heroB{background:radial-gradient(820px 420px at 50% -6%,rgba(14,151,199,.13),transparent 62%),linear-gradient(180deg,#F6FAFD,var(--bg-deep) 80%);text-align:center}
+  #summit .heroB .wrap{padding-top:clamp(38px,5vw,72px);padding-bottom:clamp(40px,5vw,76px)}
+  #summit .heroB h1{margin:16px auto 0;font-size:clamp(34px,5.6vw,64px);font-weight:800;color:var(--text-strong);letter-spacing:-.022em;line-height:1.02;text-wrap:balance;max-width:18ch}
+  #summit .heroB .lede{margin:16px auto 0;max-width:54ch;font-size:clamp(16px,1.5vw,18.5px);color:var(--text);line-height:1.6}
+  #summit .heroB .lede b{color:var(--text-strong);font-weight:700}
+  #summit .heroB .meta{justify-content:center;margin-top:22px}
+  #summit .heroB .acts{margin-top:26px;display:flex;justify-content:center}
+  #summit .heroB .vframe{max-width:880px;margin:clamp(30px,4vw,46px) auto 0}
+
+  /* C — VIDEO-LED: compact copy, dominant wide video, CTA under */
+  #summit .heroC{background:linear-gradient(180deg,#0e2942,#0a2236);color:#fff;text-align:center}
+  #summit .heroC .wrap{padding-top:clamp(36px,5vw,64px);padding-bottom:clamp(40px,5vw,72px)}
+  #summit .heroC .kick{color:#5fd0f2}
+  #summit .heroC h1{margin:14px auto 0;font-size:clamp(32px,5.2vw,60px);font-weight:800;color:#fff;letter-spacing:-.022em;line-height:1.04;text-wrap:balance;max-width:18ch}
+  #summit .heroC h1 .accent{color:#46c7ef}
+  #summit .heroC .lede{margin:14px auto 0;max-width:52ch;font-size:clamp(15.5px,1.45vw,18px);color:rgba(255,255,255,.82);line-height:1.6}
+  #summit .heroC .lede b{color:#fff;font-weight:700}
+  #summit .heroC .vframe{max-width:920px;margin:clamp(26px,3vw,40px) auto 0;box-shadow:0 50px 100px -40px rgba(0,0,0,.7);outline:1px solid rgba(255,255,255,.1)}
+  #summit .heroC .meta{justify-content:center;margin-top:24px}
+  #summit .heroC .meta .m{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.18);color:#fff}
+  #summit .heroC .meta .m svg{stroke:#5fd0f2}
+  #summit .heroC .acts{margin-top:26px;display:flex;justify-content:center}
+
+  /* ===================== PROOF BAND ===================== */
+  #summit .proof{background:var(--text-strong);color:#fff}
+  #summit .proof .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+  #summit .proof .cell{padding:30px 16px;text-align:center;border-left:1px solid rgba(255,255,255,.1)}
+  #summit .proof .cell:first-child{border-left:0}
+  #summit .proof .v{font-size:clamp(28px,3.2vw,40px);font-weight:800;letter-spacing:-.01em;color:#fff}
+  #summit .proof .v .accent{color:#46c7ef}
+  #summit .proof .k{margin-top:8px;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+
+  /* ===================== TICKETS (locked comparison table, moved up) ===================== */
+  #summit .tickets{padding:clamp(46px,6vw,86px) 0}
+  #summit .tickets .head{text-align:center;max-width:680px;margin:0 auto}
+  #summit .tickets .sec-sub{margin-left:auto;margin-right:auto}
+  #summit .c-wrap{margin-top:clamp(28px,3vw,40px);overflow-x:auto;border:1px solid var(--border);background:#fff}
+  #summit table.c{border-collapse:collapse;width:100%;min-width:680px}
+  #summit table.c th,#summit table.c td{padding:16px 18px;text-align:left;border-bottom:1px solid var(--line);font-size:14.5px}
+  #summit table.c thead th{background:var(--surface);vertical-align:top}
+  #summit .ticket-slot{margin:0 auto 14px;display:flex;align-items:flex-end;justify-content:center;min-height:200px}
+  #summit .ticket-slot img{width:auto;max-height:200px;max-width:100%;filter:drop-shadow(0 14px 26px rgba(10,37,64,.32))}
+  #summit table.c thead .nm{font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--primary);text-transform:uppercase}
+  #summit table.c thead .pr{font-size:30px;font-weight:800;color:var(--text-strong);margin-top:6px;letter-spacing:-.02em}
+  #summit table.c thead th.feat{color:var(--muted);font-weight:600}
+  #summit table.c td:first-child{color:var(--text-strong);font-weight:600;width:38%}
+  #summit table.c .col[aria-selected=true]{background:rgba(14,151,199,.07);box-shadow:inset 3px 0 0 var(--primary),inset -3px 0 0 var(--primary)}
+  #summit table.c .yes{color:var(--primary-deep);font-weight:700}#summit table.c .no{color:var(--muted)}
+  #summit table.c tfoot td{border-bottom:none;text-align:center;padding-top:18px}
+  #summit .c-pick{background:transparent;border:1px solid var(--border);color:var(--text-strong);font:700 12px var(--font);padding:11px 14px;cursor:pointer;width:100%;letter-spacing:.04em}
+  #summit .c-pick[aria-selected=true]{background:var(--primary);color:#fff;border-color:var(--primary)}
+  #summit .c-mobile{display:none;margin-top:26px;gap:16px}
+  #summit .cm-card{background:#fff;border:1px solid var(--border);padding:24px 22px;text-align:center;position:relative}
+  #summit .cm-card[aria-selected=true]{box-shadow:0 0 0 2px var(--primary);border-color:var(--primary)}
+  #summit .cm-card img{max-height:200px;width:auto;margin:0 auto 14px;filter:drop-shadow(0 12px 22px rgba(10,37,64,.32))}
+  #summit .cm-card .nm{font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--primary);text-transform:uppercase}
+  #summit .cm-card .pr{font-size:34px;font-weight:800;color:var(--text-strong);margin-top:4px}
+  #summit .cm-card ul{list-style:none;margin:14px 0 18px;display:grid;gap:9px;text-align:left}
+  #summit .cm-card li{font-size:14px;color:var(--text);display:flex;gap:9px;line-height:1.4}
+  #summit .cm-card li::before{content:"✓";color:var(--primary-deep);font-weight:800}
+  #summit .badge{display:inline-block;background:var(--primary);color:#fff;font-size:10px;font-weight:800;letter-spacing:.1em;padding:4px 11px;margin-bottom:10px}
+  #summit .ticket-cta{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:30px}
+  #summit .ticket-cta .resv{font-size:13px;font-weight:700;color:var(--primary-deep)}
+  #summit .ticket-cta .fine{font-size:12.5px;color:var(--muted)}
+
+  /* ===================== LEARN ===================== */
+  #summit .learn{padding:clamp(46px,6vw,86px) 0;background:var(--surface)}
+  #summit .learn .head{max-width:720px}
+  #summit .grid3{margin-top:clamp(28px,3vw,44px);display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  #summit .bcard{background:#fff;border:1px solid var(--border);padding:26px 24px;transition:transform .2s,box-shadow .2s}
+  #summit .bcard:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+  #summit .bcard .ic{width:42px;height:42px;display:grid;place-items:center;background:var(--surface);margin-bottom:16px}
+  #summit .bcard .ic svg{width:22px;height:22px;stroke:var(--primary);stroke-width:2;fill:none}
+  #summit .bcard h3{font-size:18px;font-weight:800;color:var(--text-strong);line-height:1.2}
+  #summit .bcard p{margin-top:8px;font-size:14.5px;color:var(--text);line-height:1.5}
+
+  /* ===================== MEET GRANT ===================== */
+  #summit .grant{padding:clamp(46px,6vw,86px) 0}
+  #summit .grant .wrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(28px,4vw,60px);align-items:center}
+  #summit .grant .photo{position:relative;aspect-ratio:4/5;background:linear-gradient(160deg,#0e2942,#06192c);overflow:hidden;display:grid;place-items:center;box-shadow:var(--shadow-lg)}
+  #summit .grant .photo .ph{color:rgba(255,255,255,.4);font-size:12px;font-weight:700;letter-spacing:.16em;text-align:center;padding:20px}
+  #summit .grant blockquote{margin-top:18px;font-size:clamp(19px,2vw,26px);font-weight:600;color:var(--text-strong);line-height:1.4;text-wrap:pretty}
+  #summit .grant blockquote .accent{color:var(--primary)}
+  #summit .grant .by{margin-top:18px;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  #summit .grant .by b{color:var(--text-strong)}
+
+  /* ===================== FINAL CTA + FOOTER ===================== */
+  #summit .final{background:radial-gradient(700px 300px at 50% 0%,rgba(14,151,199,.16),transparent 60%),linear-gradient(180deg,var(--bg-deep),#e6eef5);padding:clamp(48px,6vw,90px) 0;text-align:center}
+  #summit .final h2{font-size:clamp(28px,3.6vw,46px);font-weight:800;color:var(--text-strong);letter-spacing:-.02em;line-height:1.06;text-wrap:balance}
+  #summit .final p{margin:14px auto 0;max-width:46ch;color:var(--text);font-size:16px}
+  #summit .final .cta{margin-top:26px}
+  #summit .foot{background:#fff;border-top:1px solid var(--border);text-align:center;padding:40px 20px 46px}
+  #summit .foot .lname{font-weight:800;font-size:18px;color:var(--text-strong);margin-bottom:14px}
+  #summit .foot nav{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:center;margin-bottom:16px;font-weight:700;font-size:14px;color:var(--text-strong)}
+  #summit .foot nav span{color:var(--muted)}
+  #summit .foot .fine{max-width:700px;margin:0 auto;color:var(--muted);font-size:12px;line-height:1.6;text-wrap:pretty}
+
+  /* ===================== RESPONSIVE ===================== */
+  @media (max-width:900px){
+    #summit .heroA .wrap{grid-template-columns:1fr;gap:24px}
+    #summit .heroA .vframe{order:-1}
+    #summit .heroA h1{max-width:none}
+    #summit .proof .wrap{grid-template-columns:1fr 1fr}
+    #summit .proof .cell:nth-child(-n+2){border-bottom:1px solid rgba(255,255,255,.1)}
+    #summit .proof .cell:nth-child(odd){border-left:0}
+    #summit .grid3{grid-template-columns:1fr 1fr}
+    #summit .grant .wrap{grid-template-columns:1fr}
+    #summit .grant .photo{max-width:360px;margin:0 auto}
+  }
+  @media (max-width:680px){
+    #summit .grid3{grid-template-columns:1fr}
+    #summit .c-wrap{display:none}#summit .c-mobile{display:grid}
+    #summit .cta{width:100%}#summit .heroA .acts,#summit .heroB .acts,#summit .heroC .acts{width:100%}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+  /* variant tabs + toolbar */
+  #nav{position:fixed;top:0;left:0;right:0;z-index:80;background:#02101f;border-bottom:1px solid rgba(255,255,255,.12);padding:9px 16px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  #nav .brand{font-size:11.5px;font-weight:800;letter-spacing:.16em;color:#5fd0f2;margin-right:8px}
+  .tab{background:transparent;border:1px solid rgba(255,255,255,.22);color:#cfe2ee;font:600 12px var(--font);padding:7px 13px;border-radius:6px;cursor:pointer}
+  .tab.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+  #tools{position:fixed;bottom:12px;right:12px;z-index:80;font-family:system-ui;font-size:12px;background:rgba(0,0,0,.72);color:#fff;padding:8px 12px;border-radius:8px;opacity:.4;transition:opacity .2s;display:flex;gap:8px;align-items:center}
+  #tools:hover{opacity:1}#tools button{font:12px system-ui;background:#1a1a1a;color:#fff;border:1px solid #444;border-radius:5px;padding:4px 7px;cursor:pointer}
+  #frame{transition:max-width .2s;margin:0 auto}
+</style>
+</head>
+<body>
+
+<div id="nav">
+  <span class="brand">SKETCH 004 · SUMMIT OPT-IN · VIDEO HERO</span>
+  <button class="tab active" onclick="hero('A',this)">A · Split (video right)</button>
+  <button class="tab" onclick="hero('B',this)">B · Centered (video below)</button>
+  <button class="tab" onclick="hero('C',this)">C · Video-led (cinematic)</button>
+</div>
+
+<div id="frame">
+<div id="summit">
+
+  <!-- ============ HERO A — SPLIT ============ -->
+  <header class="hero-variant heroA on" id="hero-A">
+    <div class="wrap">
+      <div class="copy">
+        <div class="kick">The 10X Real Estate Summit · Miami</div>
+        <h1>Stop Watching Other People <span class="accent">Get Rich</span> In Real Estate</h1>
+        <p class="lede">Two days with <b>Grant Cardone</b> on how to find the deals, raise the capital to fund them, and run the entire process — <b>even if you're starting with none of your own money.</b></p>
+        <div class="meta">
+          <span class="m"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>July 27–28, 2026</span>
+          <span class="m"><svg viewBox="0 0 24 24"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>Miami, FL</span>
+          <span class="m"><svg viewBox="0 0 24 24"><path d="M4 19V9m6 10V5m6 14v-7"/></svg>3 ways to attend</span>
+        </div>
+        <div class="acts">
+          <a class="cta" href="#tickets"><span class="big">RSVP MY SEAT</span><span class="sub">Choose your ticket below</span></a>
+          <a class="cta-ghost" href="#tickets">See ticket options &darr;</a>
+        </div>
+      </div>
+      <div class="vframe"><div class="vbox">
+        <div class="vposter"><span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="lbl">Watch · The Summit</span></div>
+        <iframe src="https://fast.wistia.net/embed/iframe/fk5jjwzbor?seo=false&videoFoam=true&autoplay=false&playbar=true&controlsVisibleOnLoad=true&fullscreenButton=true" allow="autoplay; fullscreen" allowtransparency="true" frameborder="0" scrolling="no" class="wistia_embed" name="wistia_embed" title="RE Summit video"></iframe>
+      </div></div>
+    </div>
+  </header>
+
+  <!-- ============ HERO B — CENTERED ============ -->
+  <header class="hero-variant heroB" id="hero-B">
+    <div class="wrap">
+      <div class="kick">The 10X Real Estate Summit · Miami</div>
+      <h1>Stop Watching Other People <span class="accent">Get Rich</span> In Real Estate</h1>
+      <p class="lede">Two days with <b>Grant Cardone</b> on how to find the deals, raise the capital to fund them, and run the entire process — <b>even with none of your own money.</b></p>
+      <div class="meta">
+        <span class="m"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>July 27–28, 2026</span>
+        <span class="m"><svg viewBox="0 0 24 24"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>Miami, FL</span>
+        <span class="m"><svg viewBox="0 0 24 24"><path d="M4 19V9m6 10V5m6 14v-7"/></svg>3 ways to attend</span>
+      </div>
+      <div class="acts"><a class="cta" href="#tickets"><span class="big">RSVP MY SEAT</span><span class="sub">Choose your ticket below</span></a></div>
+      <div class="vframe"><div class="vbox">
+        <div class="vposter"><span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="lbl">Watch · The Summit</span></div>
+        <iframe src="https://fast.wistia.net/embed/iframe/fk5jjwzbor?seo=false&videoFoam=true&autoplay=false&playbar=true&controlsVisibleOnLoad=true&fullscreenButton=true" allow="autoplay; fullscreen" allowtransparency="true" frameborder="0" scrolling="no" class="wistia_embed" name="wistia_embed" title="RE Summit video"></iframe>
+      </div></div>
+    </div>
+  </header>
+
+  <!-- ============ HERO C — VIDEO-LED ============ -->
+  <header class="hero-variant heroC" id="hero-C">
+    <div class="wrap">
+      <div class="kick">The 10X Real Estate Summit · Miami</div>
+      <h1>Stop Watching Other People <span class="accent">Get Rich</span> In Real Estate</h1>
+      <p class="lede">Two days with <b>Grant Cardone</b> on finding deals, raising the capital, and running the whole process — <b>even with none of your own money.</b></p>
+      <div class="vframe"><div class="vbox">
+        <div class="vposter"><span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="lbl">Watch · The Summit</span></div>
+        <iframe src="https://fast.wistia.net/embed/iframe/fk5jjwzbor?seo=false&videoFoam=true&autoplay=false&playbar=true&controlsVisibleOnLoad=true&fullscreenButton=true" allow="autoplay; fullscreen" allowtransparency="true" frameborder="0" scrolling="no" class="wistia_embed" name="wistia_embed" title="RE Summit video"></iframe>
+      </div></div>
+      <div class="meta">
+        <span class="m"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>July 27–28, 2026</span>
+        <span class="m"><svg viewBox="0 0 24 24"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>Miami, FL</span>
+        <span class="m"><svg viewBox="0 0 24 24"><path d="M4 19V9m6 10V5m6 14v-7"/></svg>3 ways to attend</span>
+      </div>
+      <div class="acts"><a class="cta" href="#tickets"><span class="big">RSVP MY SEAT</span><span class="sub">Choose your ticket below</span></a></div>
+    </div>
+  </header>
+
+  <!-- ============ PROOF BAND (shared) ============ -->
+  <section class="proof">
+    <div class="wrap">
+      <div class="cell"><div class="v" data-count="4" data-pre="$" data-suf="B+">$0</div><div class="k">Grant's RE Portfolio</div></div>
+      <div class="cell"><div class="v" data-count="2" data-suf=" Days">0</div><div class="k">Live On-Stage</div></div>
+      <div class="cell"><div class="v" data-count="3" data-suf=" Tiers">0</div><div class="k">Ways To Attend</div></div>
+      <div class="cell"><div class="v"><span class="accent">Miami</span></div><div class="k">July 27–28, 2026</div></div>
+    </div>
+  </section>
+
+  <!-- ============ TICKETS (moved up, locked comparison table) ============ -->
+  <section class="tickets" id="tickets">
+    <div class="wrap">
+      <div class="head">
+        <div class="kick">Compare &amp; reserve</div>
+        <h2 class="sec-h">See what each seat gets you. <span class="accent">Then RSVP.</span></h2>
+        <p class="sec-sub">Reserve your seat now — you'll pick up at checkout to lock it in. Prices below are per ticket.</p>
+      </div>
+      <div data-group="c">
+        <div class="c-wrap">
+          <table class="c">
+            <thead>
+              <tr>
+                <th class="feat">What's included</th>
+                <th class="col" data-tier="Virtual" aria-selected="false"><div class="ticket-slot"><img src="../001-ticket-section/assets/ticket-virtual.png" alt="Virtual ticket"></div><div class="nm">Virtual</div><div class="pr">$297</div></th>
+                <th class="col" data-tier="Executive" aria-selected="true"><div class="ticket-slot"><img src="../001-ticket-section/assets/ticket-executive.png" alt="Executive ticket"></div><div class="nm">Executive</div><div class="pr">$497</div></th>
+                <th class="col" data-tier="VIP" aria-selected="false"><div class="ticket-slot"><img src="../001-ticket-section/assets/ticket-vip.png" alt="VIP ticket"></div><div class="nm">VIP</div><div class="pr">$2,497</div></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Live access to both days</td><td class="col yes" data-c="Virtual">Stream</td><td class="col yes" data-c="Executive">In-person</td><td class="col yes" data-c="VIP">In-person</td></tr>
+              <tr><td>Summit workbook</td><td class="col yes" data-c="Virtual">Digital</td><td class="col yes" data-c="Executive">✓</td><td class="col yes" data-c="VIP">✓</td></tr>
+              <tr><td>In-person networking</td><td class="col no" data-c="Virtual">—</td><td class="col yes" data-c="Executive">✓</td><td class="col yes" data-c="VIP">✓</td></tr>
+              <tr><td>Executive networking reception</td><td class="col no" data-c="Virtual">—</td><td class="col yes" data-c="Executive">✓</td><td class="col yes" data-c="VIP">✓</td></tr>
+              <tr><td>Front-row reserved seating</td><td class="col no" data-c="Virtual">—</td><td class="col no" data-c="Executive">—</td><td class="col yes" data-c="VIP">✓</td></tr>
+              <tr><td>Private Q&amp;A lunch with Grant</td><td class="col no" data-c="Virtual">—</td><td class="col no" data-c="Executive">—</td><td class="col yes" data-c="VIP">✓</td></tr>
+            </tbody>
+            <tfoot>
+              <tr><td></td>
+                <td class="col" data-c="Virtual"><button class="c-pick" aria-selected="false">Reserve Virtual</button></td>
+                <td class="col" data-c="Executive"><button class="c-pick" aria-selected="true">Reserve Executive</button></td>
+                <td class="col" data-c="VIP"><button class="c-pick" aria-selected="false">Reserve VIP</button></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <div class="c-mobile">
+          <div class="cm-card" data-tier="Virtual" aria-selected="false"><img src="../001-ticket-section/assets/ticket-virtual.png" alt="Virtual ticket"><div class="nm">Virtual</div><div class="pr">$297</div><ul><li>Live stream of both days</li><li>Digital Summit workbook</li></ul><button class="c-pick" aria-selected="false">Reserve Virtual</button></div>
+          <div class="cm-card" data-tier="Executive" aria-selected="true"><span class="badge">Most popular</span><img src="../001-ticket-section/assets/ticket-executive.png" alt="Executive ticket"><div class="nm">Executive</div><div class="pr">$497</div><ul><li>In-person, both days in Miami</li><li>Executive networking reception</li><li>Summit workbook</li></ul><button class="c-pick" aria-selected="true">Reserve Executive</button></div>
+          <div class="cm-card" data-tier="VIP" aria-selected="false"><img src="../001-ticket-section/assets/ticket-vip.png" alt="VIP ticket"><div class="nm">VIP</div><div class="pr">$2,497</div><ul><li>Everything in Executive</li><li>Front-row reserved seating</li><li>Private Q&amp;A lunch with Grant</li></ul><button class="c-pick" aria-selected="false">Reserve VIP</button></div>
+        </div>
+      </div>
+      <div class="ticket-cta">
+        <div class="resv">Reserving the <span data-name="c">Executive</span> seat</div>
+        <a class="cta" href="#checkout"><span class="big">RSVP MY SEAT</span><span class="sub">Hold the <span data-name="c">Executive</span> seat · pick up at checkout</span></a>
+        <div class="fine">No payment now — you'll confirm your ticket on the next step.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LEARN ============ -->
+  <section class="learn">
+    <div class="wrap">
+      <div class="head">
+        <div class="kick">What you'll walk away with</div>
+        <h2 class="sec-h">Two days. The whole machine — find it, fund it, <span class="accent">run it.</span></h2>
+        <p class="sec-sub">No theory and no fluff. Grant walks you through the exact system behind a multi-billion-dollar portfolio, step by step.</p>
+      </div>
+      <div class="grid3">
+        <div class="bcard"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div><h3>Find the deals others miss</h3><p>Where the cash-flowing deals actually are — and how to spot them before everyone else.</p></div>
+        <div class="bcard"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><h3>Raise the capital to fund them</h3><p>Fund deals with other people's money — even if you're starting with none of your own.</p></div>
+        <div class="bcard"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m7 14 4-4 3 3 5-6"/></svg></div><h3>Underwrite for maximum ROI</h3><p>Run the numbers like an operator so you only buy deals that actually pay you.</p></div>
+        <div class="bcard"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></div><h3>Pick the right markets</h3><p>The states and areas to buy units in right now — and exactly why they win.</p></div>
+        <div class="bcard"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M2 21a7 7 0 0 1 14 0M16 6a3 3 0 0 1 0 6m6 9a6 6 0 0 0-5-5.9"/></svg></div><h3>Choose partners &amp; deals</h3><p>What to look for in a partner and a deal so you don't lose money learning the hard way.</p></div>
+        <div class="bcard"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 19V9m6 10V5m6 14v-7"/></svg></div><h3>Scale a real portfolio</h3><p>How to go from your first deal to a portfolio without starting over every time.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MEET GRANT ============ -->
+  <section class="grant">
+    <div class="wrap">
+      <div class="photo"><div class="ph">[ GRANT CARDONE — PORTRAIT ]</div></div>
+      <div>
+        <div class="kick">Your host</div>
+        <h2 class="sec-h">Learn it from the operator who <span class="accent">built it.</span></h2>
+        <blockquote>"I started with nothing — no money, no name, no connections. Real estate is how I built a <span class="accent">$4&nbsp;billion</span> portfolio. For two days, I'll show you exactly how."</blockquote>
+        <div class="by"><b>Grant Cardone</b> &nbsp;·&nbsp; Founder, Cardone Capital</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FINAL CTA ============ -->
+  <section class="final">
+    <div class="wrap">
+      <h2>Your seat at the table is <span class="accent">waiting.</span></h2>
+      <p>Two days in Miami with Grant Cardone and a room full of active investors. Reserve yours before it's gone.</p>
+      <a class="cta" href="#tickets"><span class="big">RSVP MY SEAT</span><span class="sub">Choose your ticket</span></a>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="foot">
+    <div class="lname">GRANT CARDONE</div>
+    <nav><a href="#">Contact Us</a><span>|</span><a href="#">Privacy Policy</a><span>|</span><a href="#">Terms &amp; Conditions</a></nav>
+    <div class="fine">At Cardone Enterprises we believe success is the result of hard work, education and persistence. Examples given should not be considered typical and there is never a guarantee of results. Information is educational in nature and is not legal or financial advice.<br>Cardone Training Technologies | 1-800-368-5771 | 18909 NE 29th Ave Aventura FL 33180 | © Cardone Enterprises.</div>
+  </footer>
+
+</div>
+</div>
+
+<div id="tools">
+  <span>View</span>
+  <button onclick="vp('390px')">Phone</button>
+  <button onclick="vp('820px')">Tablet</button>
+  <button onclick="vp('none')">Full</button>
+</div>
+
+<script src="https://fast.wistia.net/assets/external/E-v1.js" async></script>
+<script>
+  function hero(v,btn){
+    document.querySelectorAll('.hero-variant').forEach(function(h){h.classList.remove('on')});
+    document.getElementById('hero-'+v).classList.add('on');
+    document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+    btn.classList.add('active');
+    window.scrollTo(0,0);
+  }
+  function vp(w){document.getElementById('frame').style.maxWidth=w;}
+  (function(){
+    document.querySelectorAll('#summit a[href^="#"]').forEach(function(a){
+      a.addEventListener('click',function(e){var id=a.getAttribute('href');if(id.length<2)return;var t=document.querySelector(id);if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}});
+    });
+    var group=document.querySelector('[data-group="c"]');
+    if(group){
+      var nameOuts=document.querySelectorAll('[data-name="c"]');
+      function choose(nm){
+        group.querySelectorAll('[data-tier]').forEach(function(it){it.setAttribute('aria-selected',it.getAttribute('data-tier')===nm?'true':'false');});
+        group.querySelectorAll('.col[data-c]').forEach(function(c){c.style.background=c.getAttribute('data-c')===nm?'rgba(14,151,199,.07)':'';});
+        group.querySelectorAll('.c-pick').forEach(function(b){var o=b.closest('[data-c]')||b.closest('.cm-card');var t=o?(o.getAttribute('data-c')||o.getAttribute('data-tier')):null;b.setAttribute('aria-selected',t===nm?'true':'false');});
+        nameOuts.forEach(function(o){o.textContent=nm;});
+      }
+      group.querySelectorAll('[data-tier]').forEach(function(it){it.addEventListener('click',function(){choose(it.getAttribute('data-tier'));});});
+      group.querySelectorAll('tfoot .c-pick').forEach(function(b){b.addEventListener('click',function(){choose(b.closest('[data-c]').getAttribute('data-c'));});});
+      choose('Executive');
+    }
+    var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    function countUp(el){var target=+el.getAttribute('data-count'),pre=el.getAttribute('data-pre')||'',suf=el.getAttribute('data-suf')||'';if(reduce){el.textContent=pre+target+suf;return;}var t0=null,dur=1100;function step(ts){if(!t0)t0=ts;var p=Math.min(1,(ts-t0)/dur);var v=Math.round(target*(1-Math.pow(1-p,3)));el.textContent=pre+v+suf;if(p<1)requestAnimationFrame(step);}requestAnimationFrame(step);}
+    var seen=new WeakSet();
+    if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!seen.has(e.target)){seen.add(e.target);countUp(e.target);}});},{threshold:.4});document.querySelectorAll('#summit .proof .v[data-count]').forEach(function(el){io.observe(el);});}
+    else{document.querySelectorAll('#summit .proof .v[data-count]').forEach(countUp);}
+  })();
+</script>
+</body>
+</html>

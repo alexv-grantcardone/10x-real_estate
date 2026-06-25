@@ -15,5 +15,6 @@
 | 001 | ticket-section | How do the 3 tiers + reserve form read as section 2 of Page 1? | **C — Comparison Table** | tickets, conversion, pricing |
 | 002 | relt-upsell-light | How does the RELT $97 upsell look flipped to light-dominant (navy/teal as accents)? | **B — Navy Anchor Block** | relt, upsell, light-theme |
 | 003 | summit-optin-page1 | How does the full RE Summit opt-in (Page 1) read top-to-bottom in light/airy around the locked ticket section? | **Full-page composition** | re-summit, optin, page1, full-page |
+| 004 | summit-optin-video-hero | How to stage the promo video in the hero (replacing the ticket badge) + tickets moved under the proof band — 3 hero treatments? | _pending_ | re-summit, optin, video-hero |
 
 > **Funnel note:** Sketch 001 is the **RE Summit** funnel. Sketch 002 is the **RELT (Real Estate Live Training)** funnel ($97 one-click upsell after the VIP checkout) — a separate funnel that shares the navy/teal + Inter/Bodoni design family. The reference build is `Real Estate Live Training - Control.html` + `re-live-vip-upsell-checkout.html` (in the user's CRO folder).
