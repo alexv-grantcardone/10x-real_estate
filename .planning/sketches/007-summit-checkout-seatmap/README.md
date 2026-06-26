@@ -2,7 +2,7 @@
 sketch: 007
 name: summit-checkout-seatmap
 question: "On the C split-layout checkout, how should the interactive arena seating map be placed — replacing the ticket image (C1) vs as its own animated band (C2)?"
-winner: null
+winner: "C2"
 tags: [re-summit, checkout, page2, seating-map, interactive]
 funnel: RE Summit (funnel 03) — checkout / Page 2
 ---
@@ -12,10 +12,16 @@ funnel: RE Summit (funnel 03) — checkout / Page 2
 Builds on sketch 006 **C (split layout)**. Adds the **interactive arena seating map** + the
 locked elevation choices. Two map placements to compare.
 
-## The arena map (placeholder — real art TBD)
-SVG, top-down theater: **STAGE** at front → 3 fanned sections **VIP** (closest) → **EXECUTIVE**
-(center) → **VIRTUAL** (back). The buyer's section is filled cyan + **pulsing**; the others are
-muted and **clickable to switch tiers** (updates price, order summary, BUY). Reflects `?tier=` from Page 1.
+## Winner: C2 (map as animated band) — chosen by Cherlon 2026-06-26
+Map re-done to emulate a **Ticketmaster-style arena bowl** (per Cherlon's inspiration screenshot,
+Oakland Arena): top-down concentric **octagon bowl** — STAGE + FLOOR at center, then 3 tiers
+distilled from the TM look: **VIP** (deep blue, inner/front) → **EXECUTIVE** (mid blue) →
+**VIRTUAL** (light blue, outer/back). **Color = price** (pricier = deeper), tier labels + prices
+stacked at the top, your section outlined cyan + **pulsing**, sections **clickable** to switch tiers.
+Verified in Chrome (desktop). Map art is still a placeholder — real components from Cherlon drop in later.
+
+## The arena map (earlier note)
+Reflects `?tier=` from Page 1; click a section to compare/switch (updates price, order, BUY).
 
 > Flagged: "Virtual" as a *physical back section* is unusual (virtual usually = remote stream) —
 > reconcile when the real map art arrives (literal back section vs. VIP/Exec-only map).

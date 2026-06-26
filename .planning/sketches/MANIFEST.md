@@ -18,6 +18,6 @@
 | 004 | summit-optin-video-hero | How to stage the promo video in the hero (replacing the ticket badge) + tickets moved under the proof band — 3 hero treatments? | _pending_ | re-summit, optin, video-hero |
 | 005 | summit-optin-10min-hold | On the video-hero opt-in, how to express the 10-minute Ticketmaster hold — 3 treatments (band / inline / hero stepper)? | **V2 — Inline reassurance** (locks Page 1 opt-in) | re-summit, optin, 10-min-hold |
 | 006 | summit-checkout-countdown | Page 2 checkout — live 10-min countdown; plain vs decaying value stack vs split layout? | _pending_ | re-summit, checkout, page2, countdown |
-| 007 | summit-checkout-seatmap | On the C split checkout, place the interactive arena seating map: replace the ticket image (C1) vs its own animated band (C2)? | _pending_ | re-summit, checkout, seating-map |
+| 007 | summit-checkout-seatmap | On the C split checkout, place the interactive arena seating map: replace the ticket image (C1) vs its own animated band (C2)? | **C2 — Map band** (Ticketmaster-style arena bowl, 3 tiers) | re-summit, checkout, seating-map |
 
 > **Funnel note:** Sketch 001 is the **RE Summit** funnel. Sketch 002 is the **RELT (Real Estate Live Training)** funnel ($97 one-click upsell after the VIP checkout) — a separate funnel that shares the navy/teal + Inter/Bodoni design family. The reference build is `Real Estate Live Training - Control.html` + `re-live-vip-upsell-checkout.html` (in the user's CRO folder).
