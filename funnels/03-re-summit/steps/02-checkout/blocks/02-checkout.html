@@ -1,0 +1,282 @@
+<!-- ============================================================================
+     RE SUMMIT — CHECKOUT (Page 2)  ·  GHL Custom Code block (single, full-page)
+     Design: locked sketch 007 C2 (light/airy, full-bleed, Cardone brand bar,
+     interactive arena seating map, live 10-minute hold, re-startable expiry).
+     SEQUENCE: opt-in (Page 1) -> checkout (THIS, live 10-min countdown) -> thank-you (Page 3).
+
+     SETUP
+       1. Paste this whole block into ONE GHL Custom Code / HTML element on the checkout page.
+       2. PAYMENT: the styled name/card fields below are the DESIGN of the order form.
+          To take real payment, mount GHL's native One-Step Order form element where marked
+          "GHL ORDER FORM MOUNT" and hide these placeholder inputs, OR point [data-buy] at
+          your order URL. Search "PASTE_ORDER_URL" and "PASTE_SPECIALIST_URL" in the script.
+       3. HOLD: the 10-minute countdown starts on load. On expiry the BUY button disables and
+          tapping any map section re-starts the hold (no redirect). Tune START_SECONDS below.
+       4. IMAGES: the GC logo + 3 ticket badges already point at the GHL media library
+          (assets.cdn.filesafe.space/...). Re-upload + swap the URLs if the account changes.
+       5. MAP ART: the SVG arena bowl is a placeholder ("Map art TBD") — swap for final art
+          from Cherlon when ready; keep the data-tier attributes so click-to-select still works.
+
+     NOTES
+       - Everything is scoped under #gcre-summit-checkout (collision-safe in GHL). No <body> styling.
+       - Tiers/prices ($297 Virtual / $497 Executive / $2,497 VIP) are placeholders pending finals.
+       - Click a map section -> ticket image + price + inclusions + callout all swap.
+     ============================================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600;6..96,700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+  #gcre-summit-checkout{
+    --bg:#fff;--bg-deep:#EEF3F8;--surface:#F2F8FB;--surface-2:#E7EFF5;
+    --border:rgba(10,37,64,.14);--line:rgba(10,37,64,.09);
+    --text:#33475a;--text-strong:#06192c;--muted:#6a7f8e;
+    --primary:#0E97C7;--primary-deep:#0a7aa3;--on-primary:#fff;--warn:#e3503a;--ok:#1a9e6a;
+    --vip:#123a66;--exec:#4f8fcf;--virtual:#cfe1f1;--floor:#eef4f8;--stage:#06192c;
+    --font:'Inter',system-ui,-apple-system,sans-serif;--accent:'Bodoni Moda',Georgia,serif;
+    --maxw:1080px;--shadow:0 18px 50px rgba(10,37,64,.12);--shadow-lg:0 40px 90px -40px rgba(10,37,64,.5);
+  }
+  #gcre-summit-checkout,#gcre-summit-checkout *{margin:0;padding:0;box-sizing:border-box}
+  #gcre-summit-checkout{font-family:var(--font);background:var(--bg-deep);color:var(--text);-webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:hidden;width:100%;min-height:100vh}
+  #gcre-summit-checkout a{color:inherit;text-decoration:none}#gcre-summit-checkout img{display:block;max-width:100%}
+  #gcre-summit-checkout .accent{font-family:var(--accent);font-style:normal;font-weight:600;color:var(--primary)}
+  #gcre-summit-checkout .wrap{max-width:var(--maxw);margin:0 auto;padding:clamp(20px,4vw,40px)}
+  #gcre-summit-checkout .brandbar{background:var(--text-strong);border-bottom:1px solid rgba(255,255,255,.08)}
+  #gcre-summit-checkout .brandbar .bb-inner{max-width:var(--maxw);margin:0 auto;padding:14px clamp(18px,4vw,40px);display:flex;align-items:center;justify-content:space-between;gap:12px}
+  #gcre-summit-checkout .brandbar .bb-logo{height:34px;width:auto;display:block}
+  #gcre-summit-checkout .brandbar .bb-name{font-weight:800;font-size:18px;letter-spacing:.04em;color:#fff}
+  #gcre-summit-checkout .brandbar .bb-secure{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.72)}
+  #gcre-summit-checkout .brandbar .bb-secure svg{width:14px;height:14px;stroke:#5fd0f2;fill:none;stroke-width:2}
+  @media(max-width:560px){#gcre-summit-checkout .brandbar .bb-secure{display:none}}
+
+  #gcre-summit-checkout .resbar{background:linear-gradient(180deg,var(--text-strong),#0a2236);color:#fff;text-align:center;padding:clamp(20px,3vw,30px) 20px}
+  #gcre-summit-checkout .resbar .lbl{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.66)}
+  #gcre-summit-checkout .resbar .timer{font-weight:800;font-size:clamp(40px,7vw,64px);line-height:1;font-variant-numeric:tabular-nums;margin-top:6px;color:#fff}
+  #gcre-summit-checkout .resbar .timer.urgent{color:#ff7a63;animation:co-pulse 1s ease-in-out infinite}
+  @keyframes co-pulse{0%,100%{opacity:1}50%{opacity:.6}}
+  #gcre-summit-checkout .resbar .seat{margin-top:6px;font-size:13.5px;color:rgba(255,255,255,.82)}#gcre-summit-checkout .resbar .seat b{color:#46c7ef}
+  #gcre-summit-checkout .resbar.expired{background:linear-gradient(180deg,#3a1d18,#2a1410)}
+  #gcre-summit-checkout .resbar .expired-msg{display:none}#gcre-summit-checkout .resbar.expired .live-msg{display:none}#gcre-summit-checkout .resbar.expired .expired-msg{display:block}
+  #gcre-summit-checkout .resbar .expired-msg h3{font-size:clamp(20px,3vw,28px);font-weight:800;color:#fff}
+  #gcre-summit-checkout .resbar .expired-msg p{margin-top:6px;color:rgba(255,255,255,.8);font-size:14px}
+  #gcre-summit-checkout .resbar .ea{margin-top:14px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  #gcre-summit-checkout .resbar .ea a{font-weight:700;font-size:14px;padding:11px 18px}
+  #gcre-summit-checkout .resbar .ea .p{background:var(--primary);color:#fff}#gcre-summit-checkout .resbar .ea .g{border:1px solid rgba(255,255,255,.4);color:#fff}
+
+  #gcre-summit-checkout .split{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+  #gcre-summit-checkout .left{display:grid;gap:16px}#gcre-summit-checkout .right{position:sticky;top:16px}
+  #gcre-summit-checkout .card{background:#fff;border:1px solid var(--border)}
+
+  #gcre-summit-checkout .order{padding:18px;display:flex;gap:16px;align-items:center}
+  #gcre-summit-checkout .order .tk{flex:none;width:110px}
+  #gcre-summit-checkout .order .tk img{width:100%;height:auto;filter:drop-shadow(0 12px 22px rgba(10,37,64,.3))}
+  #gcre-summit-checkout .order .info{flex:1}
+  #gcre-summit-checkout .order .info .nm{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--primary)}
+  #gcre-summit-checkout .order .info h3{font-size:clamp(17px,2vw,21px);font-weight:800;color:var(--text-strong);margin-top:2px}
+  #gcre-summit-checkout .order .info .incl{margin-top:5px;font-size:13px;color:var(--muted)}
+  #gcre-summit-checkout .order .price{text-align:right}
+  #gcre-summit-checkout .order .price .amt{font-size:clamp(24px,3vw,32px);font-weight:800;color:var(--text-strong);letter-spacing:-.02em}
+  #gcre-summit-checkout .order .price .ed{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+  /* ===== ARENA MAP (stage top · tiers stacked facing stage) ===== */
+  #gcre-summit-checkout .seatmap{width:100%;height:auto;display:block;max-width:480px;margin:0 auto}
+  #gcre-summit-checkout .seatmap .shell{fill:none;stroke:var(--border);stroke-width:1.5}
+  #gcre-summit-checkout .seatmap .sec{stroke:#fff;stroke-width:2;cursor:pointer;transition:opacity .3s;opacity:.82}
+  #gcre-summit-checkout .seatmap .sec[data-tier="VIP"]{fill:var(--vip)}
+  #gcre-summit-checkout .seatmap .sec[data-tier="Executive"]{fill:var(--exec)}
+  #gcre-summit-checkout .seatmap .sec[data-tier="Virtual"]{fill:var(--virtual)}
+  #gcre-summit-checkout .seatmap .sec:hover{opacity:1}
+  #gcre-summit-checkout .seatmap .sec.on{stroke:var(--primary);filter:drop-shadow(0 0 8px rgba(14,151,199,.7));opacity:1;animation:seatpulse 1.7s ease-in-out infinite}
+  @keyframes seatpulse{0%,100%{stroke-width:3}50%{stroke-width:6.5}}
+  #gcre-summit-checkout .seatmap .stage{fill:var(--stage)}
+  #gcre-summit-checkout .seatmap .stage-t{fill:#fff;font:800 12px var(--font);letter-spacing:.22em;text-anchor:middle}
+  #gcre-summit-checkout .seatmap .lbl{font:800 12px var(--font);letter-spacing:.08em;text-anchor:middle;pointer-events:none}
+  #gcre-summit-checkout .seatmap .lbl.dark{fill:#1b3a5c}#gcre-summit-checkout .seatmap .lbl.light{fill:#fff}
+  #gcre-summit-checkout .seatmap .lbl .pr{font-weight:700;opacity:.9}
+  #gcre-summit-checkout .seatmap .vfx{opacity:0;transition:opacity .35s;pointer-events:none}
+  #gcre-summit-checkout .seatmap .vfx.show,#gcre-summit-checkout .seatmap .sec[data-tier="Virtual"]:hover ~ .vfx{opacity:1}
+  #gcre-summit-checkout .seatmap .vcore{fill:var(--primary-deep)}#gcre-summit-checkout .seatmap .vplay{fill:#fff}
+  #gcre-summit-checkout .seatmap .vradar{fill:none;stroke:var(--primary-deep);stroke-width:2;animation:vradar 1.9s ease-out infinite}
+  #gcre-summit-checkout .seatmap .vradar.r2{animation-delay:.95s}
+  @keyframes vradar{0%{r:8px;opacity:.7}100%{r:30px;opacity:0}}
+  #gcre-summit-checkout .seatmap .vstream{fill:var(--primary-deep);font:800 11px var(--font);letter-spacing:.14em;text-anchor:start;animation:streampulse 1.1s ease-in-out infinite}
+  @keyframes streampulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+  #gcre-summit-checkout .mapband{padding:20px}
+  #gcre-summit-checkout .mapband .mh{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+  #gcre-summit-checkout .mapband .mh .t{font-size:14px;font-weight:800;color:var(--text-strong)}#gcre-summit-checkout .mapband .mh .t .accent{color:var(--primary)}
+  #gcre-summit-checkout .mapband .mh .ph{font-size:11px;font-weight:700;color:var(--muted);background:var(--surface);border:1px solid var(--border);padding:3px 8px}
+  #gcre-summit-checkout .mapband .legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px;justify-content:center}
+  #gcre-summit-checkout .mapband .legend span{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--text)}
+  #gcre-summit-checkout .mapband .legend i{width:13px;height:13px;display:inline-block;border:1px solid rgba(0,0,0,.1)}
+  #gcre-summit-checkout .mapband .callout{margin-top:12px;text-align:center;font-size:13.5px;color:var(--text-strong);font-weight:600;text-wrap:pretty}
+  #gcre-summit-checkout .mapband .callout b{color:var(--primary-deep)}
+
+  #gcre-summit-checkout .pay{padding:clamp(20px,2.4vw,28px)}
+  #gcre-summit-checkout .pay h3{font-size:17px;font-weight:800;color:var(--text-strong);margin-bottom:14px}
+  #gcre-summit-checkout .pay .grid{display:grid;gap:11px}#gcre-summit-checkout .pay .row2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+  #gcre-summit-checkout .fin{width:100%;background:#fff;border:1px solid var(--border);color:#0A2540;font:500 15px var(--font);padding:13px 14px}
+  #gcre-summit-checkout .fin::placeholder{color:#9aa7b1}#gcre-summit-checkout .fin:focus-visible{outline:2px solid var(--primary);outline-offset:-2px}
+  #gcre-summit-checkout .buy{display:flex;flex-direction:column;align-items:center;width:100%;background:var(--primary);color:#fff;border:0;cursor:pointer;font-family:var(--font);padding:18px 20px;margin-top:6px;box-shadow:0 16px 34px -14px rgba(14,151,199,.75);transition:transform .2s,filter .2s}
+  #gcre-summit-checkout .buy:hover{transform:translateY(-2px);filter:brightness(1.06)}
+  #gcre-summit-checkout .buy .big{font-size:17px;font-weight:800;letter-spacing:.02em}#gcre-summit-checkout .buy .sub{font-size:12px;font-weight:600;opacity:.86;margin-top:3px}
+  #gcre-summit-checkout .buy.disabled{background:var(--muted);cursor:not-allowed;box-shadow:none;transform:none;pointer-events:none}
+  #gcre-summit-checkout .guarantee{display:flex;gap:11px;align-items:flex-start;margin-top:14px;padding:13px 15px;background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--ok)}
+  #gcre-summit-checkout .guarantee svg{flex:none;width:20px;height:20px;stroke:var(--ok);stroke-width:2;fill:none;margin-top:1px}
+  #gcre-summit-checkout .guarantee p{font-size:13px;color:var(--text);line-height:1.5}#gcre-summit-checkout .guarantee b{color:var(--text-strong)}
+  #gcre-summit-checkout .trust{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:14px;flex-wrap:wrap}
+  #gcre-summit-checkout .trust .sec-lock{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  #gcre-summit-checkout .trust .sec-lock svg{width:14px;height:14px;stroke:var(--ok);stroke-width:2;fill:none}
+  #gcre-summit-checkout .trust .cards{display:flex;gap:6px}
+  #gcre-summit-checkout .trust .cards span{font-size:10px;font-weight:800;color:var(--text-strong);background:var(--surface);border:1px solid var(--border);padding:4px 7px}
+  #gcre-summit-checkout .specialist{display:block;text-align:center;margin-top:16px;font-size:13px;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+  #gcre-summit-checkout .specialist:hover{color:var(--text-strong)}
+  #gcre-summit-checkout .recover{display:none;margin-top:12px;text-align:center}#gcre-summit-checkout .recover.on{display:block}
+  #gcre-summit-checkout .recover .r-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+  #gcre-summit-checkout .recover .r-row a{font-weight:700;font-size:13px;padding:10px 16px;border:1px solid var(--border)}
+  #gcre-summit-checkout .recover .r-row a.p{background:var(--primary);color:#fff;border-color:var(--primary)}
+  #gcre-summit-checkout .recover .note{font-size:12.5px;color:var(--warn);font-weight:700}
+
+  #gcre-summit-checkout .next{padding:20px}
+  #gcre-summit-checkout .next .nh{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;text-align:center}
+  #gcre-summit-checkout .next ol{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  #gcre-summit-checkout .next li{display:flex;flex-direction:column;align-items:center;text-align:center;gap:7px}
+  #gcre-summit-checkout .next .n{width:26px;height:26px;border-radius:50%;background:var(--primary);color:#fff;font:800 12px var(--font);display:grid;place-items:center}
+  #gcre-summit-checkout .next .t{font-size:13px;font-weight:700;color:var(--text-strong);line-height:1.3;text-wrap:balance;max-width:15ch}
+
+  @media(max-width:760px){
+    #gcre-summit-checkout .split{grid-template-columns:1fr}#gcre-summit-checkout .right{position:static}
+    #gcre-summit-checkout .order{flex-direction:column;text-align:center}#gcre-summit-checkout .order .price{text-align:center}#gcre-summit-checkout .order .tk{width:140px}
+    #gcre-summit-checkout .pay .row2{grid-template-columns:1fr}#gcre-summit-checkout .next ol{grid-template-columns:1fr;max-width:280px;margin:0 auto}
+  }
+  @media (prefers-reduced-motion:reduce){#gcre-summit-checkout *{animation:none!important;transition:none!important}}
+</style>
+
+<div id="gcre-summit-checkout">
+  <header class="brandbar"><div class="bb-inner">
+    <img class="bb-logo" src="https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/67c891eb39ce95fd8ab8d98e.png" alt="Grant Cardone" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <span class="bb-name" style="display:none">GRANT CARDONE</span>
+    <span class="bb-secure"><svg viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Secure Checkout</span>
+  </div></header>
+  <div class="resbar" data-resbar>
+    <div class="live-msg"><div class="lbl">Your seat is reserved — time left to check out</div><div class="timer" data-timer>10:00</div><div class="seat">Holding your <b data-tier-name>Executive</b> seat for the next 10 minutes</div></div>
+    <div class="expired-msg"><h3>Your 10-minute hold expired</h3><p>Your seat was released — <b>tap any section on the map</b> to put it back on a 10-minute hold.</p><div class="ea"><a class="p" href="#" data-restart>Put my hold back</a><a class="g" href="#" data-specialist>Talk to a specialist</a></div></div>
+  </div>
+  <div class="wrap">
+    <div class="split">
+      <div class="left">
+        <div class="card order">
+          <div class="tk"><img data-tier-img alt="Selected ticket" src="https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/691f2ce9330ab5df88e08a2f.png"></div>
+          <div class="info"><div class="nm" data-tier-name>Executive</div><h3>10X Real Estate Summit · Miami</h3><div class="incl" data-tier-incl>In-person both days · Executive networking reception · workbook</div></div>
+          <div class="price"><div class="amt" data-tier-price>$497</div><div class="ed">One ticket</div></div>
+        </div>
+        <div class="card mapband">
+          <div class="mh"><div class="t">Where you'll be sitting <span class="accent">— pick your section</span></div><div class="ph">Map art TBD</div></div>
+          <svg class="seatmap" viewBox="0 0 360 280" data-seatmap role="img" aria-label="Arena seating map">
+            <polygon class="shell" points="44,6 316,6 352,42 352,226 316,262 44,262 8,226 8,42"/>
+            <rect class="stage" x="80" y="20" width="200" height="28" rx="4"/>
+            <text class="stage-t" x="180" y="39">STAGE</text>
+            <polygon class="sec" data-tier="VIP" points="92,62 268,62 284,116 76,116"/>
+            <polygon class="sec" data-tier="Executive" points="72,122 288,122 306,178 54,178"/>
+            <polygon class="sec" data-tier="Virtual" points="50,184 310,184 330,246 30,246"/>
+            <text class="lbl light" x="180" y="94">VIP <tspan class="pr">· $2,497</tspan></text>
+            <text class="lbl light" x="180" y="154">EXECUTIVE <tspan class="pr">· $497</tspan></text>
+            <text class="lbl dark" x="180" y="200">VIRTUAL <tspan class="pr">· $297</tspan></text>
+            <g class="vfx" data-vfx>
+              <circle class="vradar" cx="146" cy="223" r="8"/>
+              <circle class="vradar r2" cx="146" cy="223" r="8"/>
+              <circle class="vcore" cx="146" cy="223" r="9"/>
+              <path class="vplay" d="M143,219 l7,4 -7,4 z"/>
+              <text class="vstream" x="162" y="227">STREAMING</text>
+            </g>
+          </svg>
+          <div class="legend">
+            <span><i style="background:var(--vip)"></i>VIP · front</span>
+            <span><i style="background:var(--exec)"></i>Executive · center</span>
+            <span><i style="background:var(--virtual)"></i>Virtual · back (live)</span>
+            <span><i style="background:#fff;border:2px solid var(--primary)"></i>Your section (pulsing)</span>
+          </div>
+          <div class="callout" data-callout>You're in <b>Executive</b> — center section, elevated views. <span style="color:var(--muted)">Tap a section to switch tiers.</span></div>
+        </div>
+        <div class="card next">
+          <div class="nh">What happens next</div>
+          <ol>
+            <li><span class="n">1</span><span class="t">Reserve your seat</span></li>
+            <li><span class="n">2</span><span class="t">Confirmation&nbsp;+ ticket emailed</span></li>
+            <li><span class="n">3</span><span class="t">See you in Miami</span></li>
+          </ol>
+        </div>
+      </div>
+      <div class="right">
+        <div class="card pay">
+          <h3>Complete your reservation</h3>
+          <!-- GHL ORDER FORM MOUNT: replace these placeholder inputs + [data-buy] with GHL's
+               native One-Step Order form element to take real payment. Keep the .pay wrapper for styling. -->
+          <div class="grid">
+            <input class="fin" placeholder="Full name">
+            <input class="fin" type="email" placeholder="Email">
+            <input class="fin" type="tel" placeholder="Phone">
+            <input class="fin" placeholder="Card number">
+            <div class="row2"><input class="fin" placeholder="MM / YY"><input class="fin" placeholder="CVC"></div>
+            <button class="buy" data-buy><span class="big">COMPLETE · <span data-tier-price>$497</span></span><span class="sub">Secure your seat before the timer runs out</span></button>
+          </div>
+          <div class="recover" data-recover><div class="note">Your 10-minute hold expired — tap a section on the map to grab it again.</div><div class="r-row"><a class="p" href="#" data-restart>Put my hold back</a><a href="#" data-specialist>Talk to a specialist</a></div></div>
+          <div class="guarantee"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg><p><b>Reserve risk-free.</b> Full refund up to 14 days before the event — no questions asked. <span style="color:var(--muted)">(terms TBD)</span></p></div>
+          <div class="trust"><span class="sec-lock"><svg viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Encrypted &amp; secure</span><span class="cards"><span>VISA</span><span>MC</span><span>AMEX</span><span>DISC</span></span></div>
+          <a class="specialist" href="#" data-specialist>Prefer to talk it through first? Talk to a specialist</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  /* ---- CONFIG: edit these ---------------------------------------------- */
+  var ORDER_URL='PASTE_ORDER_URL';            // where [data-buy] sends (if not using GHL native form)
+  var SPECIALIST_URL='PASTE_SPECIALIST_URL';  // "Talk to a specialist" links
+  var START_SECONDS=600;                       // 10-minute hold
+  /* ---------------------------------------------------------------------- */
+
+  var TIERS={
+    Virtual:{price:'$297',img:'https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/691f2ce793893166ccb6d29f.png',incl:'Live-stream both days in HD · digital Summit workbook',blurb:'streamed live in HD — watch the whole room from anywhere'},
+    Executive:{price:'$497',img:'https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/691f2ce9330ab5df88e08a2f.png',incl:'In-person both days · Executive networking reception · workbook',blurb:'center section, elevated views'},
+    VIP:{price:'$2,497',img:'https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/691f2ce45bbf7f74f8e8994c.png',incl:'Front row · private Q&A lunch with Grant · VIP reception',blurb:'front section, closest to the stage'}
+  };
+  var scope=document.getElementById('gcre-summit-checkout');
+  var current='Executive';
+  function setTier(tier){
+    if(!TIERS[tier])return; current=tier; var d=TIERS[tier];
+    scope.querySelectorAll('[data-tier-name]').forEach(function(e){e.textContent=tier;});
+    scope.querySelectorAll('[data-tier-price]').forEach(function(e){e.textContent=d.price;});
+    scope.querySelectorAll('[data-tier-incl]').forEach(function(e){e.textContent=d.incl;});
+    scope.querySelectorAll('[data-tier-img]').forEach(function(e){e.src=d.img;e.alt=tier+' ticket';});
+    scope.querySelectorAll('[data-seatmap] .sec').forEach(function(s){s.classList.toggle('on',s.getAttribute('data-tier')===tier);});
+    scope.querySelectorAll('[data-vfx]').forEach(function(g){g.classList.toggle('show',tier==='Virtual');});
+    scope.querySelectorAll('[data-callout]').forEach(function(c){c.innerHTML='You\'re in <b>'+tier+'</b> — '+d.blurb+'. <span style="color:var(--muted)">Tap a section to switch tiers.</span>';});
+    render();
+  }
+  scope.querySelectorAll('[data-seatmap] .sec').forEach(function(s){s.addEventListener('click',function(){setTier(s.getAttribute('data-tier')); if(remaining<=0) restartHold();});});
+
+  var remaining=START_SECONDS,tickId=null;
+  function fmt(s){var m=Math.floor(s/60),ss=s%60;return m+':'+(ss<10?'0':'')+ss;}
+  function render(){
+    scope.querySelectorAll('[data-timer]').forEach(function(t){t.textContent=fmt(remaining);t.classList.toggle('urgent',remaining<=120&&remaining>0);});
+    var expired=remaining<=0;
+    scope.querySelectorAll('[data-resbar]').forEach(function(b){b.classList.toggle('expired',expired);});
+    scope.querySelectorAll('[data-buy]').forEach(function(b){b.classList.toggle('disabled',expired);b.querySelector('.big').innerHTML=expired?'HOLD EXPIRED':'COMPLETE · <span data-tier-price>'+TIERS[current].price+'</span>';});
+    scope.querySelectorAll('[data-recover]').forEach(function(r){r.classList.toggle('on',expired);});
+  }
+  function tick(){if(remaining>0){remaining--;render();}else{clearInterval(tickId);render();}}
+  function start(){clearInterval(tickId);render();tickId=setInterval(tick,1000);}
+  function restartHold(){remaining=START_SECONDS;start();}
+  scope.querySelectorAll('[data-restart]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();restartHold();window.scrollTo(0,0);});});
+
+  /* wire CTA + specialist links to config URLs (skip while still placeholders) */
+  scope.querySelectorAll('[data-specialist]').forEach(function(a){if(SPECIALIST_URL.indexOf('PASTE_')!==0)a.setAttribute('href',SPECIALIST_URL);});
+  scope.querySelectorAll('[data-buy]').forEach(function(b){b.addEventListener('click',function(){if(remaining>0&&ORDER_URL.indexOf('PASTE_')!==0)window.location.href=ORDER_URL+(ORDER_URL.indexOf('?')<0?'?':'&')+'tier='+current.toLowerCase();});});
+
+  setTier('Executive'); start();
+})();
+</script>
