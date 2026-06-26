@@ -2,7 +2,7 @@
 sketch: 005
 name: summit-optin-10min-hold
 question: "On the chosen video-hero opt-in (Page 1), how should the 10-minute Ticketmaster-style hold be expressed in the design — 3 treatments?"
-winner: null
+winner: "V2"
 tags: [re-summit, optin, page1, 10-min-hold, video-hero]
 funnel: RE Summit (funnel 03) — opt-in / Page 1
 ---
@@ -20,7 +20,7 @@ mechanic ("held 10 minutes to check out"), never a running clock.
 
 ## The 3 versions
 - **V1 · "How it works" band** — a 3-step strip between the proof band and tickets: RSVP your seat → we hold it 10 minutes (Ticketmaster-style) → check out. Calm, informational; sets expectations before Page 2's timer.
-- **V2 · Inline reservation reassurance** — "⏱ Held 10 min" chips on each ticket + a reassurance card at the RSVP button ("one click, seat held 10 minutes to check out, Ticketmaster-style, no payment to reserve"). Woven into the existing flow, no extra band.
+- **V2 · Inline reservation reassurance — ★ WINNER (chosen by Cherlon 2026-06-26)** — "⏱ Held 10 min" chips on each ticket + a reassurance card at the RSVP button ("one click, seat held 10 minutes to check out, Ticketmaster-style, no payment to reserve"). Woven into the existing flow, no extra band. This locks the **RE Summit opt-in (Page 1)** design.
 - **V3 · Hero reservation stepper** — a compact Pick → Reserve (held 10 min · no payment) → Check out stepper right under the hero RSVP CTA. Makes the mechanic the first impression.
 
 All also carry a "no payment to reserve · seat held 10 minutes at checkout" line at the final CTA, and hold-aware RSVP microcopy throughout.
