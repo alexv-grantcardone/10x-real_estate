@@ -19,6 +19,12 @@ These are starting defaults, not gospel — override them when our own test log 
 9. **VSL/long-form sales pages:** strong hook in the first 10–15s, a single CTA repeated at natural decision points, and an offer stack that makes the price feel small.
 10. **Match the message.** Landing page headline should mirror the ad that brought them — message-match lifts conversion and Quality Score.
 
+## Build-quality standards (always-on, every page & document)
+
+- **No orphan words in headlines or copy — desktop AND mobile.** Never ship a headline with a single word stranded on its own line, in either viewport. This is a permanent craft standard (it protects the premium GC brand feel). Always verify both desktop and mobile before calling a headline done.
+  - **Technique:** split the headline into spans and control wrapping per part. Put `text-wrap:balance` on the wrapping part so the last line never orphans. Force short kicker/accent phrases (e.g. a date) onto one line with `display:block; white-space:nowrap;` + a viewport-sized `clamp()` font that fits at every width. Honor any per-viewport line preference the client gives.
+  - First applied: RE Live VIP upsell (`re-live-vip-upsell-checkout.html`), 2026-06-26 — desktop = script date line + tagline on one line (h1 capped at 52px); mobile = date line + tagline balanced to 2 lines.
+
 ## Measurement
 - Define the conversion event per funnel (opt-in submit, registration, purchase) and track it in GHL (and pixel/GA if configured).
 - When we run an A/B test, log the variant, the metric, sample size, and result below.
