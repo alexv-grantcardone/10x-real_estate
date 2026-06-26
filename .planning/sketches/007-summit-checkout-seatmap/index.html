@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sketch 007 — RE Summit Checkout · Seating Map (2 placements)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600;6..96,700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  /* RE SUMMIT — CHECKOUT (Page 2), split layout (C) + interactive ARENA SEATING MAP.
+     2 placements: C1 map replaces ticket image · C2 map as its own animated band.
+     Live 10-min hold; expiry -> disable BUY + recovery links. Elevation: guarantee,
+     payment/security trust, "what happens next". Seat map is a PLACEHOLDER (real art TBD). */
+  :root{
+    --bg:#fff;--bg-deep:#EEF3F8;--surface:#F2F8FB;--surface-2:#E7EFF5;
+    --border:rgba(10,37,64,.14);--line:rgba(10,37,64,.09);
+    --text:#33475a;--text-strong:#06192c;--muted:#6a7f8e;
+    --primary:#0E97C7;--primary-deep:#0a7aa3;--on-primary:#fff;--warn:#e3503a;--ok:#1a9e6a;
+    --font:'Inter',system-ui,-apple-system,sans-serif;--accent:'Bodoni Moda',Georgia,serif;
+    --maxw:1080px;--shadow:0 18px 50px rgba(10,37,64,.12);--shadow-lg:0 40px 90px -40px rgba(10,37,64,.5);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#c8d2da;padding-top:46px}
+  #co{font-family:var(--font);background:var(--bg-deep);color:var(--text);-webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:hidden;min-height:100vh}
+  #co a{color:inherit;text-decoration:none}
+  #co .accent{font-family:var(--accent);font-style:normal;font-weight:600;color:var(--primary)}
+  #co .wrap{max-width:var(--maxw);margin:0 auto;padding:clamp(20px,4vw,40px)}
+  .variant{display:none}.variant.active{display:block}
+
+  /* reservation/countdown bar */
+  #co .resbar{background:linear-gradient(180deg,var(--text-strong),#0a2236);color:#fff;text-align:center;padding:clamp(20px,3vw,30px) 20px}
+  #co .resbar .lbl{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.66)}
+  #co .resbar .timer{font-weight:800;font-size:clamp(40px,7vw,64px);line-height:1;letter-spacing:.02em;font-variant-numeric:tabular-nums;margin-top:6px;color:#fff}
+  #co .resbar .timer.urgent{color:#ff7a63;animation:co-pulse 1s ease-in-out infinite}
+  @keyframes co-pulse{0%,100%{opacity:1}50%{opacity:.6}}
+  #co .resbar .seat{margin-top:6px;font-size:13.5px;color:rgba(255,255,255,.82)}
+  #co .resbar .seat b{color:#46c7ef}
+  #co .resbar.expired{background:linear-gradient(180deg,#3a1d18,#2a1410)}
+  #co .resbar .expired-msg{display:none}
+  #co .resbar.expired .live-msg{display:none}#co .resbar.expired .expired-msg{display:block}
+  #co .resbar .expired-msg h3{font-size:clamp(20px,3vw,28px);font-weight:800;color:#fff}
+  #co .resbar .expired-msg p{margin-top:6px;color:rgba(255,255,255,.8);font-size:14px}
+  #co .resbar .ea{margin-top:14px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  #co .resbar .ea a{font-weight:700;font-size:14px;padding:11px 18px}
+  #co .resbar .ea .p{background:var(--primary);color:#fff}#co .resbar .ea .g{border:1px solid rgba(255,255,255,.4);color:#fff}
+
+  /* split layout */
+  #co .split{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+  #co .left{display:grid;gap:16px}
+  #co .right{position:sticky;top:16px}
+  #co .card{background:#fff;border:1px solid var(--border)}
+
+  /* order summary */
+  #co .order{padding:18px;display:flex;gap:16px;align-items:center}
+  #co .order .tk{flex:none;width:120px}
+  #co .order .info{flex:1}
+  #co .order .info .nm{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--primary)}
+  #co .order .info h3{font-size:clamp(17px,2vw,21px);font-weight:800;color:var(--text-strong);margin-top:2px}
+  #co .order .info .incl{margin-top:5px;font-size:13px;color:var(--muted)}
+  #co .order .price{text-align:right}
+  #co .order .price .amt{font-size:clamp(24px,3vw,32px);font-weight:800;color:var(--text-strong);letter-spacing:-.02em}
+  #co .order .price .ed{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  #co .tkph{width:96px;height:130px;display:grid;place-items:center;text-align:center;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--surface);border:1px dashed var(--border)}
+
+  /* ===== SEATING MAP (interactive placeholder) ===== */
+  #co .seatmap{width:100%;height:auto;display:block}
+  #co .seatmap .stage{fill:var(--text-strong)}
+  #co .seatmap .stage-t{fill:#fff;font:700 11px var(--font);letter-spacing:.22em;text-anchor:middle}
+  #co .seatmap .sec{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5;cursor:pointer;transition:fill .3s,stroke .3s}
+  #co .seatmap .sec:hover{fill:#d4e5ef}
+  #co .seatmap .sec.on{fill:var(--primary);stroke:var(--primary-deep);stroke-width:2.5;filter:drop-shadow(0 0 7px rgba(14,151,199,.6));animation:seatpulse 1.9s ease-in-out infinite}
+  @keyframes seatpulse{0%,100%{fill-opacity:1}50%{fill-opacity:.62}}
+  #co .seatmap .sec-t{font:700 10px var(--font);letter-spacing:.1em;text-anchor:middle;fill:var(--muted);pointer-events:none}
+  #co .seatmap .sec-t.on{fill:#fff}
+  #co .seatmap .pin{fill:#fff;font:800 9px var(--font);text-anchor:middle;pointer-events:none;opacity:0;transition:opacity .3s}
+  #co .seatmap .pin.on{opacity:1}
+
+  /* map band (C2) */
+  #co .mapband{padding:20px}
+  #co .mapband .mh{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+  #co .mapband .mh .t{font-size:14px;font-weight:800;color:var(--text-strong)}
+  #co .mapband .mh .t .accent{color:var(--primary)}
+  #co .mapband .mh .ph{font-size:11px;font-weight:700;color:var(--muted);background:var(--surface);border:1px solid var(--border);padding:3px 8px}
+  #co .mapband .legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;justify-content:center}
+  #co .mapband .legend span{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--text)}
+  #co .mapband .legend i{width:12px;height:12px;display:inline-block}
+  #co .mapband .callout{margin-top:12px;text-align:center;font-size:13.5px;color:var(--text-strong);font-weight:600}
+  #co .mapband .callout b{color:var(--primary-deep)}
+  /* C1: compact map sits in the order image slot */
+  #co .order .tk .seatmap{max-width:120px}
+
+  /* payment form */
+  #co .pay{padding:clamp(20px,2.4vw,28px)}
+  #co .pay h3{font-size:17px;font-weight:800;color:var(--text-strong);margin-bottom:14px}
+  #co .pay .grid{display:grid;gap:11px}
+  #co .pay .row2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+  #co .fin{width:100%;background:#fff;border:1px solid var(--border);color:#0A2540;font:500 15px var(--font);padding:13px 14px}
+  #co .fin::placeholder{color:#9aa7b1}
+  #co .fin:focus-visible{outline:2px solid var(--primary);outline-offset:-2px}
+  #co .buy{display:flex;flex-direction:column;align-items:center;width:100%;background:var(--primary);color:#fff;border:0;cursor:pointer;font-family:var(--font);padding:18px 20px;margin-top:6px;box-shadow:0 16px 34px -14px rgba(14,151,199,.75);transition:transform .2s,filter .2s}
+  #co .buy:hover{transform:translateY(-2px);filter:brightness(1.06)}
+  #co .buy .big{font-size:17px;font-weight:800;letter-spacing:.02em}
+  #co .buy .sub{font-size:12px;font-weight:600;opacity:.86;margin-top:3px}
+  #co .buy.disabled{background:var(--muted);cursor:not-allowed;box-shadow:none;transform:none;pointer-events:none}
+  /* guarantee */
+  #co .guarantee{display:flex;gap:11px;align-items:flex-start;margin-top:14px;padding:13px 15px;background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--ok)}
+  #co .guarantee svg{flex:none;width:20px;height:20px;stroke:var(--ok);stroke-width:2;fill:none;margin-top:1px}
+  #co .guarantee p{font-size:13px;color:var(--text);line-height:1.5}#co .guarantee b{color:var(--text-strong)}
+  /* trust row */
+  #co .trust{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:14px;flex-wrap:wrap}
+  #co .trust .sec-lock{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  #co .trust .sec-lock svg{width:14px;height:14px;stroke:var(--ok);stroke-width:2;fill:none}
+  #co .trust .cards{display:flex;gap:6px}
+  #co .trust .cards span{font-size:10px;font-weight:800;letter-spacing:.04em;color:var(--text-strong);background:var(--surface);border:1px solid var(--border);padding:4px 7px}
+  #co .specialist{display:block;text-align:center;margin-top:16px;font-size:13px;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+  #co .specialist:hover{color:var(--text-strong)}
+  /* recovery (shown on expiry) */
+  #co .recover{display:none;margin-top:12px;text-align:center}
+  #co .recover.on{display:block}
+  #co .recover .r-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+  #co .recover .r-row a{font-weight:700;font-size:13px;padding:10px 16px;border:1px solid var(--border)}
+  #co .recover .r-row a.p{background:var(--primary);color:#fff;border-color:var(--primary)}
+  #co .recover .note{font-size:12.5px;color:var(--warn);font-weight:700}
+
+  /* what happens next */
+  #co .next{padding:18px 20px}
+  #co .next .nh{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+  #co .next ol{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  #co .next li{display:flex;flex-direction:column;gap:5px}
+  #co .next .n{width:24px;height:24px;border-radius:50%;background:var(--primary);color:#fff;font:800 12px var(--font);display:grid;place-items:center}
+  #co .next .t{font-size:13px;font-weight:700;color:var(--text-strong);line-height:1.3}
+
+  @media(max-width:760px){
+    #co .split{grid-template-columns:1fr}#co .right{position:static}
+    #co .order{flex-direction:column;text-align:center}#co .order .price{text-align:center}
+    #co .pay .row2{grid-template-columns:1fr}
+    #co .next ol{grid-template-columns:1fr}
+  }
+  @media (prefers-reduced-motion:reduce){#co *{animation:none!important;transition:none!important}}
+
+  #nav{position:fixed;top:0;left:0;right:0;z-index:80;background:#02101f;border-bottom:1px solid rgba(255,255,255,.12);padding:9px 16px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  #nav .brand{font-size:11.5px;font-weight:800;letter-spacing:.16em;color:#5fd0f2;margin-right:8px}
+  .tab{background:transparent;border:1px solid rgba(255,255,255,.22);color:#cfe2ee;font:600 12px var(--font);padding:7px 13px;border-radius:6px;cursor:pointer}
+  .tab.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+  #tools{position:fixed;bottom:12px;right:12px;z-index:80;font-family:system-ui;font-size:12px;background:rgba(0,0,0,.74);color:#fff;padding:8px 12px;border-radius:8px;opacity:.5;transition:opacity .2s;display:flex;gap:8px;align-items:center}
+  #tools:hover{opacity:1}#tools button{font:12px system-ui;background:#1a1a1a;color:#fff;border:1px solid #444;border-radius:5px;padding:4px 7px;cursor:pointer}
+  #frame{transition:max-width .2s;margin:0 auto}
+</style>
+</head>
+<body>
+
+<div id="nav">
+  <span class="brand">SKETCH 007 · CHECKOUT · SEATING MAP</span>
+  <button class="tab active" onclick="show('1',this)">C1 · Map replaces ticket</button>
+  <button class="tab" onclick="show('2',this)">C2 · Map as animated band</button>
+</div>
+
+<div id="frame">
+<div id="co">
+
+  <!-- ============ C1 — MAP REPLACES TICKET IMAGE ============ -->
+  <section class="variant active" id="v-1">
+    <div class="resbar" data-resbar>
+      <div class="live-msg"><div class="lbl">Your seat is reserved — time left to check out</div><div class="timer" data-timer>10:00</div><div class="seat">Holding your <b data-tier-name>Executive</b> seat · Ticketmaster-style 10-minute hold</div></div>
+      <div class="expired-msg"><h3>Your 10-minute hold expired</h3><p>Your seat was released back to the room.</p><div class="ea"><a class="p" href="#">Reserve again</a><a class="g" href="#">Talk to a specialist</a></div></div>
+    </div>
+    <div class="wrap">
+      <div class="split">
+        <div class="left">
+          <div class="card order">
+            <div class="tk">
+              <svg class="seatmap" viewBox="0 0 320 250" data-seatmap>
+                <rect x="110" y="12" width="100" height="22" rx="4" class="stage"/><text x="160" y="27" class="stage-t">STAGE</text>
+                <polygon class="sec" data-tier="VIP" points="108,48 212,48 232,102 88,102"/><text x="160" y="80" class="sec-t" data-sect="VIP">VIP</text>
+                <polygon class="sec" data-tier="Executive" points="84,108 236,108 256,164 64,164"/><text x="160" y="140" class="sec-t" data-sect="Executive">EXEC</text>
+                <polygon class="sec" data-tier="Virtual" points="60,170 260,170 286,230 34,230"/><text x="160" y="203" class="sec-t" data-sect="Virtual">VIRTUAL</text>
+              </svg>
+            </div>
+            <div class="info"><div class="nm" data-tier-name>Executive</div><h3>10X Real Estate Summit · Miami</h3><div class="incl">Your section is highlighted on the map — tap a section to compare.</div></div>
+            <div class="price"><div class="amt" data-tier-price>$497</div><div class="ed">One ticket</div></div>
+          </div>
+          <div class="card next">
+            <div class="nh">What happens next</div>
+            <ol>
+              <li><span class="n">1</span><span class="t">Reserve your seat now</span></li>
+              <li><span class="n">2</span><span class="t">Confirmation email + ticket</span></li>
+              <li><span class="n">3</span><span class="t">See you in Miami, Jul 27</span></li>
+            </ol>
+          </div>
+        </div>
+        <div class="right" data-checkout-col></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ C2 — MAP AS ANIMATED BAND ============ -->
+  <section class="variant" id="v-2">
+    <div class="resbar" data-resbar>
+      <div class="live-msg"><div class="lbl">Your seat is reserved — time left to check out</div><div class="timer" data-timer>10:00</div><div class="seat">Holding your <b data-tier-name>Executive</b> seat · Ticketmaster-style 10-minute hold</div></div>
+      <div class="expired-msg"><h3>Your 10-minute hold expired</h3><p>Your seat was released back to the room.</p><div class="ea"><a class="p" href="#">Reserve again</a><a class="g" href="#">Talk to a specialist</a></div></div>
+    </div>
+    <div class="wrap">
+      <div class="split">
+        <div class="left">
+          <div class="card order">
+            <div class="tk"><div class="tkph" data-tier-img>Executive ticket</div></div>
+            <div class="info"><div class="nm" data-tier-name>Executive</div><h3>10X Real Estate Summit · Miami</h3><div class="incl">In-person both days · Executive networking reception · workbook</div></div>
+            <div class="price"><div class="amt" data-tier-price>$497</div><div class="ed">One ticket</div></div>
+          </div>
+          <div class="card mapband">
+            <div class="mh"><div class="t">Where you'll be sitting <span class="accent">— your section is live on the map</span></div><div class="ph">Map art TBD</div></div>
+            <svg class="seatmap" viewBox="0 0 320 250" data-seatmap>
+              <rect x="110" y="12" width="100" height="22" rx="4" class="stage"/><text x="160" y="27" class="stage-t">STAGE</text>
+              <polygon class="sec" data-tier="VIP" points="108,48 212,48 232,102 88,102"/><text x="160" y="80" class="sec-t" data-sect="VIP">VIP</text>
+              <polygon class="sec" data-tier="Executive" points="84,108 236,108 256,164 64,164"/><text x="160" y="140" class="sec-t" data-sect="Executive">EXECUTIVE</text>
+              <polygon class="sec" data-tier="Virtual" points="60,170 260,170 286,230 34,230"/><text x="160" y="203" class="sec-t" data-sect="Virtual">VIRTUAL</text>
+            </svg>
+            <div class="legend">
+              <span><i style="background:var(--primary)"></i>Your section</span>
+              <span><i style="background:var(--surface-2);border:1px solid var(--border)"></i>Other tiers</span>
+              <span><i style="background:var(--text-strong)"></i>Stage</span>
+            </div>
+            <div class="callout">You're in <b data-tier-name>Executive</b> — center section, elevated views. <span style="color:var(--muted)">Tap another section to switch tiers.</span></div>
+          </div>
+          <div class="card next">
+            <div class="nh">What happens next</div>
+            <ol>
+              <li><span class="n">1</span><span class="t">Reserve your seat now</span></li>
+              <li><span class="n">2</span><span class="t">Confirmation email + ticket</span></li>
+              <li><span class="n">3</span><span class="t">See you in Miami, Jul 27</span></li>
+            </ol>
+          </div>
+        </div>
+        <div class="right" data-checkout-col></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</div>
+
+<!-- shared checkout column template (cloned into each variant's .right) -->
+<template id="checkout-tpl">
+  <div class="card pay">
+    <h3>Complete your reservation</h3>
+    <div class="grid">
+      <input class="fin" placeholder="Full name">
+      <input class="fin" type="email" placeholder="Email">
+      <input class="fin" type="tel" placeholder="Phone">
+      <input class="fin" placeholder="Card number">
+      <div class="row2"><input class="fin" placeholder="MM / YY"><input class="fin" placeholder="CVC"></div>
+      <button class="buy" data-buy><span class="big">COMPLETE · <span data-tier-price>$497</span></span><span class="sub">Secure your seat before the timer runs out</span></button>
+    </div>
+    <div class="recover" data-recover>
+      <div class="note">Your 10-minute hold expired — your seat was released.</div>
+      <div class="r-row"><a class="p" href="#">Reserve again</a><a href="#">Talk to a specialist</a></div>
+    </div>
+    <div class="guarantee">
+      <svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+      <p><b>Reserve risk-free.</b> Full refund up to 14 days before the event — no questions asked. <span style="color:var(--muted)">(terms TBD)</span></p>
+    </div>
+    <div class="trust">
+      <span class="sec-lock"><svg viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Encrypted &amp; secure</span>
+      <span class="cards"><span>VISA</span><span>MC</span><span>AMEX</span><span>DISC</span></span>
+    </div>
+    <a class="specialist" href="#">Prefer to talk it through first? Talk to a specialist</a>
+  </div>
+</template>
+
+<div id="tools">
+  <span>Timer</span>
+  <button onclick="demo(20)">Jump to 0:20</button>
+  <button onclick="demo(600)">Reset 10:00</button>
+  <span style="margin-left:6px">View</span>
+  <button onclick="vp('390px')">Phone</button>
+  <button onclick="vp('none')">Full</button>
+</div>
+
+<script>
+  var TIERS={Virtual:{price:'$297',blurb:'Back section · live-stream the room'},Executive:{price:'$497',blurb:'center section, elevated views'},VIP:{price:'$2,497',blurb:'front section, closest to the stage'}};
+  // clone shared checkout column into each variant
+  var tpl=document.getElementById('checkout-tpl');
+  document.querySelectorAll('[data-checkout-col]').forEach(function(c){ c.appendChild(tpl.content.cloneNode(true)); });
+
+  var current='Executive';
+  function setTier(tier){
+    if(!TIERS[tier]) return; current=tier;
+    document.querySelectorAll('[data-tier-name]').forEach(function(e){e.textContent=tier;});
+    document.querySelectorAll('[data-tier-price]').forEach(function(e){e.textContent=TIERS[tier].price;});
+    document.querySelectorAll('[data-tier-img]').forEach(function(e){e.textContent=tier+' ticket';});
+    // maps
+    document.querySelectorAll('[data-seatmap]').forEach(function(m){
+      m.querySelectorAll('.sec').forEach(function(s){s.classList.toggle('on',s.getAttribute('data-tier')===tier);});
+      m.querySelectorAll('.sec-t').forEach(function(t){t.classList.toggle('on',t.getAttribute('data-sect')===tier);});
+    });
+    // callout blurb (C2)
+    document.querySelectorAll('.mapband .callout b[data-tier-name]').forEach(function(b){
+      var sib=b.nextSibling; // keep tier name; blurb is static text — update via parent rebuild
+    });
+    document.querySelectorAll('.mapband .callout').forEach(function(c){
+      c.innerHTML='You\'re in <b data-tier-name>'+tier+'</b> — '+TIERS[tier].blurb+'. <span style="color:var(--muted)">Tap another section to switch tiers.</span>';
+    });
+  }
+  // clicking a section selects that tier
+  document.querySelectorAll('[data-seatmap] .sec').forEach(function(s){
+    s.addEventListener('click',function(){ setTier(s.getAttribute('data-tier')); });
+  });
+
+  /* countdown */
+  var remaining=600,tickId=null;
+  function fmt(s){var m=Math.floor(s/60),ss=s%60;return m+':'+(ss<10?'0':'')+ss;}
+  function render(){
+    document.querySelectorAll('#co .variant.active [data-timer]').forEach(function(t){t.textContent=fmt(remaining);t.classList.toggle('urgent',remaining<=120&&remaining>0);});
+    var expired=remaining<=0;
+    document.querySelectorAll('#co .variant.active [data-resbar]').forEach(function(b){b.classList.toggle('expired',expired);});
+    document.querySelectorAll('#co .variant.active [data-buy]').forEach(function(b){
+      b.classList.toggle('disabled',expired);
+      b.querySelector('.big').innerHTML = expired ? 'HOLD EXPIRED' : 'COMPLETE · <span data-tier-price>'+TIERS[current].price+'</span>';
+    });
+    document.querySelectorAll('#co .variant.active [data-recover]').forEach(function(r){r.classList.toggle('on',expired);});
+  }
+  function tick(){ if(remaining>0){remaining--;render();}else{clearInterval(tickId);render();} }
+  function start(){clearInterval(tickId);render();tickId=setInterval(tick,1000);}
+  function demo(s){remaining=s;start();}
+  function show(v,btn){
+    document.querySelectorAll('.variant').forEach(function(s){s.classList.remove('active')});
+    document.getElementById('v-'+v).classList.add('active');
+    document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+    btn.classList.add('active'); render(); window.scrollTo(0,0);
+  }
+  function vp(w){document.getElementById('frame').style.maxWidth=w;}
+  setTier('Executive'); start();
+</script>
+</body>
+</html>
