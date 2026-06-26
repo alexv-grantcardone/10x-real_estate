@@ -7,10 +7,9 @@
        1. Paste this whole block into ONE GHL Custom Code / HTML element on the opt-in page.
        2. CHECKOUT_URL: edit the config line in the <script> (search "PASTE_CHECKOUT_URL").
           The ticket CTA links there and appends ?tier=virtual|executive|vip.
-       3. IMAGES: upload the 3 ticket badges + a Grant photo to your GHL gallery and replace:
-            PASTE_TICKET_VIRTUAL_URL   PASTE_TICKET_EXECUTIVE_URL   PASTE_TICKET_VIP_URL
-            PASTE_GRANT_PHOTO_URL
-          (Each degrades to a labeled placeholder if left unset.)
+       3. IMAGES: the 3 ticket badges + the Grant portrait now point at the GHL media library
+          (same art as the checkout page — assets.cdn.filesafe.space/...). Swap the URLs to
+          re-skin. (Each degrades to a labeled placeholder if its URL is unset / fails.)
        4. VIDEO: the hero Wistia embed (fk5jjwzbor) is the Summit landing video — swap the id if needed.
 
      NOTES
@@ -230,15 +229,15 @@
                 <th class="feat">What's included</th>
                 <th class="col" data-tier="Virtual" aria-selected="false">
                   <!-- GHL: replace PASTE_TICKET_VIRTUAL_URL -->
-                  <div class="ticket-slot"><img src="PASTE_TICKET_VIRTUAL_URL" alt="Virtual ticket" onerror="this.style.display='none';this.parentNode.innerHTML='<div class=tkph>Virtual ticket</div>'"></div>
+                  <div class="ticket-slot"><img src="https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/691f2ce793893166ccb6d29f.png" alt="Virtual ticket" onerror="this.style.display='none';this.parentNode.innerHTML='<div class=tkph>Virtual ticket</div>'"></div>
                   <div class="nm">Virtual</div><div class="pr">$297</div><div class="seathold"><svg class="clk" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Held 10 min</div></th>
                 <th class="col" data-tier="Executive" aria-selected="true">
                   <!-- GHL: replace PASTE_TICKET_EXECUTIVE_URL -->
-                  <div class="ticket-slot"><img src="PASTE_TICKET_EXECUTIVE_URL" alt="Executive ticket" onerror="this.style.display='none';this.parentNode.innerHTML='<div class=tkph>Executive ticket</div>'"></div>
+                  <div class="ticket-slot"><img src="https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/691f2ce9330ab5df88e08a2f.png" alt="Executive ticket" onerror="this.style.display='none';this.parentNode.innerHTML='<div class=tkph>Executive ticket</div>'"></div>
                   <div class="nm">Executive</div><div class="pr">$497</div><div class="seathold"><svg class="clk" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Held 10 min</div></th>
                 <th class="col" data-tier="VIP" aria-selected="false">
                   <!-- GHL: replace PASTE_TICKET_VIP_URL -->
-                  <div class="ticket-slot"><img src="PASTE_TICKET_VIP_URL" alt="VIP ticket" onerror="this.style.display='none';this.parentNode.innerHTML='<div class=tkph>VIP ticket</div>'"></div>
+                  <div class="ticket-slot"><img src="https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/691f2ce45bbf7f74f8e8994c.png" alt="VIP ticket" onerror="this.style.display='none';this.parentNode.innerHTML='<div class=tkph>VIP ticket</div>'"></div>
                   <div class="nm">VIP</div><div class="pr">$2,497</div><div class="seathold"><svg class="clk" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Held 10 min</div></th>
               </tr>
             </thead>
@@ -260,9 +259,9 @@
           </table>
         </div>
         <div class="c-mobile">
-          <div class="cm-card" data-tier="Virtual" aria-selected="false"><div class="ticket-slot"><img src="PASTE_TICKET_VIRTUAL_URL" alt="Virtual ticket" onerror="this.style.display='none';this.parentNode.innerHTML='<div class=tkph>Virtual ticket</div>'"></div><div class="nm">Virtual</div><div class="pr">$297</div><div class="seathold"><svg class="clk" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Held 10 min</div><ul><li>Live stream of both days</li><li>Digital Summit workbook</li></ul><button class="c-pick" aria-selected="false">Reserve Virtual</button></div>
-          <div class="cm-card" data-tier="Executive" aria-selected="true"><span class="badge">Most popular</span><div class="ticket-slot"><img src="PASTE_TICKET_EXECUTIVE_URL" alt="Executive ticket" onerror="this.style.display='none';this.parentNode.innerHTML='<div class=tkph>Executive ticket</div>'"></div><div class="nm">Executive</div><div class="pr">$497</div><div class="seathold"><svg class="clk" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Held 10 min</div><ul><li>In-person, both days in Miami</li><li>Executive networking reception</li><li>Summit workbook</li></ul><button class="c-pick" aria-selected="true">Reserve Executive</button></div>
-          <div class="cm-card" data-tier="VIP" aria-selected="false"><div class="ticket-slot"><img src="PASTE_TICKET_VIP_URL" alt="VIP ticket" onerror="this.style.display='none';this.parentNode.innerHTML='<div class=tkph>VIP ticket</div>'"></div><div class="nm">VIP</div><div class="pr">$2,497</div><div class="seathold"><svg class="clk" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Held 10 min</div><ul><li>Everything in Executive</li><li>Front-row reserved seating</li><li>Private Q&amp;A lunch with Grant</li></ul><button class="c-pick" aria-selected="false">Reserve VIP</button></div>
+          <div class="cm-card" data-tier="Virtual" aria-selected="false"><div class="ticket-slot"><img src="https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/691f2ce793893166ccb6d29f.png" alt="Virtual ticket" onerror="this.style.display='none';this.parentNode.innerHTML='<div class=tkph>Virtual ticket</div>'"></div><div class="nm">Virtual</div><div class="pr">$297</div><div class="seathold"><svg class="clk" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Held 10 min</div><ul><li>Live stream of both days</li><li>Digital Summit workbook</li></ul><button class="c-pick" aria-selected="false">Reserve Virtual</button></div>
+          <div class="cm-card" data-tier="Executive" aria-selected="true"><span class="badge">Most popular</span><div class="ticket-slot"><img src="https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/691f2ce9330ab5df88e08a2f.png" alt="Executive ticket" onerror="this.style.display='none';this.parentNode.innerHTML='<div class=tkph>Executive ticket</div>'"></div><div class="nm">Executive</div><div class="pr">$497</div><div class="seathold"><svg class="clk" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Held 10 min</div><ul><li>In-person, both days in Miami</li><li>Executive networking reception</li><li>Summit workbook</li></ul><button class="c-pick" aria-selected="true">Reserve Executive</button></div>
+          <div class="cm-card" data-tier="VIP" aria-selected="false"><div class="ticket-slot"><img src="https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/691f2ce45bbf7f74f8e8994c.png" alt="VIP ticket" onerror="this.style.display='none';this.parentNode.innerHTML='<div class=tkph>VIP ticket</div>'"></div><div class="nm">VIP</div><div class="pr">$2,497</div><div class="seathold"><svg class="clk" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Held 10 min</div><ul><li>Everything in Executive</li><li>Front-row reserved seating</li><li>Private Q&amp;A lunch with Grant</li></ul><button class="c-pick" aria-selected="false">Reserve VIP</button></div>
         </div>
       </div>
 
@@ -301,9 +300,8 @@
   <section class="grant">
     <div class="wrap">
       <div class="photo">
-        <div class="ph">[ GRANT CARDONE &mdash; PORTRAIT ]</div>
-        <!-- GHL: replace PASTE_GRANT_PHOTO_URL (delete this img tag to keep the placeholder) -->
-        <img src="PASTE_GRANT_PHOTO_URL" alt="Grant Cardone" onerror="this.style.display='none'">
+        <div class="ph" style="display:none">[ GRANT CARDONE &mdash; PORTRAIT ]</div>
+        <img src="https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/6a3d428ae4daecfbb47e1024.png" alt="Grant Cardone" onerror="this.style.display='none';this.previousElementSibling.style.display=''">
       </div>
       <div>
         <div class="kick">Your host</div>
