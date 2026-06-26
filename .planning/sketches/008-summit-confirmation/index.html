@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sketch 008 — RE Summit Confirmation · "You're in" (3 hero treatments)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600;6..96,700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  /* RE SUMMIT CONFIRMATION (Page 3) — post-purchase "You're in".
+     Locked light/airy system + Cardone navy brand bar + ticket images. Flows from
+     Page 1 (opt-in 005) and Page 2 (checkout 007): same tokens, fonts, brand bar, footer.
+     3 HERO treatments (toolbar): A centered celebration · B split (mirrors checkout) · C ticket-stub.
+     Shared below the hero: event details + add-to-calendar, what's next, support, footer.
+     A buyer toggle (in-person / virtual) swaps the ticket art + venue-vs-stream card + copy.
+     Copy rules: no italics, no "FREE", Bodoni used UPRIGHT only. */
+  :root{
+    --bg:#fff;--bg-deep:#EEF3F8;--surface:#F2F8FB;--surface-2:#E7EFF5;
+    --border:rgba(10,37,64,.14);--line:rgba(10,37,64,.09);
+    --text:#33475a;--text-strong:#06192c;--muted:#6a7f8e;
+    --primary:#0E97C7;--primary-deep:#0a7aa3;--on-primary:#fff;--ok:#1a9e6a;
+    --font:'Inter',system-ui,-apple-system,sans-serif;--accent:'Bodoni Moda',Georgia,serif;
+    --maxw:1080px;--shadow:0 18px 50px rgba(10,37,64,.12);--shadow-lg:0 40px 90px -40px rgba(10,37,64,.5);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#c8d2da;margin:0}
+  #conf{font-family:var(--font);background:var(--bg-deep);color:var(--text);-webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:hidden;min-height:100vh}
+  #conf a{color:inherit;text-decoration:none}#conf img{display:block;max-width:100%}
+  #conf .accent{font-family:var(--accent);font-style:normal;font-weight:600;color:var(--primary)}
+  #conf .wrap{max-width:var(--maxw);margin:0 auto;padding-left:clamp(18px,4vw,40px);padding-right:clamp(18px,4vw,40px)}
+  #conf .kick{font-size:12.5px;font-weight:700;letter-spacing:.22em;color:var(--primary);text-transform:uppercase}
+
+  /* ===== brand bar (shared with checkout 007) ===== */
+  #conf .brandbar{background:var(--text-strong);border-bottom:1px solid rgba(255,255,255,.08)}
+  #conf .brandbar .bb-inner{max-width:var(--maxw);margin:0 auto;padding:14px clamp(18px,4vw,40px);display:flex;align-items:center;justify-content:space-between;gap:12px}
+  #conf .brandbar .bb-logo{height:34px;width:auto;display:block}
+  #conf .brandbar .bb-name{font-weight:800;font-size:18px;letter-spacing:.04em;color:#fff}
+  #conf .brandbar .bb-conf{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.78)}
+  #conf .brandbar .bb-conf svg{width:15px;height:15px;stroke:#5fe0b0;fill:none;stroke-width:2.4}
+  @media(max-width:560px){#conf .brandbar .bb-conf span{display:none}}
+
+  /* success check */
+  #conf .check{width:74px;height:74px;border-radius:50%;background:rgba(26,158,106,.12);display:grid;place-items:center;flex:none}
+  #conf .check svg{width:40px;height:40px;stroke:var(--ok);stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  #conf .check .ring{stroke:var(--ok);stroke-dasharray:151;stroke-dashoffset:151;animation:draw .6s ease-out .1s forwards}
+  #conf .check .tick{stroke-dasharray:30;stroke-dashoffset:30;animation:draw .4s ease-out .5s forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+
+  /* ===== HERO shell — radial light wash like the opt-in/final ===== */
+  #conf .hero{background:radial-gradient(820px 420px at 50% -8%,rgba(14,151,199,.16),transparent 60%),linear-gradient(180deg,#F6FAFD,var(--bg-deep) 80%);padding:clamp(34px,5vw,64px) 0 clamp(28px,4vw,48px)}
+  #conf h1.hh{font-weight:800;color:var(--text-strong);letter-spacing:-.022em;line-height:1.04;text-wrap:balance}
+  #conf .hero .lede{color:var(--text);text-wrap:pretty}
+  #conf .hero .lede b{color:var(--text-strong);font-weight:700}
+
+  /* the variants are mutually exclusive views toggled by [data-hv] on #conf.
+     display lives ONLY on the active-state selectors so the non-selected
+     variants stay hidden (base .vA/.vB/.vC must NOT set display). */
+  #conf .hv{display:none}
+  #conf[data-hv="A"] .vA{display:flex}
+  #conf[data-hv="B"] .vB{display:grid}
+  #conf[data-hv="C"] .vC{display:flex}
+
+  /* --- order facts (shared atoms) --- */
+  #conf .facts{display:grid;gap:1px;background:var(--line);border:1px solid var(--border)}
+  #conf .facts .f{background:#fff;padding:13px 16px;display:flex;justify-content:space-between;align-items:baseline;gap:14px}
+  #conf .facts .f .k{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  #conf .facts .f .v{font-size:15px;font-weight:700;color:var(--text-strong);text-align:right}
+  #conf .facts .f .v.amt{font-size:18px}
+  #conf .paid{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ok);background:rgba(26,158,106,.1);border:1px solid rgba(26,158,106,.3);padding:3px 9px;border-radius:var(--radius-full,999px)}
+  #conf .paid svg{width:12px;height:12px;stroke:var(--ok);stroke-width:3;fill:none}
+
+  /* ===== VARIANT A — centered celebration ===== */
+  #conf .vA{text-align:center;flex-direction:column;align-items:center}
+  #conf .vA .check{margin:0 auto}
+  #conf .vA h1.hh{margin-top:18px;font-size:clamp(30px,5vw,52px);max-width:16ch}
+  #conf .vA .lede{margin-top:14px;max-width:52ch;font-size:clamp(15.5px,1.5vw,18px)}
+  #conf .vA .ordercard{margin-top:30px;width:100%;max-width:540px;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow);display:flex;gap:18px;align-items:center;padding:18px;text-align:left}
+  #conf .vA .ordercard .tk{flex:none;width:104px}
+  #conf .vA .ordercard .tk img{width:100%;filter:drop-shadow(0 12px 22px rgba(10,37,64,.3))}
+  #conf .vA .ordercard .info{flex:1;min-width:0}
+  #conf .vA .ordercard .info .nm{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--primary)}
+  #conf .vA .ordercard .info h3{font-size:clamp(16px,2vw,19px);font-weight:800;color:var(--text-strong);margin-top:2px}
+  #conf .vA .ordercard .info .ord{margin-top:6px;font-size:13px;color:var(--muted)}#conf .vA .ordercard .info .ord b{color:var(--text-strong)}
+  #conf .vA .ordercard .price{text-align:right;flex:none}
+  #conf .vA .ordercard .price .amt{font-size:clamp(22px,3vw,28px);font-weight:800;color:var(--text-strong);letter-spacing:-.02em}
+  #conf .vA .ordercard .price .paid{margin-top:6px}
+  #conf .vA .emailnote{margin-top:18px;font-size:13.5px;color:var(--muted)}#conf .vA .emailnote b{color:var(--text-strong)}
+
+  /* ===== VARIANT B — split (mirrors checkout 007) ===== */
+  #conf .vB{grid-template-columns:1.05fr .95fr;gap:clamp(28px,4vw,52px);align-items:center}
+  #conf .vB .left .check{margin-bottom:18px}
+  #conf .vB h1.hh{font-size:clamp(28px,4.4vw,46px);max-width:14ch}
+  #conf .vB .lede{margin-top:14px;max-width:42ch;font-size:clamp(15px,1.4vw,17px)}
+  #conf .vB .facts{margin-top:24px;max-width:440px}
+  #conf .vB .right{position:relative;display:flex;flex-direction:column;align-items:center}
+  #conf .vB .right .tkwrap{position:relative;width:min(360px,86%)}
+  #conf .vB .right .tkwrap img{width:100%;filter:drop-shadow(0 30px 50px rgba(10,37,64,.34))}
+  #conf .vB .right .ribbon{margin-top:16px;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--primary)}
+
+  /* ===== VARIANT C — tactile ticket stub ===== */
+  #conf .vC{flex-direction:column;align-items:center;text-align:center}
+  #conf .vC .check{margin:0 auto}
+  #conf .vC h1.hh{margin-top:16px;font-size:clamp(28px,4.6vw,48px);max-width:16ch}
+  #conf .vC .lede{margin-top:12px;max-width:50ch;font-size:clamp(15px,1.4vw,17px)}
+  #conf .vC .stub{margin-top:30px;width:100%;max-width:640px;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow);display:grid;grid-template-columns:1fr 220px;text-align:left;position:relative;overflow:hidden}
+  #conf .vC .stub .topstrip{grid-column:1 / -1;background:linear-gradient(90deg,var(--text-strong),#0e2942);color:#fff;padding:12px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  #conf .vC .stub .topstrip .ev{font-weight:800;font-size:14px;letter-spacing:.02em}
+  #conf .vC .stub .topstrip .ad{font-size:10.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#5fd0f2}
+  #conf .vC .stub .main{padding:22px;display:grid;grid-template-columns:1fr 1fr;gap:18px 20px}
+  #conf .vC .stub .main .row{min-width:0}
+  #conf .vC .stub .main .row .k{font-size:10.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  #conf .vC .stub .main .row .v{font-size:16px;font-weight:800;color:var(--text-strong);margin-top:3px;line-height:1.2}
+  #conf .vC .stub .main .row .v.accent{font-family:var(--accent);color:var(--primary);font-weight:600}
+  #conf .vC .stub .perf{position:relative;border-left:2px dashed var(--border);background:var(--surface);padding:22px 18px;display:flex;flex-direction:column;justify-content:center;gap:4px;text-align:center}
+  #conf .vC .stub .perf::before,#conf .vC .stub .perf::after{content:"";position:absolute;left:-9px;width:16px;height:16px;border-radius:50%;background:var(--bg-deep);border:1px solid var(--border)}
+  #conf .vC .stub .perf::before{top:-9px}#conf .vC .stub .perf::after{bottom:-9px}
+  #conf .vC .stub .perf .tier{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--primary)}
+  #conf .vC .stub .perf .amt{font-size:26px;font-weight:800;color:var(--text-strong);letter-spacing:-.02em;margin-top:2px}
+  #conf .vC .stub .perf .ord{font-size:11.5px;color:var(--muted);margin-top:6px}#conf .vC .stub .perf .ord b{color:var(--text-strong)}
+  #conf .vC .stub .perf .paid{margin-top:10px}
+  #conf .vC .emailnote{margin-top:18px;font-size:13.5px;color:var(--muted)}#conf .vC .emailnote b{color:var(--text-strong)}
+
+  /* ===== shared body sections ===== */
+  #conf section.band{padding:clamp(30px,4vw,52px) 0}
+  #conf .sec-head{text-align:center;margin-bottom:26px}
+  #conf .sec-head h2{font-size:clamp(22px,3vw,32px);font-weight:800;color:var(--text-strong);letter-spacing:-.02em;line-height:1.1;text-wrap:balance}
+  #conf .sec-head h2 .accent{color:var(--primary)}
+  #conf .sec-head p{margin-top:8px;color:var(--text);font-size:15px;text-wrap:pretty}
+
+  /* event details — 3 cards + add to calendar */
+  #conf .details{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  #conf .dcard{background:#fff;border:1px solid var(--border);padding:22px;display:flex;flex-direction:column;gap:10px}
+  #conf .dcard .ic{width:42px;height:42px;border-radius:10px;background:var(--surface);border:1px solid var(--border);display:grid;place-items:center;flex:none}
+  #conf .dcard .ic svg{width:22px;height:22px;stroke:var(--primary);stroke-width:2;fill:none}
+  #conf .dcard h3{font-size:16px;font-weight:800;color:var(--text-strong)}
+  #conf .dcard p{font-size:14px;color:var(--text);text-wrap:pretty}#conf .dcard p b{color:var(--text-strong);font-weight:700}
+  #conf .dcard .small{font-size:12.5px;color:var(--muted)}
+  #conf .calrow{margin-top:22px;display:flex;flex-direction:column;align-items:center;gap:12px}
+  #conf .calrow .lbl{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  #conf .calrow .btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+  #conf .calbtn{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border);color:var(--text-strong);font:700 13.5px var(--font);padding:11px 18px;cursor:pointer;transition:border-color .2s,transform .2s,box-shadow .2s}
+  #conf .calbtn:hover{border-color:var(--primary);transform:translateY(-2px);box-shadow:0 10px 22px -12px rgba(14,151,199,.6)}
+  #conf .calbtn svg{width:16px;height:16px;stroke:var(--primary);stroke-width:2;fill:none}
+
+  /* what happens next — numbered, like checkout */
+  #conf .nextband{background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+  #conf .next{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;counter-reset:step}
+  #conf .next .step{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px}
+  #conf .next .n{width:34px;height:34px;border-radius:50%;background:var(--primary);color:#fff;font:800 15px var(--font);display:grid;place-items:center}
+  #conf .next .step h3{font-size:16px;font-weight:800;color:var(--text-strong);text-wrap:balance;max-width:18ch}
+  #conf .next .step p{font-size:13.5px;color:var(--text);text-wrap:pretty;max-width:30ch}
+  #conf .next .step p a{color:var(--primary-deep);font-weight:700;text-decoration:underline;text-underline-offset:2px}
+
+  /* support strip */
+  #conf .support{text-align:center}
+  #conf .support .box{background:var(--surface);border:1px solid var(--border);padding:24px;max-width:640px;margin:0 auto}
+  #conf .support h3{font-size:18px;font-weight:800;color:var(--text-strong)}
+  #conf .support p{margin-top:8px;font-size:14px;color:var(--text);text-wrap:pretty}
+  #conf .support .links{margin-top:14px;display:flex;gap:18px;justify-content:center;flex-wrap:wrap;font-size:14px;font-weight:700}
+  #conf .support a.lnk{color:var(--primary-deep);text-decoration:underline;text-underline-offset:3px}
+
+  /* footer (shared with opt-in 005) */
+  #conf .foot{background:#fff;border-top:1px solid var(--border);text-align:center;padding:40px 20px 46px}
+  #conf .foot .lname{font-weight:800;font-size:18px;color:var(--text-strong);margin-bottom:14px}
+  #conf .foot nav{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:center;margin-bottom:16px;font-weight:700;font-size:14px;color:var(--text-strong)}
+  #conf .foot nav span{color:var(--muted)}
+  #conf .foot .fine{max-width:700px;margin:0 auto;color:var(--muted);font-size:12px;line-height:1.6;text-wrap:pretty}
+
+  /* virtual / in-person visibility helpers */
+  #conf[data-buyer="virtual"] .when-inperson{display:none}
+  #conf[data-buyer="inperson"] .when-virtual{display:none}
+
+  @media(max-width:820px){
+    #conf .vB{grid-template-columns:1fr;text-align:center}#conf .vB .left .check{margin-left:auto;margin-right:auto}
+    #conf .vB h1.hh,#conf .vB .lede{margin-left:auto;margin-right:auto}#conf .vB .facts{margin-left:auto;margin-right:auto}
+    #conf .vB .right{order:-1}
+    #conf .details{grid-template-columns:1fr;max-width:420px;margin:0 auto}
+    #conf .next{grid-template-columns:1fr;max-width:340px;margin:0 auto}
+  }
+  @media(max-width:600px){
+    #conf .vA .ordercard{flex-direction:column;text-align:center}#conf .vA .ordercard .price{text-align:center}
+    #conf .vC .stub{grid-template-columns:1fr}
+    #conf .vC .stub .main{grid-template-columns:1fr}
+    #conf .vC .stub .perf{border-left:0;border-top:2px dashed var(--border)}
+    #conf .vC .stub .perf::before{top:-9px;left:50%;transform:translateX(-50%)}
+    #conf .vC .stub .perf::after{display:none}
+  }
+  @media (prefers-reduced-motion:reduce){#conf *{animation:none!important;transition:none!important}#conf .check .ring,#conf .check .tick{stroke-dashoffset:0}}
+
+  /* sketch toolbar */
+  #tools{position:fixed;bottom:12px;right:12px;z-index:9999;font-family:system-ui;font-size:12px;background:rgba(0,0,0,.74);color:#fff;padding:8px 12px;border-radius:8px;opacity:.5;transition:opacity .2s;display:flex;gap:10px;align-items:center;flex-wrap:wrap;max-width:94vw}
+  #tools:hover{opacity:1}
+  #tools .grp{display:flex;gap:6px;align-items:center}#tools .grp+.grp{border-left:1px solid #444;padding-left:10px}
+  #tools span.t{opacity:.7}
+  #tools button{font:12px system-ui;background:#1a1a1a;color:#fff;border:1px solid #444;border-radius:5px;padding:4px 8px;cursor:pointer}
+  #tools button.on{background:var(--primary);border-color:var(--primary)}
+  #tools select{font:12px system-ui;background:#1a1a1a;color:#fff;border:1px solid #444;border-radius:5px;padding:4px 6px}
+  #frame{transition:max-width .2s;margin:0 auto}
+</style>
+</head>
+<body>
+
+<div id="frame">
+<div id="conf" data-hv="C" data-buyer="inperson">
+
+  <!-- ===== brand bar ===== -->
+  <header class="brandbar"><div class="bb-inner">
+    <img class="bb-logo" src="https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/67c891eb39ce95fd8ab8d98e.png" alt="Grant Cardone" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <span class="bb-name" style="display:none">GRANT CARDONE</span>
+    <span class="bb-conf"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg><span>Order Confirmed</span></span>
+  </div></header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero"><div class="wrap">
+
+    <!-- Variant A: centered celebration -->
+    <div class="hv A vA">
+      <div class="check"><svg viewBox="0 0 52 52"><circle class="ring" cx="26" cy="26" r="24"/><path class="tick" d="M16 27l7 7 13-14"/></svg></div>
+      <div class="kick" style="margin-top:16px">Payment confirmed</div>
+      <h1 class="hh">You're in. See you in <span class="accent">Miami.</span></h1>
+      <p class="lede">Your seat at the <b>10X Real Estate Summit</b> is locked in. A confirmation and your ticket are on the way to your inbox right now.</p>
+      <div class="ordercard">
+        <div class="tk"><img data-tier-img alt="Your ticket" src="https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/691f2ce9330ab5df88e08a2f.png"></div>
+        <div class="info">
+          <div class="nm" data-tier-name>Executive</div>
+          <h3>10X Real Estate Summit</h3>
+          <div class="ord">Order <b data-order>#GC-104728</b> · <span data-email-short>your email</span></div>
+        </div>
+        <div class="price"><div class="amt" data-tier-price>$497</div><div class="paid"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Paid</div></div>
+      </div>
+      <p class="emailnote">Confirmation sent to <b data-email>you@email.com</b> — check spam if it's not there in 5 minutes.</p>
+    </div>
+
+    <!-- Variant B: split, mirrors checkout -->
+    <div class="hv B vB">
+      <div class="left">
+        <div class="check"><svg viewBox="0 0 52 52"><circle class="ring" cx="26" cy="26" r="24"/><path class="tick" d="M16 27l7 7 13-14"/></svg></div>
+        <div class="kick">Payment confirmed</div>
+        <h1 class="hh">You're in. See you in <span class="accent">Miami.</span></h1>
+        <p class="lede">Your <b data-tier-name>Executive</b> seat at the 10X Real Estate Summit is locked in. Here's your receipt — the ticket is on its way to your inbox.</p>
+        <div class="facts">
+          <div class="f"><span class="k">Ticket</span><span class="v" data-tier-name>Executive</span></div>
+          <div class="f"><span class="k">Order</span><span class="v" data-order>#GC-104728</span></div>
+          <div class="f"><span class="k">Confirmation</span><span class="v" data-email>you@email.com</span></div>
+          <div class="f"><span class="k">Amount paid</span><span class="v amt"><span data-tier-price>$497</span> &nbsp;<span class="paid"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Paid</span></span></div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="tkwrap"><img data-tier-img alt="Your ticket" src="https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/691f2ce9330ab5df88e08a2f.png"></div>
+        <div class="ribbon" data-tier-name>Executive</div>
+      </div>
+    </div>
+
+    <!-- Variant C: tactile ticket stub -->
+    <div class="hv C vC">
+      <div class="check"><svg viewBox="0 0 52 52"><circle class="ring" cx="26" cy="26" r="24"/><path class="tick" d="M16 27l7 7 13-14"/></svg></div>
+      <div class="kick" style="margin-top:14px">Payment confirmed</div>
+      <h1 class="hh">You're in. Here's your <span class="accent">ticket.</span></h1>
+      <p class="lede">A copy is on its way to your inbox — but here it is. See you in Miami.</p>
+      <div class="stub">
+        <div class="topstrip"><span class="ev">10X REAL ESTATE SUMMIT</span><span class="ad" data-admit>ADMIT ONE</span></div>
+        <div class="main">
+          <div class="row"><div class="k">Attendee</div><div class="v" data-name>Your Name</div></div>
+          <div class="row"><div class="k">Dates</div><div class="v">Jul 27&ndash;28, 2026</div></div>
+          <div class="row"><div class="k when-inperson">Location</div><div class="k when-virtual">Format</div><div class="v when-inperson">Miami, FL</div><div class="v when-virtual">Live stream</div></div>
+          <div class="row"><div class="k">Doors</div><div class="v" data-doors>8:00 AM ET</div></div>
+        </div>
+        <div class="perf">
+          <div class="tier" data-tier-name>Executive</div>
+          <div class="amt" data-tier-price>$497</div>
+          <div class="ord">Order<br><b data-order>#GC-104728</b></div>
+          <div class="paid" style="margin:10px auto 0"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Paid</div>
+        </div>
+      </div>
+      <p class="emailnote">Confirmation sent to <b data-email>you@email.com</b></p>
+    </div>
+
+  </div></section>
+
+  <!-- ===== EVENT DETAILS + ADD TO CALENDAR ===== -->
+  <section class="band"><div class="wrap">
+    <div class="sec-head">
+      <h2>Save the <span class="accent">dates</span></h2>
+      <p>Two days with Grant Cardone and a room full of active investors.</p>
+    </div>
+    <div class="details">
+      <div class="dcard">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg></div>
+        <h3>When</h3>
+        <p><b>July 27&ndash;28, 2026</b><br>Two full days</p>
+        <p class="small when-inperson">Doors 8:00 AM ET · sessions to 5:00 PM</p>
+        <p class="small when-virtual">Stream goes live 9:00 AM ET each day</p>
+      </div>
+      <div class="dcard when-inperson">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
+        <h3>Where</h3>
+        <p><b>Miami, FL</b><br>Venue &amp; room details</p>
+        <p class="small">Exact address and arrival info arrive by email closer to the date.</p>
+      </div>
+      <div class="dcard when-virtual">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="15" height="14" rx="2"/><path d="m17 9 5-3v12l-5-3"/></svg></div>
+        <h3>How to watch</h3>
+        <p><b>Private stream link</b><br>Sent to your inbox</p>
+        <p class="small">Your secure link arrives by email before day one — watch from anywhere in HD.</p>
+      </div>
+      <div class="dcard">
+        <div class="ic when-inperson"><svg viewBox="0 0 24 24"><path d="M4 7h16v13H4zM4 7l3-4h10l3 4M9 11h6"/></svg></div>
+        <div class="ic when-virtual"><svg viewBox="0 0 24 24"><path d="M4 7h16v13H4zM4 7l3-4h10l3 4M9 11h6"/></svg></div>
+        <h3>What to bring</h3>
+        <p class="when-inperson"><b>Your deals &amp; questions</b><br>and the workbook</p>
+        <p class="when-virtual"><b>The digital workbook</b><br>and your questions</p>
+        <p class="small">We'll email a prep checklist so you walk in (or log on) ready to work.</p>
+      </div>
+    </div>
+    <div class="calrow">
+      <div class="lbl">Add it to your calendar</div>
+      <div class="btns">
+        <button class="calbtn" data-cal="google"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>Google</button>
+        <button class="calbtn" data-cal="ics"><svg viewBox="0 0 24 24"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/></svg>Apple / Outlook (.ics)</button>
+      </div>
+    </div>
+  </div></section>
+
+  <!-- ===== WHAT HAPPENS NEXT ===== -->
+  <section class="nextband band"><div class="wrap">
+    <div class="sec-head"><h2>What happens <span class="accent">next</span></h2></div>
+    <div class="next">
+      <div class="step"><span class="n">1</span><h3>Check your email</h3><p>Your ticket and receipt are landing in your inbox now. Save them — your ticket is your entry.</p></div>
+      <div class="step"><span class="n">2</span>
+        <h3 class="when-inperson">Plan your trip</h3><h3 class="when-virtual">Get set up</h3>
+        <p class="when-inperson">We'll send venue, arrival, and hotel details so you're ready for two days in Miami.</p>
+        <p class="when-virtual">We'll send your private stream link and a quick how-to-join guide before day one.</p>
+      </div>
+      <div class="step"><span class="n">3</span><h3>Come ready to work</h3><p>Want a head start? <a href="#" data-specialist>Talk to a specialist</a> about your goals before the room fills.</p></div>
+    </div>
+  </div></section>
+
+  <!-- ===== SUPPORT ===== -->
+  <section class="band support"><div class="wrap">
+    <div class="box">
+      <h3>Questions about your order?</h3>
+      <p>Our team is here to help with anything &mdash; your ticket, the event, or getting the most out of your two days.</p>
+      <div class="links">
+        <a class="lnk" href="mailto:support@grantcardone.com">support@grantcardone.com</a>
+        <a class="lnk" href="tel:18003685771">1-800-368-5771</a>
+      </div>
+    </div>
+  </div></section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="foot">
+    <div class="lname">GRANT CARDONE</div>
+    <nav><a href="#">Contact Us</a><span>|</span><a href="#">Privacy Policy</a><span>|</span><a href="#">Terms &amp; Conditions</a></nav>
+    <div class="fine">At Cardone Enterprises we believe success is the result of hard work, education and persistence. Examples given should not be considered typical and there is never a guarantee of results. Information is educational in nature and is not legal or financial advice.<br>Cardone Training Technologies | 1-800-368-5771 | 18909 NE 29th Ave Aventura FL 33180 | © Cardone Enterprises.</div>
+  </footer>
+
+</div>
+</div>
+
+<div id="tools">
+  <div class="grp"><span class="t">Hero</span>
+    <button data-hv-btn="A" onclick="setHV('A',this)">A · Centered</button>
+    <button data-hv-btn="B" onclick="setHV('B',this)">B · Split</button>
+    <button data-hv-btn="C" class="on" onclick="setHV('C',this)">★ C · Stub</button>
+  </div>
+  <div class="grp"><span class="t">Buyer</span>
+    <button data-buyer-btn="inperson" class="on" onclick="setBuyer('inperson',this)">In-person</button>
+    <button data-buyer-btn="virtual" onclick="setBuyer('virtual',this)">Virtual</button>
+  </div>
+  <div class="grp"><span class="t">View</span>
+    <button onclick="vp('390px')">Phone</button>
+    <button onclick="vp('820px')">Tablet</button>
+    <button onclick="vp('none')">Full</button>
+  </div>
+  <div class="grp"><span class="t">Theme</span>
+    <select onchange="document.querySelector('link[href*=themes]')&&(document.querySelector('link[href*=themes]').href='../themes/'+this.value+'.css')">
+      <option value="default">Light</option><option value="navy">Navy</option>
+    </select>
+  </div>
+</div>
+
+<script>
+  /* tier data — mirrors checkout 007 so a purchase carries through consistently */
+  var TIERS={
+    Virtual:{price:'$297',img:'https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/691f2ce793893166ccb6d29f.png'},
+    Executive:{price:'$497',img:'https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/691f2ce9330ab5df88e08a2f.png'},
+    VIP:{price:'$2,497',img:'https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/691f2ce45bbf7f74f8e8994c.png'}
+  };
+  var root=document.getElementById('conf');
+
+  function setTier(tier){
+    if(!TIERS[tier])return; var d=TIERS[tier];
+    root.querySelectorAll('[data-tier-name]').forEach(function(e){e.textContent=tier;});
+    root.querySelectorAll('[data-tier-price]').forEach(function(e){e.textContent=d.price;});
+    root.querySelectorAll('[data-tier-img]').forEach(function(e){e.src=d.img;e.alt=tier+' ticket';});
+  }
+  function setHV(v,btn){
+    root.setAttribute('data-hv',v);
+    document.querySelectorAll('[data-hv-btn]').forEach(function(b){b.classList.toggle('on',b===btn);});
+    replayCheck();
+  }
+  function setBuyer(b,btn){
+    root.setAttribute('data-buyer',b);
+    document.querySelectorAll('[data-buyer-btn]').forEach(function(x){x.classList.toggle('on',x===btn);});
+    /* virtual buyer => Virtual tier ticket + price; in-person keeps Executive demo default */
+    setTier(b==='virtual'?'Virtual':'Executive');
+    root.querySelectorAll('[data-admit]').forEach(function(e){e.textContent=b==='virtual'?'STREAM ACCESS':'ADMIT ONE';});
+  }
+  function vp(w){document.getElementById('frame').style.maxWidth=w;}
+
+  /* replay the success-check draw when switching hero variants */
+  function replayCheck(){
+    root.querySelectorAll('.hv').forEach(function(hv){
+      if(getComputedStyle(hv).display==='none')return;
+      hv.querySelectorAll('.check .ring,.check .tick').forEach(function(p){
+        p.style.animation='none';void p.offsetWidth;p.style.animation='';
+      });
+    });
+  }
+
+  /* add-to-calendar — functional: Google link + downloadable .ics */
+  var EV={title:'10X Real Estate Summit — Grant Cardone',start:'20260727T120000Z',end:'20260728T220000Z',
+    loc:'Miami, FL',desc:'Your seat at the 10X Real Estate Summit with Grant Cardone. Two days in Miami.'};
+  function gcalUrl(){
+    return 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+      +'&text='+encodeURIComponent(EV.title)
+      +'&dates='+EV.start+'/'+EV.end
+      +'&location='+encodeURIComponent(root.getAttribute('data-buyer')==='virtual'?'Live stream (link by email)':EV.loc)
+      +'&details='+encodeURIComponent(EV.desc);
+  }
+  function icsBlob(){
+    var ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Grant Cardone//RE Summit//EN','BEGIN:VEVENT',
+      'UID:re-summit-2026@grantcardone.com','DTSTART:'+EV.start,'DTEND:'+EV.end,
+      'SUMMARY:'+EV.title,'LOCATION:'+EV.loc,'DESCRIPTION:'+EV.desc,'END:VEVENT','END:VCALENDAR'].join('\r\n');
+    return new Blob([ics],{type:'text/calendar'});
+  }
+  document.querySelectorAll('[data-cal]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      if(btn.getAttribute('data-cal')==='google'){window.open(gcalUrl(),'_blank');}
+      else{var a=document.createElement('a');a.href=URL.createObjectURL(icsBlob());a.download='10x-real-estate-summit.ics';document.body.appendChild(a);a.click();a.remove();}
+    });
+  });
+
+  setTier('Executive');
+</script>
+</body>
+</html>
