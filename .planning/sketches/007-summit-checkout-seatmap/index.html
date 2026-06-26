@@ -3,35 +3,31 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sketch 007 — RE Summit Checkout · Arena Seating Map</title>
+<title>Sketch 007 — RE Summit Checkout · Arena Seating Map (C2)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600;6..96,700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  /* RE SUMMIT CHECKOUT (Page 2) · C split layout + Ticketmaster-style ARENA seating map.
-     Bowl: STAGE -> VIP (front) -> EXECUTIVE (mid) -> VIRTUAL (back). Color = price tier;
-     your section outlined cyan + pulsing; click a section to switch tiers. Map art = placeholder.
-     C2 (map as animated band) = chosen. C1 (map replaces ticket image) kept for reference.
-     Live 10-min hold; expiry disables BUY + recovery links. Elevation: guarantee, trust, next-steps. */
+  /* RE SUMMIT CHECKOUT (Page 2) · C2 split + arena seating map.
+     Map: octagon, STAGE on top, 3 tiers stacked in rows FACING the stage (VIP front -> Virtual back).
+     Click a section -> ticket IMAGE + price + inclusions + callout all swap. Virtual has a "live" fx.
+     Live 10-min hold; expiry disables BUY + recovery. Elevation: guarantee, trust, next-steps. */
   :root{
     --bg:#fff;--bg-deep:#EEF3F8;--surface:#F2F8FB;--surface-2:#E7EFF5;
     --border:rgba(10,37,64,.14);--line:rgba(10,37,64,.09);
     --text:#33475a;--text-strong:#06192c;--muted:#6a7f8e;
     --primary:#0E97C7;--primary-deep:#0a7aa3;--on-primary:#fff;--warn:#e3503a;--ok:#1a9e6a;
-    /* arena price ramp (blues — pricier = deeper) */
     --vip:#123a66;--exec:#4f8fcf;--virtual:#cfe1f1;--floor:#eef4f8;--stage:#06192c;
     --font:'Inter',system-ui,-apple-system,sans-serif;--accent:'Bodoni Moda',Georgia,serif;
     --maxw:1080px;--shadow:0 18px 50px rgba(10,37,64,.12);--shadow-lg:0 40px 90px -40px rgba(10,37,64,.5);
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  body{background:#c8d2da;padding-top:46px}
+  body{background:#c8d2da;padding-top:42px}
   #co{font-family:var(--font);background:var(--bg-deep);color:var(--text);-webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:hidden;min-height:100vh}
-  #co a{color:inherit;text-decoration:none}
+  #co a{color:inherit;text-decoration:none}#co img{display:block;max-width:100%}
   #co .accent{font-family:var(--accent);font-style:normal;font-weight:600;color:var(--primary)}
   #co .wrap{max-width:var(--maxw);margin:0 auto;padding:clamp(20px,4vw,40px)}
-  .variant{display:none}.variant.active{display:block}
 
-  /* countdown bar */
   #co .resbar{background:linear-gradient(180deg,var(--text-strong),#0a2236);color:#fff;text-align:center;padding:clamp(20px,3vw,30px) 20px}
   #co .resbar .lbl{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.66)}
   #co .resbar .timer{font-weight:800;font-size:clamp(40px,7vw,64px);line-height:1;font-variant-numeric:tabular-nums;margin-top:6px;color:#fff}
@@ -52,7 +48,8 @@
 
   /* order summary */
   #co .order{padding:18px;display:flex;gap:16px;align-items:center}
-  #co .order .tk{flex:none;width:120px}
+  #co .order .tk{flex:none;width:110px}
+  #co .order .tk img{width:100%;height:auto;filter:drop-shadow(0 12px 22px rgba(10,37,64,.3))}
   #co .order .info{flex:1}
   #co .order .info .nm{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--primary)}
   #co .order .info h3{font-size:clamp(17px,2vw,21px);font-weight:800;color:var(--text-strong);margin-top:2px}
@@ -60,39 +57,39 @@
   #co .order .price{text-align:right}
   #co .order .price .amt{font-size:clamp(24px,3vw,32px);font-weight:800;color:var(--text-strong);letter-spacing:-.02em}
   #co .order .price .ed{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-  #co .tkph{width:96px;height:130px;display:grid;place-items:center;text-align:center;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--surface);border:1px dashed var(--border)}
 
-  /* ===== ARENA SEATING MAP ===== */
-  #co .seatmap{width:100%;height:auto;display:block}
+  /* ===== ARENA MAP (stage top · tiers stacked facing stage) ===== */
+  #co .seatmap{width:100%;height:auto;display:block;max-width:480px;margin:0 auto}
   #co .seatmap .shell{fill:none;stroke:var(--border);stroke-width:1.5}
-  #co .seatmap .sec{stroke:#fff;stroke-width:2;cursor:pointer;transition:opacity .3s,stroke .25s;opacity:.9}
+  #co .seatmap .sec{stroke:#fff;stroke-width:2;cursor:pointer;transition:opacity .3s;opacity:.82}
   #co .seatmap .sec[data-tier="VIP"]{fill:var(--vip)}
   #co .seatmap .sec[data-tier="Executive"]{fill:var(--exec)}
   #co .seatmap .sec[data-tier="Virtual"]{fill:var(--virtual)}
   #co .seatmap .sec:hover{opacity:1}
   #co .seatmap .sec.on{stroke:var(--primary);filter:drop-shadow(0 0 8px rgba(14,151,199,.7));opacity:1;animation:seatpulse 1.7s ease-in-out infinite}
-  #co .seatmap .sec:not(.on){opacity:.78}
   @keyframes seatpulse{0%,100%{stroke-width:3}50%{stroke-width:6.5}}
-  #co .seatmap .floor{fill:var(--floor);stroke:var(--border);stroke-width:1.2}
   #co .seatmap .stage{fill:var(--stage)}
-  #co .seatmap .stage-t{fill:#fff;font:800 11px var(--font);letter-spacing:.14em;text-anchor:middle}
-  #co .seatmap .floor-t{fill:var(--muted);font:700 9px var(--font);letter-spacing:.18em;text-anchor:middle;text-transform:uppercase}
-  #co .seatmap .lbl{font:800 11px var(--font);letter-spacing:.08em;text-anchor:middle;pointer-events:none}
+  #co .seatmap .stage-t{fill:#fff;font:800 12px var(--font);letter-spacing:.22em;text-anchor:middle}
+  #co .seatmap .lbl{font:800 12px var(--font);letter-spacing:.08em;text-anchor:middle;pointer-events:none}
   #co .seatmap .lbl.dark{fill:#1b3a5c}#co .seatmap .lbl.light{fill:#fff}
-  #co .seatmap .lbl .pr{font-weight:700;opacity:.85}
+  #co .seatmap .lbl .pr{font-weight:700;opacity:.9}
+  /* virtual "live stream" fx */
+  #co .seatmap .vfx{opacity:0;transition:opacity .35s;pointer-events:none}
+  #co .seatmap .vfx.show,#co .seatmap .sec[data-tier="Virtual"]:hover ~ .vfx{opacity:1}
+  #co .seatmap .vcore{fill:var(--primary-deep)}#co .seatmap .vplay{fill:#fff}
+  #co .seatmap .vradar{fill:none;stroke:var(--primary-deep);stroke-width:2;animation:vradar 1.9s ease-out infinite}
+  #co .seatmap .vradar.r2{animation-delay:.95s}
+  @keyframes vradar{0%{r:8px;opacity:.7}100%{r:30px;opacity:0}}
 
-  /* map band (C2) */
   #co .mapband{padding:20px}
-  #co .mapband .mh{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+  #co .mapband .mh{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:12px}
   #co .mapband .mh .t{font-size:14px;font-weight:800;color:var(--text-strong)}#co .mapband .mh .t .accent{color:var(--primary)}
   #co .mapband .mh .ph{font-size:11px;font-weight:700;color:var(--muted);background:var(--surface);border:1px solid var(--border);padding:3px 8px}
-  #co .mapband .seatmap{max-width:460px;margin:0 auto}
-  #co .mapband .legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;justify-content:center}
+  #co .mapband .legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px;justify-content:center}
   #co .mapband .legend span{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--text)}
   #co .mapband .legend i{width:13px;height:13px;display:inline-block;border:1px solid rgba(0,0,0,.1)}
-  #co .mapband .callout{margin-top:12px;text-align:center;font-size:13.5px;color:var(--text-strong);font-weight:600}
+  #co .mapband .callout{margin-top:12px;text-align:center;font-size:13.5px;color:var(--text-strong);font-weight:600;text-wrap:pretty}
   #co .mapband .callout b{color:var(--primary-deep)}
-  #co .order .tk .seatmap{max-width:120px}
 
   /* payment + elevation */
   #co .pay{padding:clamp(20px,2.4vw,28px)}
@@ -119,24 +116,24 @@
   #co .recover .r-row a{font-weight:700;font-size:13px;padding:10px 16px;border:1px solid var(--border)}
   #co .recover .r-row a.p{background:var(--primary);color:#fff;border-color:var(--primary)}
   #co .recover .note{font-size:12.5px;color:var(--warn);font-weight:700}
-  #co .next{padding:18px 20px}
-  #co .next .nh{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
-  #co .next ol{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-  #co .next li{display:flex;flex-direction:column;gap:5px}
-  #co .next .n{width:24px;height:24px;border-radius:50%;background:var(--primary);color:#fff;font:800 12px var(--font);display:grid;place-items:center}
-  #co .next .t{font-size:13px;font-weight:700;color:var(--text-strong);line-height:1.3}
+
+  /* what happens next — CENTERED */
+  #co .next{padding:20px}
+  #co .next .nh{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;text-align:center}
+  #co .next ol{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  #co .next li{display:flex;flex-direction:column;align-items:center;text-align:center;gap:7px}
+  #co .next .n{width:26px;height:26px;border-radius:50%;background:var(--primary);color:#fff;font:800 12px var(--font);display:grid;place-items:center}
+  #co .next .t{font-size:13px;font-weight:700;color:var(--text-strong);line-height:1.3;text-wrap:balance;max-width:15ch}
 
   @media(max-width:760px){
     #co .split{grid-template-columns:1fr}#co .right{position:static}
-    #co .order{flex-direction:column;text-align:center}#co .order .price{text-align:center}
-    #co .pay .row2{grid-template-columns:1fr}#co .next ol{grid-template-columns:1fr}
+    #co .order{flex-direction:column;text-align:center}#co .order .price{text-align:center}#co .order .tk{width:140px}
+    #co .pay .row2{grid-template-columns:1fr}#co .next ol{grid-template-columns:1fr;max-width:280px;margin:0 auto}
   }
   @media (prefers-reduced-motion:reduce){#co *{animation:none!important;transition:none!important}}
 
-  #nav{position:fixed;top:0;left:0;right:0;z-index:80;background:#02101f;border-bottom:1px solid rgba(255,255,255,.12);padding:9px 16px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-  #nav .brand{font-size:11.5px;font-weight:800;letter-spacing:.16em;color:#5fd0f2;margin-right:8px}
-  .tab{background:transparent;border:1px solid rgba(255,255,255,.22);color:#cfe2ee;font:600 12px var(--font);padding:7px 13px;border-radius:6px;cursor:pointer}
-  .tab.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+  #nav{position:fixed;top:0;left:0;right:0;z-index:80;background:#02101f;border-bottom:1px solid rgba(255,255,255,.12);padding:11px 16px;display:flex;align-items:center}
+  #nav .brand{font-size:11.5px;font-weight:800;letter-spacing:.16em;color:#5fd0f2}
   #tools{position:fixed;bottom:12px;right:12px;z-index:80;font-family:system-ui;font-size:12px;background:rgba(0,0,0,.74);color:#fff;padding:8px 12px;border-radius:8px;opacity:.5;transition:opacity .2s;display:flex;gap:8px;align-items:center}
   #tools:hover{opacity:1}#tools button{font:12px system-ui;background:#1a1a1a;color:#fff;border:1px solid #444;border-radius:5px;padding:4px 7px;cursor:pointer}
   #frame{transition:max-width .2s;margin:0 auto}
@@ -144,117 +141,79 @@
 </head>
 <body>
 
-<div id="nav">
-  <span class="brand">SKETCH 007 · CHECKOUT · ARENA MAP</span>
-  <button class="tab active" onclick="show('2',this)">C2 · Map band ★</button>
-  <button class="tab" onclick="show('1',this)">C1 · Map replaces ticket</button>
-</div>
+<div id="nav"><span class="brand">SKETCH 007 · SUMMIT CHECKOUT · C2 ARENA MAP</span></div>
 
 <div id="frame">
 <div id="co">
-
-  <!-- ============ C2 — MAP AS ANIMATED BAND (chosen) ============ -->
-  <section class="variant active" id="v-2">
-    <div class="resbar" data-resbar>
-      <div class="live-msg"><div class="lbl">Your seat is reserved — time left to check out</div><div class="timer" data-timer>10:00</div><div class="seat">Holding your <b data-tier-name>Executive</b> seat · Ticketmaster-style 10-minute hold</div></div>
-      <div class="expired-msg"><h3>Your 10-minute hold expired</h3><p>Your seat was released back to the room.</p><div class="ea"><a class="p" href="#">Reserve again</a><a class="g" href="#">Talk to a specialist</a></div></div>
-    </div>
-    <div class="wrap">
-      <div class="split">
-        <div class="left">
-          <div class="card order">
-            <div class="tk"><div class="tkph" data-tier-img>Executive ticket</div></div>
-            <div class="info"><div class="nm" data-tier-name>Executive</div><h3>10X Real Estate Summit · Miami</h3><div class="incl">In-person both days · Executive networking reception · workbook</div></div>
-            <div class="price"><div class="amt" data-tier-price>$497</div><div class="ed">One ticket</div></div>
-          </div>
-          <div class="card mapband">
-            <div class="mh"><div class="t">Where you'll be sitting <span class="accent">— your section is live</span></div><div class="ph">Map art TBD</div></div>
-            <!-- ARENA BOWL (top-down). Concentric tiers: VIP (front/inner) → Executive → Virtual (back/outer). -->
-            <svg class="seatmap" viewBox="0 0 360 280" data-seatmap role="img" aria-label="Arena seating map">
-              <polygon class="shell" points="46,6 314,6 354,46 354,234 314,274 46,274 6,234 6,46"/>
-              <polygon class="sec" data-tier="Virtual"   points="54,12 306,12 350,56 350,224 306,268 54,268 10,224 10,56"/>
-              <polygon class="sec" data-tier="Executive" points="84,42 276,42 312,78 312,202 276,238 84,238 48,202 48,78"/>
-              <polygon class="sec" data-tier="VIP"        points="110,70 250,70 276,96 276,184 250,210 110,210 84,184 84,96"/>
-              <polygon class="floor" points="136,94 224,94 242,112 242,168 224,186 136,186 118,168 118,112"/>
-              <rect class="stage" x="120" y="116" width="34" height="48" rx="3"/>
-              <text class="stage-t" x="137" y="144" transform="rotate(-90 137 140)">STAGE</text>
-              <text class="floor-t" x="198" y="143">Floor</text>
-              <text class="lbl light" x="180" y="31">VIRTUAL <tspan class="pr">· $297</tspan></text>
-              <text class="lbl light" x="180" y="60">EXECUTIVE <tspan class="pr">· $497</tspan></text>
-              <text class="lbl light" x="180" y="86">VIP <tspan class="pr">· $2,497</tspan></text>
-            </svg>
-            <div class="legend">
-              <span><i style="background:var(--vip)"></i>VIP · front</span>
-              <span><i style="background:var(--exec)"></i>Executive · center</span>
-              <span><i style="background:var(--virtual)"></i>Virtual · back</span>
-              <span><i style="background:#fff;border:2px solid var(--primary)"></i>Your section (pulsing)</span>
-            </div>
-            <div class="callout">You're in <b data-tier-name>Executive</b> — center section, elevated views. <span style="color:var(--muted)">Tap a section to switch tiers.</span></div>
-          </div>
-          <div class="card next">
-            <div class="nh">What happens next</div>
-            <ol><li><span class="n">1</span><span class="t">Reserve your seat now</span></li><li><span class="n">2</span><span class="t">Confirmation email + ticket</span></li><li><span class="n">3</span><span class="t">See you in Miami, Jul 27</span></li></ol>
-          </div>
-        </div>
-        <div class="right" data-checkout-col></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ C1 — MAP REPLACES TICKET IMAGE (reference) ============ -->
-  <section class="variant" id="v-1">
-    <div class="resbar" data-resbar>
-      <div class="live-msg"><div class="lbl">Your seat is reserved — time left to check out</div><div class="timer" data-timer>10:00</div><div class="seat">Holding your <b data-tier-name>Executive</b> seat · Ticketmaster-style 10-minute hold</div></div>
-      <div class="expired-msg"><h3>Your 10-minute hold expired</h3><p>Your seat was released back to the room.</p><div class="ea"><a class="p" href="#">Reserve again</a><a class="g" href="#">Talk to a specialist</a></div></div>
-    </div>
-    <div class="wrap">
-      <div class="split">
-        <div class="left">
-          <div class="card order">
-            <div class="tk">
-              <svg class="seatmap" viewBox="0 0 360 280" data-seatmap role="img" aria-label="Arena seating map">
-                <polygon class="shell" points="46,6 314,6 354,46 354,234 314,274 46,274 6,234 6,46"/>
-                <polygon class="sec" data-tier="Virtual"   points="54,12 306,12 350,56 350,224 306,268 54,268 10,224 10,56"/>
-                <polygon class="sec" data-tier="Executive" points="84,42 276,42 312,78 312,202 276,238 84,238 48,202 48,78"/>
-                <polygon class="sec" data-tier="VIP"        points="110,70 250,70 276,96 276,184 250,210 110,210 84,184 84,96"/>
-                <polygon class="floor" points="136,94 224,94 242,112 242,168 224,186 136,186 118,168 118,112"/>
-                <rect class="stage" x="120" y="116" width="34" height="48" rx="3"/>
-                <text class="stage-t" x="137" y="144" transform="rotate(-90 137 140)">STAGE</text>
-              </svg>
-            </div>
-            <div class="info"><div class="nm" data-tier-name>Executive</div><h3>10X Real Estate Summit · Miami</h3><div class="incl">Your section is highlighted on the arena map — tap to compare.</div></div>
-            <div class="price"><div class="amt" data-tier-price>$497</div><div class="ed">One ticket</div></div>
-          </div>
-          <div class="card next">
-            <div class="nh">What happens next</div>
-            <ol><li><span class="n">1</span><span class="t">Reserve your seat now</span></li><li><span class="n">2</span><span class="t">Confirmation email + ticket</span></li><li><span class="n">3</span><span class="t">See you in Miami, Jul 27</span></li></ol>
-          </div>
-        </div>
-        <div class="right" data-checkout-col></div>
-      </div>
-    </div>
-  </section>
-
-</div>
-</div>
-
-<template id="checkout-tpl">
-  <div class="card pay">
-    <h3>Complete your reservation</h3>
-    <div class="grid">
-      <input class="fin" placeholder="Full name">
-      <input class="fin" type="email" placeholder="Email">
-      <input class="fin" type="tel" placeholder="Phone">
-      <input class="fin" placeholder="Card number">
-      <div class="row2"><input class="fin" placeholder="MM / YY"><input class="fin" placeholder="CVC"></div>
-      <button class="buy" data-buy><span class="big">COMPLETE · <span data-tier-price>$497</span></span><span class="sub">Secure your seat before the timer runs out</span></button>
-    </div>
-    <div class="recover" data-recover><div class="note">Your 10-minute hold expired — your seat was released.</div><div class="r-row"><a class="p" href="#">Reserve again</a><a href="#">Talk to a specialist</a></div></div>
-    <div class="guarantee"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg><p><b>Reserve risk-free.</b> Full refund up to 14 days before the event — no questions asked. <span style="color:var(--muted)">(terms TBD)</span></p></div>
-    <div class="trust"><span class="sec-lock"><svg viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Encrypted &amp; secure</span><span class="cards"><span>VISA</span><span>MC</span><span>AMEX</span><span>DISC</span></span></div>
-    <a class="specialist" href="#">Prefer to talk it through first? Talk to a specialist</a>
+  <div class="resbar" data-resbar>
+    <div class="live-msg"><div class="lbl">Your seat is reserved — time left to check out</div><div class="timer" data-timer>10:00</div><div class="seat">Holding your <b data-tier-name>Executive</b> seat · Ticketmaster-style 10-minute hold</div></div>
+    <div class="expired-msg"><h3>Your 10-minute hold expired</h3><p>Your seat was released back to the room.</p><div class="ea"><a class="p" href="#">Reserve again</a><a class="g" href="#">Talk to a specialist</a></div></div>
   </div>
-</template>
+  <div class="wrap">
+    <div class="split">
+      <div class="left">
+        <div class="card order">
+          <div class="tk"><img data-tier-img alt="Selected ticket" src="https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/691f2ce9330ab5df88e08a2f.png"></div>
+          <div class="info"><div class="nm" data-tier-name>Executive</div><h3>10X Real Estate Summit · Miami</h3><div class="incl" data-tier-incl>In-person both days · Executive networking reception · workbook</div></div>
+          <div class="price"><div class="amt" data-tier-price>$497</div><div class="ed">One ticket</div></div>
+        </div>
+        <div class="card mapband">
+          <div class="mh"><div class="t">Where you'll be sitting <span class="accent">— pick your section</span></div><div class="ph">Map art TBD</div></div>
+          <svg class="seatmap" viewBox="0 0 360 280" data-seatmap role="img" aria-label="Arena seating map">
+            <polygon class="shell" points="44,6 316,6 352,42 352,226 316,262 44,262 8,226 8,42"/>
+            <rect class="stage" x="80" y="20" width="200" height="28" rx="4"/>
+            <text class="stage-t" x="180" y="39">STAGE</text>
+            <polygon class="sec" data-tier="VIP" points="92,62 268,62 284,116 76,116"/>
+            <polygon class="sec" data-tier="Executive" points="72,122 288,122 306,178 54,178"/>
+            <polygon class="sec" data-tier="Virtual" points="50,184 310,184 330,246 30,246"/>
+            <text class="lbl light" x="180" y="94">VIP <tspan class="pr">· $2,497</tspan></text>
+            <text class="lbl light" x="180" y="154">EXECUTIVE <tspan class="pr">· $497</tspan></text>
+            <text class="lbl dark" x="180" y="200">VIRTUAL <tspan class="pr">· $297</tspan></text>
+            <g class="vfx" data-vfx>
+              <circle class="vradar" cx="180" cy="223" r="8"/>
+              <circle class="vradar r2" cx="180" cy="223" r="8"/>
+              <circle class="vcore" cx="180" cy="223" r="9"/>
+              <path class="vplay" d="M177,219 l7,4 -7,4 z"/>
+            </g>
+          </svg>
+          <div class="legend">
+            <span><i style="background:var(--vip)"></i>VIP · front</span>
+            <span><i style="background:var(--exec)"></i>Executive · center</span>
+            <span><i style="background:var(--virtual)"></i>Virtual · back (live)</span>
+            <span><i style="background:#fff;border:2px solid var(--primary)"></i>Your section (pulsing)</span>
+          </div>
+          <div class="callout" data-callout>You're in <b>Executive</b> — center section, elevated views. <span style="color:var(--muted)">Tap a section to switch tiers.</span></div>
+        </div>
+        <div class="card next">
+          <div class="nh">What happens next</div>
+          <ol>
+            <li><span class="n">1</span><span class="t">Reserve your seat</span></li>
+            <li><span class="n">2</span><span class="t">Confirmation&nbsp;+ ticket emailed</span></li>
+            <li><span class="n">3</span><span class="t">See you in Miami</span></li>
+          </ol>
+        </div>
+      </div>
+      <div class="right">
+        <div class="card pay">
+          <h3>Complete your reservation</h3>
+          <div class="grid">
+            <input class="fin" placeholder="Full name">
+            <input class="fin" type="email" placeholder="Email">
+            <input class="fin" type="tel" placeholder="Phone">
+            <input class="fin" placeholder="Card number">
+            <div class="row2"><input class="fin" placeholder="MM / YY"><input class="fin" placeholder="CVC"></div>
+            <button class="buy" data-buy><span class="big">COMPLETE · <span data-tier-price>$497</span></span><span class="sub">Secure your seat before the timer runs out</span></button>
+          </div>
+          <div class="recover" data-recover><div class="note">Your 10-minute hold expired — your seat was released.</div><div class="r-row"><a class="p" href="#">Reserve again</a><a href="#">Talk to a specialist</a></div></div>
+          <div class="guarantee"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg><p><b>Reserve risk-free.</b> Full refund up to 14 days before the event — no questions asked. <span style="color:var(--muted)">(terms TBD)</span></p></div>
+          <div class="trust"><span class="sec-lock"><svg viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Encrypted &amp; secure</span><span class="cards"><span>VISA</span><span>MC</span><span>AMEX</span><span>DISC</span></span></div>
+          <a class="specialist" href="#">Prefer to talk it through first? Talk to a specialist</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 
 <div id="tools">
   <span>Timer</span><button onclick="demo(20)">Jump to 0:20</button><button onclick="demo(600)">Reset 10:00</button>
@@ -262,42 +221,37 @@
 </div>
 
 <script>
-  var TIERS={Virtual:{price:'$297',blurb:'back section · live-stream the room'},Executive:{price:'$497',blurb:'center section, elevated views'},VIP:{price:'$2,497',blurb:'front section, closest to the stage'}};
-  var tpl=document.getElementById('checkout-tpl');
-  document.querySelectorAll('[data-checkout-col]').forEach(function(c){c.appendChild(tpl.content.cloneNode(true));});
-
+  var TIERS={
+    Virtual:{price:'$297',img:'https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/691f2ce793893166ccb6d29f.png',incl:'Live-stream both days in HD · digital Summit workbook',blurb:'streamed live in HD — watch the whole room from anywhere'},
+    Executive:{price:'$497',img:'https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/691f2ce9330ab5df88e08a2f.png',incl:'In-person both days · Executive networking reception · workbook',blurb:'center section, elevated views'},
+    VIP:{price:'$2,497',img:'https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/691f2ce45bbf7f74f8e8994c.png',incl:'Front row · private Q&A lunch with Grant · VIP reception',blurb:'front section, closest to the stage'}
+  };
   var current='Executive';
   function setTier(tier){
-    if(!TIERS[tier])return; current=tier;
+    if(!TIERS[tier])return; current=tier; var d=TIERS[tier];
     document.querySelectorAll('[data-tier-name]').forEach(function(e){e.textContent=tier;});
-    document.querySelectorAll('[data-tier-price]').forEach(function(e){e.textContent=TIERS[tier].price;});
-    document.querySelectorAll('[data-tier-img]').forEach(function(e){e.textContent=tier+' ticket';});
-    document.querySelectorAll('[data-seatmap]').forEach(function(m){
-      m.querySelectorAll('.sec').forEach(function(s){s.classList.toggle('on',s.getAttribute('data-tier')===tier);});
-    });
-    document.querySelectorAll('.mapband .callout').forEach(function(c){
-      c.innerHTML='You\'re in <b data-tier-name>'+tier+'</b> — '+TIERS[tier].blurb+'. <span style="color:var(--muted)">Tap a section to switch tiers.</span>';
-    });
+    document.querySelectorAll('[data-tier-price]').forEach(function(e){e.textContent=d.price;});
+    document.querySelectorAll('[data-tier-incl]').forEach(function(e){e.textContent=d.incl;});
+    document.querySelectorAll('[data-tier-img]').forEach(function(e){e.src=d.img;e.alt=tier+' ticket';});
+    document.querySelectorAll('[data-seatmap] .sec').forEach(function(s){s.classList.toggle('on',s.getAttribute('data-tier')===tier);});
+    document.querySelectorAll('[data-vfx]').forEach(function(g){g.classList.toggle('show',tier==='Virtual');});
+    document.querySelectorAll('[data-callout]').forEach(function(c){c.innerHTML='You\'re in <b>'+tier+'</b> — '+d.blurb+'. <span style="color:var(--muted)">Tap a section to switch tiers.</span>';});
     if(typeof render==='function') render();
   }
-  document.querySelectorAll('[data-seatmap] .sec').forEach(function(s){ s.addEventListener('click',function(){setTier(s.getAttribute('data-tier'));}); });
+  document.querySelectorAll('[data-seatmap] .sec').forEach(function(s){s.addEventListener('click',function(){setTier(s.getAttribute('data-tier'));});});
 
   var remaining=600,tickId=null;
   function fmt(s){var m=Math.floor(s/60),ss=s%60;return m+':'+(ss<10?'0':'')+ss;}
   function render(){
-    document.querySelectorAll('#co .variant.active [data-timer]').forEach(function(t){t.textContent=fmt(remaining);t.classList.toggle('urgent',remaining<=120&&remaining>0);});
+    document.querySelectorAll('[data-timer]').forEach(function(t){t.textContent=fmt(remaining);t.classList.toggle('urgent',remaining<=120&&remaining>0);});
     var expired=remaining<=0;
-    document.querySelectorAll('#co .variant.active [data-resbar]').forEach(function(b){b.classList.toggle('expired',expired);});
-    document.querySelectorAll('#co .variant.active [data-buy]').forEach(function(b){
-      b.classList.toggle('disabled',expired);
-      b.querySelector('.big').innerHTML=expired?'HOLD EXPIRED':'COMPLETE · <span data-tier-price>'+TIERS[current].price+'</span>';
-    });
-    document.querySelectorAll('#co .variant.active [data-recover]').forEach(function(r){r.classList.toggle('on',expired);});
+    document.querySelectorAll('[data-resbar]').forEach(function(b){b.classList.toggle('expired',expired);});
+    document.querySelectorAll('[data-buy]').forEach(function(b){b.classList.toggle('disabled',expired);b.querySelector('.big').innerHTML=expired?'HOLD EXPIRED':'COMPLETE · <span data-tier-price>'+TIERS[current].price+'</span>';});
+    document.querySelectorAll('[data-recover]').forEach(function(r){r.classList.toggle('on',expired);});
   }
   function tick(){if(remaining>0){remaining--;render();}else{clearInterval(tickId);render();}}
   function start(){clearInterval(tickId);render();tickId=setInterval(tick,1000);}
   function demo(s){remaining=s;start();}
-  function show(v,btn){document.querySelectorAll('.variant').forEach(function(s){s.classList.remove('active')});document.getElementById('v-'+v).classList.add('active');document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});btn.classList.add('active');render();window.scrollTo(0,0);}
   function vp(w){document.getElementById('frame').style.maxWidth=w;}
   setTier('Executive'); start();
 </script>

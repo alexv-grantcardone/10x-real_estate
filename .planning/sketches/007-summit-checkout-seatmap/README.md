@@ -47,3 +47,10 @@ Click sections on the map to switch tiers; toolbar **Jump to 0:20** to see expir
 ## Verification note
 Chrome render-check skipped (DevTools session profile-locked this round); the artifact runs the
 live map interaction + countdown client-side. Re-verify in Chrome before promoting to a GHL block.
+
+## Update 2026-06-26 (Cherlon revisions)
+- Real **ticket images** wired in (virtual/executive/vip URLs); clicking a map section swaps the **image + price + inclusions + callout** in the order summary — full tier correlation before purchase.
+- Map **re-angled**: kept the octagon, but tiers are now **stacked rows facing the stage** (STAGE on top → VIP front → Executive → Virtual back) instead of concentric rings.
+- **Virtual "live" effect**: radar-pulse + play glyph appears on the Virtual band on hover/select (signals the live HD stream).
+- Callout copy swaps per tier; **"What happens next" centered** + orphan removed.
+- Dropped the C1 tab (C2 locked) — sketch is now the single C2 page. Verified in Chrome (image swap + virtual fx confirmed). Ticket art = the real provided badges; arena map art still placeholder.
