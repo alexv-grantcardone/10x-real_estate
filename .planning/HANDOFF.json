@@ -1,50 +1,59 @@
 {
   "version": "1.0",
-  "timestamp": "2026-06-26T16:30:00.000Z",
+  "timestamp": "2026-06-27T01:38:50.173Z",
   "context": "sketch",
   "phase": null,
-  "phase_name": "RE Summit funnel (03) — page-by-page design + GHL blocks",
+  "phase_name": "RE Summit funnel (03) — page-by-page design + paste-ready GHL blocks",
   "phase_dir": ".planning/sketches",
-  "active_sketch": "007-summit-checkout-seatmap",
+  "active_sketch": "008-summit-confirmation",
   "status": "paused",
-  "reason": "Context window near-exhausted; paused at a clean checkpoint before building Page 3.",
+  "reason": "All 3 RE Summit pages designed AND shipped as production GHL blocks, pushed to GitHub. Clean stopping point.",
   "completed_tasks": [
-    {"id": 1, "name": "Page 1 opt-in DESIGN locked — sketch 005 V2 (video hero, inline 10-min hold)", "status": "done"},
-    {"id": 2, "name": "Page 1 opt-in PRODUCTION GHL block shipped: funnels/03-re-summit/steps/01-optin/blocks/01-optin.html (scoped #gcre-summit-optin)", "status": "done", "commit": "7e2fa5b"},
-    {"id": 3, "name": "Page 2 checkout DESIGN locked — sketch 007 C2: full-bleed, Cardone brand bar, arena seating map (octagon, STAGE top, VIP front/Executive/Virtual back), color=price, click section -> ticket image+price+inclusions+callout swap, Virtual 'STREAMING' live fx, live 10-min countdown, expiry disables BUY + tap-a-section restarts hold (no redirect), guarantee/trust/next-steps elevation", "status": "done", "commit": "3228a97"},
-    {"id": 4, "name": "Page 2 design copy saved to CRO folder: 'Conversion Rate Optimization Specialist/re-summit-checkout-seatmap.html'", "status": "done"}
+    {"id": 1, "name": "Page 3 confirmation DESIGN — sketch 008, winner C (tactile ticket-stub 'You're in'); 3 hero treatments + in-person/virtual toggle + functional add-to-calendar", "status": "done", "commit": "861adef"},
+    {"id": 2, "name": "Page 2 checkout PRODUCTION block: funnels/03-re-summit/steps/02-checkout/blocks/02-checkout.html (scoped #gcre-summit-checkout, live 10-min hold, interactive seat map, re-startable expiry)", "status": "done", "commit": "0fbe079"},
+    {"id": 3, "name": "Page 3 thank-you PRODUCTION block: funnels/03-re-summit/steps/03-thank-you/blocks/03-thank-you.html (scoped #gcre-summit-confirm, ticket-stub, reads ?tier=virtual|executive|vip for in-person vs virtual)", "status": "done", "commit": "0fbe079"},
+    {"id": 4, "name": "Page 1 opt-in IMAGE FIX: wired real ticket art (Virtual/Executive/VIP) + Grant portrait (6a3d428a) into empty PASTE_*_URL placeholders; hid the portrait placeholder text", "status": "done", "commit": "89cfa48"},
+    {"id": 5, "name": "Funnel README index: funnels/03-re-summit/README.md — table of the 3 paste-ready blocks + go-live placeholder checklist", "status": "done", "commit": "66cde6e"},
+    {"id": 6, "name": "Bodoni accent legibility fix on ALL 3 pages: font-optical-sizing:none + font-variation-settings 'opsz' 18 on .accent (fixes spindly-thin display hairlines)", "status": "done", "commit": "e789214"},
+    {"id": 7, "name": "Pushed everything to GitHub (alexv-grantcardone/10x-real_estate, main) — local == origin, 0 ahead/0 behind", "status": "done"}
   ],
   "remaining_tasks": [
-    {"id": 5, "name": "BUILD PAGE 3 — Confirmation / 'You're in' (sketch 008). RE Summit, light/airy, same Cardone brand bar. Sections: confirmation hero (you're confirmed + purchased ticket image/tier/order#/amount) -> event details card (Miami Jul 27-28 2026, add-to-calendar, venue/arrival) -> what's next (check email for ticket; per Alex strategy post-purchase/specialist path) -> Virtual-buyer variant ('your stream link arrives by email') -> footer. Verify desktop+mobile in Chrome, artifact, commit, offer CRO-folder save.", "status": "not_started", "priority": "NEXT"},
-    {"id": 6, "name": "Convert Page 2 (checkout) to a paste-ready GHL block (native One Step Order mount like RELT VIP page + countdown wrapper + real map art)", "status": "not_started"},
-    {"id": 7, "name": "Push ~11 unpushed commits on main to GitHub (Page 1 block + sketches 002-007) so Alex sees progress", "status": "not_started"}
+    {"id": 8, "name": "GO-LIVE WIRING (needs Alex/real values): Page1 PASTE_CHECKOUT_URL; Page2 PASTE_ORDER_URL or mount GHL native One-Step Order form at 'GHL ORDER FORM MOUNT' + PASTE_SPECIALIST_URL; Page3 PASTE_SPECIALIST_URL + name/email/order merge tags", "status": "not_started", "priority": "NEXT (blocked on inputs)"},
+    {"id": 9, "name": "OPTIONAL cleanup: remove 3 stale '<!-- GHL: replace PASTE_TICKET_*_URL -->' comments in Page 1 (images now wired; comments are misleading). Offered, user has not confirmed.", "status": "not_started"},
+    {"id": 10, "name": "OPTIONAL consistency: apply the same opsz-18 accent fix to the .planning/sketches/ originals + themes/ (production blocks already fixed). Offered, user has not confirmed.", "status": "not_started"},
+    {"id": 11, "name": "OPTIONAL: if opsz 18 still reads light in GHL, nudge lower (sturdier) or bump accent weight to 700.", "status": "not_started"},
+    {"id": 12, "name": "NEXT MILESTONE (deferred): propagate the locked light/airy design system to RELT (Live Training) + RESS ($297) funnels", "status": "not_started"}
   ],
   "blockers": [
-    {"description": "Real arena-map graphics/components — Cherlon supplying; current map is a placeholder SVG", "type": "external"},
-    {"description": "Reconcile 'Virtual' tier: literal physical back section vs. remote stream-only (affects map + copy)", "type": "human_action"},
-    {"description": "Value-stack bonuses (checkout) parked pending Rosa", "type": "external"},
-    {"description": "Real per-tier prices ($297/$497/$2,497 placeholders; Virtual $297 collides with the $297 RESS), checkout URL, booking/specialist URL, guarantee terms, Grant photo — all TBD", "type": "human_action"}
+    {"description": "Real per-tier prices ($297 Virtual / $497 Executive / $2,497 VIP are placeholders; Virtual $297 collides with the $297 RESS), checkout/order URL, specialist/booking URL, guarantee terms — all TBD from Alex", "type": "human_action"},
+    {"description": "Page 2 payment is design-only: real charges need GHL's native One-Step Order form mounted (marked 'GHL ORDER FORM MOUNT') or PASTE_ORDER_URL set", "type": "human_action"},
+    {"description": "Arena seat-map art on Page 2 is a placeholder SVG ('Map art TBD') — Cherlon supplying final art; keep data-tier attributes so click-to-select still works", "type": "external"},
+    {"description": "Virtual tier semantics (physical back section vs remote stream-only) still to reconcile — affects map + copy", "type": "human_action"}
   ],
   "decisions": [
-    {"decision": "RE Summit = light/airy palette (#EEF3F8 bg, navy text, cyan #0E97C7), Inter + Bodoni upright, no italics, no 'FREE'", "rationale": "locked across sketches 003-007"},
-    {"decision": "10-minute hold lives on Page 2 checkout only (live timer); NO countdown on Page 1 opt-in (ROADMAP — avoid cannibalizing $297 RESS)", "rationale": "Alex strategy 260625-htk"},
-    {"decision": "Expired hold is RE-STARTABLE by tapping a map section (resets 10:00, re-enables BUY, no redirect)", "rationale": "Cherlon 2026-06-26"},
-    {"decision": "Remove the word 'Ticketmaster' from all client-facing page copy (reference only)", "rationale": "Cherlon 2026-06-26"},
-    {"decision": "Checkout = single primary BUY CTA + tiny 'talk to a specialist' link; brand bar uses the GC white-knockout logo on navy", "rationale": "Cherlon"}
+    {"decision": "Page 3 confirmation hero = winner C (tactile ticket-stub) over A (centered) / B (split)", "rationale": "Cherlon chose it 2026-06-26 — most tangible 'here's your ticket' reward; A/B preserved in sketch 008"},
+    {"decision": "Production block scopes: #gcre-summit-optin / #gcre-summit-checkout / #gcre-summit-confirm", "rationale": "gcre- vertical prefix, collision-safe in GHL; no <body> styling"},
+    {"decision": "Page 3 in-person vs virtual is driven by ?tier= URL param (checkout CTA appends it), not a manual toggle", "rationale": "GHL-native; default Executive/in-person"},
+    {"decision": "Bodoni accent pinned to opsz 18 with font-optical-sizing:none", "rationale": "auto optical sizing picked the high-contrast display cut at large sizes -> spindly hairlines; pinning to the text cut restores legibility while keeping elegance"},
+    {"decision": "Ticket art + GC logo + Grant portrait use real GHL media-library URLs (assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/...)", "rationale": "uploaded assets work instantly in GHL; same art across all 3 pages"}
   ],
   "key_files": [
-    ".planning/sketches/007-summit-checkout-seatmap/index.html (Page 2 design, current)",
-    ".planning/sketches/005-summit-optin-10min-hold/index.html (Page 1 design, winner V2)",
-    "funnels/03-re-summit/steps/01-optin/blocks/01-optin.html (Page 1 production block)",
-    ".planning/sketches/MANIFEST.md (sketch index)",
-    "funnels/03-re-summit/README.md (funnel: Miami Jul 27-28 2026; tiers Virtual/Executive/VIP)"
+    "funnels/03-re-summit/README.md (index of the 3 blocks + go-live checklist)",
+    "funnels/03-re-summit/steps/01-optin/blocks/01-optin.html (Page 1 production, images + opsz fixed)",
+    "funnels/03-re-summit/steps/02-checkout/blocks/02-checkout.html (Page 2 production)",
+    "funnels/03-re-summit/steps/03-thank-you/blocks/03-thank-you.html (Page 3 production)",
+    ".planning/sketches/008-summit-confirmation/index.html (Page 3 design, 3 variants, winner C)",
+    ".planning/sketches/005-summit-optin-10min-hold/ + 007-summit-checkout-seatmap/ (Page 1/2 designs)",
+    ".planning/sketches/MANIFEST.md (sketch index)"
   ],
   "ghl_assets": {
     "gc_logo_white": "https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/67c891eb39ce95fd8ab8d98e.png",
     "ticket_virtual": "https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/691f2ce793893166ccb6d29f.png",
     "ticket_executive": "https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/691f2ce9330ab5df88e08a2f.png",
-    "ticket_vip": "https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/691f2ce45bbf7f74f8e8994c.png"
+    "ticket_vip": "https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/691f2ce45bbf7f74f8e8994c.png",
+    "grant_portrait": "https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/6a3d428ae4daecfbb47e1024.png"
   },
-  "next_action": "Build Page 3 confirmation as sketch 008 (plan in remaining_tasks id 5). Reuse the locked light/airy system + Cardone brand bar + ticket images. Verify desktop+mobile in Chrome (if DevTools profile locks: pkill -f 'chrome-devtools-mcp/chrome-profile'), publish artifact, commit, then offer to save to the CRO folder.",
-  "context_notes": "Scratchpad has resized ticket webps (tkts-virtual/executive/vip.webp + tk-*.webp) for embedding into artifacts (claude.ai CSP blocks remote images). Sketches use remote URLs (work locally/GHL); artifact builds substitute data URIs. gsd-tools binary: node $HOME/.claude/gsd-core/bin/gsd-tools.cjs (no global gsd-sdk). All design work committed; ~11 commits unpushed on main."
+  "uncommitted_files": [".planning/STATE.md (state bookkeeping only)"],
+  "next_action": "All 3 Summit pages are designed, shipped as production GHL blocks, and pushed. Nothing is blocked on design. Next real work is GO-LIVE WIRING (task 8) — fill PASTE_CHECKOUT_URL / order form / specialist URL / merge tags once Alex supplies real values. Optional polish: tasks 9-11. New milestone: propagate system to RELT/RESS (task 12).",
+  "context_notes": "Repo = GHL paste-ready inline code blocks only (no standalone sites). Verify designs in Chrome via chrome-devtools MCP (if profile locks: pkill -f 'chrome-devtools-mcp/chrome-profile'). Sketches use remote GHL CDN image URLs (work locally + in GHL). gsd commit helper: node $HOME/.claude/gsd-core/bin/gsd-tools.cjs query commit '<msg>' --files <paths>. GitHub remote: alexv-grantcardone/10x-real_estate; push had one transient 'Connection reset' — just retry. Author for Supabase remember() = read repo-root .author file."
 }
