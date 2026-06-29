@@ -25,6 +25,11 @@ These are starting defaults, not gospel — override them when our own test log 
   - **Technique:** split the headline into spans and control wrapping per part. Put `text-wrap:balance` on the wrapping part so the last line never orphans. Force short kicker/accent phrases (e.g. a date) onto one line with `display:block; white-space:nowrap;` + a viewport-sized `clamp()` font that fits at every width. Honor any per-viewport line preference the client gives.
   - First applied: RE Live VIP upsell (`re-live-vip-upsell-checkout.html`), 2026-06-26 — desktop = script date line + tagline on one line (h1 capped at 52px); mobile = date line + tagline balanced to 2 lines.
 
+- **White-background product image on a tinted panel → use `mix-blend-mode:multiply`.** When a product/mockup JPEG has a baked-in WHITE background but the design calls for it to sit on a colored/gray panel, don't show the white box and don't ask for a transparent PNG — set `mix-blend-mode:multiply` on the `<img>`. White (×anything) leaves the panel color untouched, so the white bg vanishes into the panel while the product (with its own soft shadows) stays intact. Works cleanly on light tints (e.g. `--gray-zone:#f2f2f4`). Keep the tinted panel present on BOTH desktop and mobile so the blend has something to blend into.
+  - First applied: RE Live VIP upsell, 2026-06-29 — swapped offer image to a white-bg Home Study Manual shot; kept the gray zone on mobile (was transparent) and multiplied the image into it.
+
+- **Above-the-fold CTA + price on offer/upsell pages.** Put a clear action CTA ("Secure VIP Access Now") and the price (was → today) directly under the offer graphic so both are visible without scrolling, on desktop AND mobile. Echoing the price block top + bottom is fine.
+
 ## Measurement
 - Define the conversion event per funnel (opt-in submit, registration, purchase) and track it in GHL (and pixel/GA if configured).
 - When we run an A/B test, log the variant, the metric, sample size, and result below.
