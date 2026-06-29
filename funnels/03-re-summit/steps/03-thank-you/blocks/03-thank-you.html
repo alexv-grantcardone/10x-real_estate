@@ -37,9 +37,10 @@
     --maxw:1080px;--shadow:0 18px 50px rgba(10,37,64,.12);--shadow-lg:0 40px 90px -40px rgba(10,37,64,.5);
   }
   #gcre-summit-confirm,#gcre-summit-confirm *{margin:0;padding:0;box-sizing:border-box}
-  #gcre-summit-confirm{font-family:var(--font);background:var(--bg-deep);color:var(--text);-webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:hidden;width:100%;min-height:100vh}
+  #gcre-summit-confirm{font-family:var(--font);font-optical-sizing:auto;background:var(--bg-deep);color:var(--text);-webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:hidden;width:100%;min-height:100vh}
   #gcre-summit-confirm a{color:inherit;text-decoration:none}#gcre-summit-confirm img{display:block;max-width:100%}
-  #gcre-summit-confirm .accent{font-family:var(--accent);font-style:normal;font-weight:600;color:var(--primary);font-optical-sizing:none;font-variation-settings:'opsz' 18}
+  /* opsz 9 forces Bodoni Moda's sturdier text design so the thin strokes stay legible at large sizes (matches re-live-vip-upsell-checkout) */
+  #gcre-summit-confirm .accent{font-family:var(--accent);font-style:normal;font-weight:600;color:var(--primary);font-optical-sizing:auto;font-variation-settings:'opsz' 9}
   #gcre-summit-confirm .wrap{max-width:var(--maxw);margin:0 auto;padding-left:clamp(18px,4vw,40px);padding-right:clamp(18px,4vw,40px)}
   #gcre-summit-confirm .kick{font-size:12.5px;font-weight:700;letter-spacing:.22em;color:var(--primary);text-transform:uppercase}
 
