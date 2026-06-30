@@ -6,9 +6,9 @@ current_phase: 1
 current_phase_name: Foundation & GHL Reality
 status: planning
 stopped_at: context exhaustion at 75% (2026-06-26)
-last_updated: "2026-06-26T19:00:49.462Z"
-last_activity: 2026-06-26
-last_activity_desc: "Completed quick task 260626-fq3: RE Summit opt-in (Page 1) → paste-ready GHL block"
+last_updated: "2026-06-30T18:10:00.000Z"
+last_activity: 2026-06-30
+last_activity_desc: "Completed quick task 260630-jmm: RELT Optin-Scratch hero split-test variation (headline+subhead swap)"
 progress:
   total_phases: 3
   completed_phases: 0
@@ -31,7 +31,7 @@ See: .planning/PROJECT.md (updated 2026-06-19)
 Phase: 1 of 3 (Foundation & GHL Reality)
 Plan: 0 of TBD in current phase
 Status: Ready to plan
-Last activity: 2026-06-30 — Completed quick task 260630-dxw: RELT (Live Training) opt-in (Page 1) → paste-ready GHL block with $5.3B figure
+Last activity: 2026-06-30 — Completed quick task 260630-jmm: RELT Optin-Scratch hero split-test variation (headline + subheadline swap vs control)
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -86,6 +86,7 @@ None yet.
 | 260625-htk | RE Summit: 72h reservation → 10-min Ticketmaster-style hold (live checkout countdown + rewritten email strategy) across planning docs + memory | 2026-06-25 | 29bacaf | [260625-htk-re-summit-10min-hold-strategy](./quick/260625-htk-re-summit-10min-hold-strategy/) |
 | 260626-fq3 | RE Summit opt-in (Page 1) → paste-ready GHL block `01-optin.html` (sketch 005 V2, scoped `#gcre-summit-optin`, real `<a>` CTAs → CHECKOUT_URL, image placeholders) | 2026-06-26 | 7e2fa5b | [260626-fq3-convert-locked-re-summit-opt-in-sketch-0](./quick/260626-fq3-convert-locked-re-summit-opt-in-sketch-0/) |
 | 260630-dxw | RELT (Live Training) opt-in (Page 1) → paste-ready GHL block `01-hero.html` (scoped `#relt`, native-form teleport/skin); `$5.5B` → `$5.3B` in stats + testimonial | 2026-06-30 | b2373d8 | [260630-dxw-add-relt-opt-in-page-with-5-3b-figure](./quick/260630-dxw-add-relt-opt-in-page-with-5-3b-figure/) |
+| 260630-jmm | RELT **Optin-Scratch** hero split-test variation `01-hero--scratch.html` (variant B vs control) — headline + subheadline swap only ("Get Into Real Estate…From Scratch" / $5.5B blueprint), all logic/layout identical | 2026-06-30 | ad5842e | [260630-jmm-create-relt-optin-scratch-split-test-var](./quick/260630-jmm-create-relt-optin-scratch-split-test-var/) |
 
 ## Deferred Items
 
