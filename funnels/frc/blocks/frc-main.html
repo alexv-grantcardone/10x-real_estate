@@ -1,0 +1,64 @@
+<!--
+  FRC — MAIN opt-in page · custom CTA that fires the native GHL popup button
+  ===========================================================================
+  PAGE-SPECIFIC. Native GHL trigger on this page:
+      id    : button-pn7lhfErSM5V_btn   (wrapper: button-pn7lhfErSM5V)
+      class : cbutton-pn7lhfErSM5V
+      label : "Book your strategy session"
+
+  This page has MULTIPLE native buttons, so we target the EXACT id above
+  (the universal pattern selector would be ambiguous here).
+
+  SETUP IN GHL
+    1. Keep the native "Book your strategy session" button on the page,
+       but HIDE it (Advanced CSS: display:none). DO NOT delete it —
+       .click() still fires the popup while hidden; removing it breaks it.
+    2. Paste this whole block into a custom HTML/code element where you
+       want the visible CTA to appear.
+    3. Restyle .gc-cta to taste; the script is what does the work.
+
+  REPEAT FOR OTHER PAGES: copy this file, swap the id in BTN_ID below
+  (and the comment above) for that page's native button id.
+-->
+
+<div class="gc-popup-cta-wrap">
+  <button type="button" id="gc-cta" class="gc-cta">Book Your Strategy Session</button>
+</div>
+
+<style>
+  .gc-popup-cta-wrap{ text-align:center; }
+  .gc-cta{
+    --gc-accent:#13c2c2;          /* teal accent — re-theme per funnel */
+    --gc-accent-ink:#03363d;
+    display:inline-block;
+    padding:16px 40px;
+    font:700 18px/1 inherit;
+    letter-spacing:.02em;
+    color:var(--gc-accent-ink);
+    background:var(--gc-accent);
+    border:0;
+    border-radius:10px;
+    cursor:pointer;
+    box-shadow:0 6px 18px rgba(0,0,0,.18);
+    transition:transform .15s ease, filter .15s ease;
+  }
+  .gc-cta:hover{ transform:translateY(-2px); filter:brightness(1.06); }
+  .gc-cta:active{ transform:translateY(0); }
+</style>
+
+<script>
+  (function(){
+    // ↓↓↓ The ONLY thing to change per page ↓↓↓
+    var BTN_ID = "button-pn7lhfErSM5V_btn";   // native GHL trigger for THIS page
+
+    var cta = document.getElementById("gc-cta");
+    if(!cta) return;
+    cta.addEventListener("click", function(){
+      // Look up the native trigger at click time (GHL may render it late).
+      var t = document.getElementById(BTN_ID)
+           || document.getElementById(BTN_ID.replace(/_btn$/, ""))   // wrapper fallback
+           || document.querySelector('.' + BTN_ID.replace(/_btn$/, "").replace("button-", "cbutton-"));
+      if(t){ t.click(); }
+    });
+  })();
+</script>
