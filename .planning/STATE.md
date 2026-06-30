@@ -31,7 +31,7 @@ See: .planning/PROJECT.md (updated 2026-06-19)
 Phase: 1 of 3 (Foundation & GHL Reality)
 Plan: 0 of TBD in current phase
 Status: Ready to plan
-Last activity: 2026-06-26 — Completed quick task 260626-fq3: RE Summit opt-in (Page 1) → paste-ready GHL block
+Last activity: 2026-06-30 — Completed quick task 260630-dxw: RELT (Live Training) opt-in (Page 1) → paste-ready GHL block with $5.3B figure
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -85,6 +85,7 @@ None yet.
 |---|-------------|------|--------|-----------|
 | 260625-htk | RE Summit: 72h reservation → 10-min Ticketmaster-style hold (live checkout countdown + rewritten email strategy) across planning docs + memory | 2026-06-25 | 29bacaf | [260625-htk-re-summit-10min-hold-strategy](./quick/260625-htk-re-summit-10min-hold-strategy/) |
 | 260626-fq3 | RE Summit opt-in (Page 1) → paste-ready GHL block `01-optin.html` (sketch 005 V2, scoped `#gcre-summit-optin`, real `<a>` CTAs → CHECKOUT_URL, image placeholders) | 2026-06-26 | 7e2fa5b | [260626-fq3-convert-locked-re-summit-opt-in-sketch-0](./quick/260626-fq3-convert-locked-re-summit-opt-in-sketch-0/) |
+| 260630-dxw | RELT (Live Training) opt-in (Page 1) → paste-ready GHL block `01-hero.html` (scoped `#relt`, native-form teleport/skin); `$5.5B` → `$5.3B` in stats + testimonial | 2026-06-30 | b2373d8 | [260630-dxw-add-relt-opt-in-page-with-5-3b-figure](./quick/260630-dxw-add-relt-opt-in-page-with-5-3b-figure/) |
 
 ## Deferred Items
 
