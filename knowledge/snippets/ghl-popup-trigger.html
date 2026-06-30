@@ -1,0 +1,57 @@
+<!--
+  GHL POPUP TRIGGER — universal, paste-ready code block
+  ------------------------------------------------------
+  WHAT IT DOES: gives you your own styled CTA inside a GHL custom-code block
+  that opens a GHL popup. You can't wire a code-block button to a popup through
+  the GHL UI, so we JS-click the page's hidden native GHL trigger button instead.
+
+  HOW TO USE:
+    1. In GHL, add the popup the normal way and a native button that opens it.
+    2. Hide that native button (Advanced CSS: display:none) — DO NOT delete it.
+       .click() still fires the popup while it's hidden; removing it breaks the popup.
+    3. Paste this whole block into a GHL custom HTML/code element.
+    4. Restyle the .gc-cta button below to taste (or drop in your own markup).
+
+  WHY IT'S UNIVERSAL: GHL names every native button "button-<hash>_btn".
+  On a page with only ONE native button, the selector below finds it by pattern,
+  so this exact block works on any single-button page with NO edits.
+  (If a page has multiple native buttons, give the trigger button a class like
+  "gc-popup-open" in GHL and change the selector to '.gc-popup-open'.)
+-->
+
+<div class="gc-popup-cta-wrap">
+  <button type="button" id="gc-cta" class="gc-cta">Reserve My Seat</button>
+</div>
+
+<style>
+  .gc-popup-cta-wrap{ text-align:center; }
+  .gc-cta{
+    --gc-accent:#13c2c2;          /* teal accent — re-theme per funnel */
+    --gc-accent-ink:#03363d;
+    display:inline-block;
+    padding:16px 40px;
+    font:700 18px/1 inherit;
+    letter-spacing:.02em;
+    color:var(--gc-accent-ink);
+    background:var(--gc-accent);
+    border:0;
+    border-radius:10px;
+    cursor:pointer;
+    box-shadow:0 6px 18px rgba(0,0,0,.18);
+    transition:transform .15s ease, filter .15s ease;
+  }
+  .gc-cta:hover{ transform:translateY(-2px); filter:brightness(1.06); }
+  .gc-cta:active{ transform:translateY(0); }
+</style>
+
+<script>
+  (function(){
+    var cta = document.getElementById("gc-cta");
+    if(!cta) return;
+    cta.addEventListener("click", function(){
+      // Look up the native GHL trigger at click time (it may render late).
+      var t = document.querySelector('[id^="button-"][id$="_btn"]');
+      if(t){ t.click(); }
+    });
+  })();
+</script>
