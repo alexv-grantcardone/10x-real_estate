@@ -1,0 +1,692 @@
+<!-- ============================================================================
+     GRANT CARDONE · REAL ESTATE LIVE TRAINING  (GHL Custom Code, single element)
+     - Paste this whole block into ONE Custom HTML/JavaScript element.
+     - Put a native GHL FORM element in the SAME section (it can sit anywhere;
+       it does NOT need to be visible/positioned — the script finds it, restyles
+       it to match this design, and teleports it into the signup panel so all
+       GHL opt-in tracking, automations, and redirects fire natively).
+     - Two images use labeled placeholders. Search for  PASTE_HERO_IMAGE_URL
+       and  PASTE_TESTIMONIAL_IMAGE_URL  and drop in your GHL gallery links.
+     ============================================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;1,6..96,400;1,6..96,500;1,6..96,600;1,6..96,700&family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,400&display=swap" rel="stylesheet">
+
+<style>
+  /* ---- tokens ---- */
+
+
+  #relt{
+    --navy:#0A2540;
+    --navy-deep:#06192c;
+    --panel:#0B3C54;
+    --imgbg:#0a1d33;
+    --cyan:#13DDE2;
+    --cyan-dim:#13DDE2;
+    --bone:#EAEAEA;
+    --muted:#6f93a6;
+    --rule:rgba(19,221,226,.18);
+    --relt-max:1300px;
+  }
+
+  /* ---- reset, scoped tight to our wrapper ---- */
+  #relt, #relt *{ margin:0; padding:0; box-sizing:border-box; }
+  #relt{
+    font-family:'Inter',sans-serif;
+    font-optical-sizing:auto;
+    background:var(--navy);
+    color:var(--bone);
+    -webkit-font-smoothing:antialiased;
+    width:100%;
+    overflow-x:hidden;
+    position:relative;
+    z-index:1;
+  }
+  #relt img{ max-width:100%; display:block; }
+  #relt .relt-shell{ width:100%; max-width:none; margin:0 auto; background:var(--navy); overflow:hidden; }
+  #relt .serif{ font-family:'Bodoni Moda',serif; font-optical-sizing:auto; font-weight:500; font-style:italic; font-variation-settings: 'opsz' 9; }
+  #relt .relt-hero h1 em { font-variation-settings: 'opsz' 9; }
+#relt .relt-signup h2 em { font-variation-settings: 'opsz' 9; }
+#relt .relt-list .txt em { font-variation-settings: 'opsz' 9; }
+#relt .relt-quote .mark { font-variation-settings: 'opsz' 9; }
+#relt .relt-quote blockquote em { font-variation-settings: 'opsz' 9; }
+
+  /* ---- keyframes ---- */
+  @keyframes relt-marquee{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+  @keyframes relt-fadeUp{ from{ opacity:0; transform:translateY(26px); } to{ opacity:1; transform:translateY(0); } }
+  @keyframes relt-pulse{ 0%,100%{ box-shadow:0 0 0 0 rgba(19,221,226,.45); } 50%{ box-shadow:0 0 0 14px rgba(19,221,226,0); } }
+  @keyframes relt-skel{ 0%{ background-position:100% 0; } 100%{ background-position:0 0; } }
+
+  #relt [data-reveal]{ animation:relt-fadeUp .8s cubic-bezier(.2,.7,.2,1) both; }
+
+  /* =========================== HERO =========================== */
+  #relt .relt-hero{ position:relative; min-height:640px; width:100%; background:var(--navy); overflow:hidden; }
+  #relt .relt-hero-inner{ position:relative; z-index:2; max-width:var(--relt-max); margin:0 auto; }
+  #relt .relt-hero-copy{ position:relative; z-index:2; max-width:600px; padding:54px clamp(40px,4vw,64px) 60px; }
+  #relt .eyebrow{ font-size:12px; font-weight:700; letter-spacing:.32em; color:var(--cyan); }
+  #relt .relt-pill{
+    display:inline-flex; align-items:center; gap:14px; margin-top:30px; padding:13px 22px;
+    border:1px solid rgba(234,234,234,.32); font-size:15px; letter-spacing:.02em; color:var(--bone); flex-wrap:wrap;
+  }
+  #relt .relt-pill .sep{ width:1px; height:16px; background:rgba(234,234,234,.3); }
+  #relt .relt-pill .free{ color:var(--cyan); }
+  #relt .relt-hero h1{
+    margin-top:26px; font-size:clamp(30px,3.3vw,46px); line-height:1.04; font-weight:400; color:#fff; letter-spacing:-.018em;
+  }
+  #relt .relt-hero h1 .relt-hl1{ white-space:nowrap; }
+  #relt .relt-hero h1 strong{ font-weight:800; }
+  #relt .relt-hero h1 em{ font-family:'Bodoni Moda',serif; font-style:italic; font-weight:500; color:var(--cyan); white-space:nowrap;}
+  #relt .relt-hero p{ margin-top:26px; max-width:560px; font-size:18px; line-height:1.6; }
+  #relt .relt-hero p .a{ color:#13DDE2; }
+  #relt .relt-hero p .b{ color:#cdd8df; }
+  #relt .relt-btn{
+    display:inline-flex; align-items:center; justify-content:center; margin-top:36px; padding:21px 52px;
+    background:var(--cyan); color:var(--navy); font-size:17px; font-weight:700; letter-spacing:.01em;
+    text-decoration:none; border:none; cursor:pointer; font-family:'Inter',sans-serif;
+    transition:transform .25s ease, filter .25s ease; animation:relt-pulse 2.6s ease-in-out infinite;
+  }
+  #relt .relt-btn:hover{ transform:translateY(-3px); filter:brightness(1.06); }
+  #relt .relt-cta-top{ display:none; }  /* shown only on mobile (above the fold) */
+
+  /* hero image side */
+  #relt .relt-hero-media{ position:absolute; top:0; right:0; bottom:0; width:72vw; z-index:0; background:var(--imgbg); }
+  #relt .relt-hero-media .relt-imgslot{ position:absolute; inset:0; }
+  #relt .relt-hero-media .relt-scrim{
+    position:absolute; inset:0; pointer-events:none; z-index:1;
+    background:linear-gradient(90deg, var(--navy) 0%, rgba(10,37,64,.96) 16%, rgba(10,37,64,.5) 30%, rgba(10,37,64,0) 46%);
+  }
+  #relt .relt-hero-pic{ position:absolute; inset:0; display:block; width:100%; height:100%; overflow:hidden; background:var(--imgbg); }
+  #relt .relt-hero-pic img{ width:100%; height:100%; object-fit:cover; object-position:center top; display:block; }
+
+  /* image slot (placeholder + real image) */
+  #relt .relt-imgslot{ position:relative; width:100%; height:100%; background:var(--imgbg); overflow:hidden; }
+  #relt .relt-imgslot img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  #relt .relt-imgslot .relt-ph{
+    position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:10px; text-align:center; padding:24px; color:#5f8194;
+    background:
+      repeating-linear-gradient(45deg, rgba(19,221,226,.05) 0 14px, transparent 14px 28px),
+      var(--imgbg);
+    border:1px dashed rgba(19,221,226,.35);
+  }
+  #relt .relt-imgslot .relt-ph svg{ opacity:.6; }
+  #relt .relt-imgslot .relt-ph b{ font-size:13px; font-weight:700; letter-spacing:.18em; color:var(--cyan); }
+  #relt .relt-imgslot .relt-ph span{ font-size:12.5px; line-height:1.5; max-width:260px; }
+
+  /* =========================== STATS =========================== */
+  #relt .relt-stats{ background:var(--bone); color:var(--navy); }
+  #relt .relt-stats-inner{ display:grid; grid-template-columns:repeat(4,1fr); max-width:var(--relt-max); margin:0 auto; }
+  #relt .relt-stats .cell{ padding:34px 20px; text-align:center; border-left:1px solid rgba(10,37,64,.14); }
+  #relt .relt-stats .cell:first-child{ border-left:none; }
+  #relt .relt-stats .v{ font-size:40px; line-height:1; letter-spacing:-.01em; }
+  #relt .relt-stats .v .serif{ font-weight:500; }
+  #relt .relt-stats .v .serif.it{ font-style:italic; }
+  #relt .relt-stats .v .w{ font-weight:600; }
+  #relt .relt-stats .k{ margin-top:11px; font-size:11.5px; font-weight:600; letter-spacing:.2em; color:#5a6b78; }
+
+  /* =========================== MARQUEE =========================== */
+  #relt .relt-marquee{ background:var(--navy); border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); overflow:hidden; padding:16px 0; }
+  #relt .relt-marquee .track{ display:flex; width:max-content; animation:relt-marquee 50s linear infinite; }
+  #relt .relt-marquee .track span{ font-size:13px; font-weight:600; letter-spacing:.22em; white-space:nowrap; padding:0 38px; }
+  #relt .relt-marquee .track .c{ color:var(--cyan); }
+  #relt .relt-marquee .track .s{ color:#5f8194; }
+  #relt .relt-marquee .track .bar{ color:rgba(19,221,226,.35); }
+
+  /* =========================== SIGNUP =========================== */
+  #relt .relt-signup{ padding:64px clamp(40px,4vw,64px) 78px; background:var(--navy); }
+  #relt .relt-signup h2{ text-align:center; font-size:clamp(34px,3.6vw,52px); font-weight:500; color:#fff; letter-spacing:-.01em; }
+  #relt .relt-signup h2 em{ font-family:'Bodoni Moda',serif; font-style:italic; font-weight:500; color:var(--cyan); }
+  #relt .relt-signup-grid{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,560px); gap:clamp(40px,5vw,72px); margin:54px auto 0; align-items:start; max-width:var(--relt-max); }
+  #relt .relt-kicker{ font-size:13px; font-weight:700; letter-spacing:.26em; color:var(--cyan); }
+
+  /* countdown */
+  #relt .relt-cd{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:18px; }
+  #relt .relt-cd .box{ background:var(--bone); color:var(--navy); padding:24px 6px 16px; text-align:center; }
+  #relt .relt-cd .num{ font-family:'Inter',sans-serif; font-style:normal; font-weight:600; font-size:52px; line-height:1; font-variant-numeric:tabular-nums; }
+  #relt .relt-cd .lbl{ margin-top:10px; font-size:11px; font-weight:600; letter-spacing:.18em; color:#5a6b78; }
+
+  /* checklist */
+  #relt .relt-list{ list-style:none; margin-top:18px; }
+  #relt .relt-list li{ display:flex; align-items:center; gap:18px; padding:20px 2px; border-bottom:1px solid var(--rule); }
+  #relt .relt-list li:last-child{ border-bottom:none; }
+  #relt .relt-list .tick{ flex:none; width:22px; height:22px; background:var(--cyan); display:flex; align-items:center; justify-content:center; }
+  #relt .relt-list .txt{ font-size:22px; line-height:1.4; color:#eef2f5; }
+  #relt .relt-list .txt strong{ font-weight:700; }
+  #relt .relt-list .txt em{ font-family:'Bodoni Moda',serif; font-style:italic; font-weight:500; color:#13DDE2; }
+
+  /* signup panel */
+  #relt .relt-panel{ background:var(--panel); padding:clamp(28px,2.6vw,40px); scroll-margin-top:24px; }
+  #relt .relt-panel .relt-kicker{ margin-bottom:4px; }
+
+  /* form slot + skeleton */
+  #relt .relt-formslot{ margin-top:18px; min-height:430px; position:relative; }
+  #relt .relt-skel{ display:grid; gap:14px; }
+  #relt .relt-skel i{
+    display:block; height:66px;
+    background:linear-gradient(90deg,#0e4c69 25%,#13627f 37%,#0e4c69 63%); background-size:400% 100%;
+    animation:relt-skel 1.2s ease infinite;
+  }
+  #relt .relt-skel i.btn{ height:66px; background:linear-gradient(90deg,#0e7f86 25%,#13b3b8 37%,#0e7f86 63%); background-size:400% 100%; }
+  #relt .relt-formnote{
+    margin:6px 0; padding:16px; border:1px dashed rgba(19,221,226,.35);
+    color:#aebcc6; font-size:13px; font-weight:600; line-height:1.5;
+  }
+  #relt .relt-formnote b{ color:var(--cyan); }
+  #relt .relt-fine{ margin-top:18px; text-align:center; font-size:14px; color:#8fa3b0; }
+
+  /* =========================== TESTIMONIAL =========================== */
+  #relt .relt-quote{ display:grid; grid-template-columns:1fr 1fr; min-height:560px; max-width:var(--relt-max); margin:0 auto; }
+  #relt .relt-quote .media{ position:relative; background:var(--imgbg); }
+  #relt .relt-quote .body{ background:var(--panel); padding:clamp(48px,5vw,80px); display:flex; flex-direction:column; justify-content:center; }
+  #relt .relt-quote .mark{ font-family:'Bodoni Moda',serif; font-style:italic; font-weight:500; font-size:110px; line-height:.6; color:var(--cyan); height:46px; }
+  #relt .relt-quote blockquote{ font-size:clamp(24px,2.1vw,30px); line-height:1.4; color:#fff; }
+  #relt .relt-quote blockquote em{ font-family:'Bodoni Moda',serif; font-style:italic; font-weight:500; color:var(--cyan); }
+  #relt .relt-quote .who{ margin-top:34px; font-size:13px; font-weight:700; letter-spacing:.22em; }
+  #relt .relt-quote .who .name{ color:#fff; }
+  #relt .relt-quote .who .role{ color:var(--cyan); }
+
+  /* =========================== FOOTER =========================== */
+  #relt .relt-footer{ background:#fff; color:var(--navy); padding:50px clamp(40px,4vw,64px) 56px; }
+  #relt .relt-footer .grid{ display:grid; grid-template-columns:1.1fr 1fr 2fr; gap:40px; align-items:start; max-width:var(--relt-max); margin:0 auto; }
+  #relt .relt-footer .brand{ display:flex; align-items:center; gap:14px; }
+  #relt .relt-footer-logo{ height:46px; width:auto; max-width:240px; display:block; }
+  #relt .relt-footer .mark{ flex:none; width:58px; height:58px; background:var(--navy); border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:24px; letter-spacing:-.02em; color:#fff; }
+  #relt .relt-footer .name{ font-weight:800; font-size:21px; line-height:1.02; letter-spacing:-.01em; }
+  #relt .relt-footer .name sup{ font-size:11px; vertical-align:top; }
+  #relt .relt-footer nav{ display:flex; flex-direction:column; gap:18px; font-size:15px; padding-top:6px; }
+  #relt .relt-footer nav a{ color:var(--navy); text-decoration:none; transition:color .2s ease; }
+  #relt .relt-footer nav a:hover{ color:var(--cyan-dim); }
+  #relt .relt-footer .legal{ font-size:12.5px; line-height:1.6; color:#5a6b78; }
+  #relt .relt-footer .legal .addr{ margin-top:14px; color:var(--navy); }
+
+  /* =========================== NATIVE GHL FORM SKIN ===========================
+     NOTE: the native form lives OUTSIDE #relt (GHL renders it elsewhere in the
+     section), so these selectors are intentionally NOT scoped under #relt. */
+  #_builder-form input.form-control,
+  #_builder-form input.countryphone,
+  #_builder-form select,
+  #_builder-form textarea,
+  #_builder-form input#first_name.form-control,
+  #_builder-form input#last_name.form-control,
+  #_builder-form input#email.form-control,
+  #_builder-form input#phone.countryphone{
+    background-color:#ffffff !important;
+    border:none !important;
+    border-radius:0 !important;
+    color:#0A2540 !important;
+    -webkit-text-fill-color:#0A2540 !important;
+    font-family:'Inter',sans-serif !important;
+    font-size:17px !important;
+    font-weight:500 !important;
+    padding:21px 22px !important;
+    box-shadow:inset 0 0 0 1000px #ffffff !important;
+    height:auto !important;
+    margin-bottom:14px !important;
+  }
+  #_builder-form input#phone.countryphone{ padding-left:54px !important; }
+  #_builder-form input:-webkit-autofill,
+  #_builder-form input:-webkit-autofill:hover,
+  #_builder-form input:-webkit-autofill:focus{
+    -webkit-box-shadow:inset 0 0 0 1000px #ffffff !important;
+    box-shadow:inset 0 0 0 1000px #ffffff !important;
+    -webkit-text-fill-color:#0A2540 !important;
+    caret-color:#0A2540 !important;
+    transition:background-color 99999s ease-out !important;
+  }
+  #_builder-form input::placeholder{ color:#8a9aa6 !important; -webkit-text-fill-color:#8a9aa6 !important; opacity:1 !important; }
+  #_builder-form input.form-control:focus,
+  #_builder-form input.countryphone:focus{ outline:2px solid #13DDE2 !important; outline-offset:-2px; }
+  #_builder-form input[type=checkbox]{ accent-color:#13DDE2 !important; width:18px !important; height:18px !important; }
+  #_builder-form label,
+  #_builder-form .form-builder--item span,
+  #_builder-form .form-builder--item p,
+  #_builder-form p,
+  #_builder-form small,
+  #_builder-form li{ color:#ffffff !important; -webkit-text-fill-color:#ffffff !important; font-size:14px !important; font-family:'Inter',sans-serif !important; line-height:1.45 !important; }
+  #_builder-form a{ color:#ffffff !important; -webkit-text-fill-color:#ffffff !important; text-decoration:underline !important; }
+  #_builder-form .iti__country-list{ background:#0B3C54 !important; color:#EAEAEA !important; border:1px solid rgba(19,221,226,.3) !important; }
+  #_builder-form .iti__country.iti__highlight{ background:#0a2c3f !important; }
+  #_builder-form button[type=submit],
+  #_builder-form button.button-element{
+    background:#13DDE2 !important;
+    border:0 !important;
+    border-radius:0 !important;
+    color:#0A2540 !important;
+    font-family:'Inter',sans-serif !important;
+    font-size:18px !important;
+    font-weight:700 !important;
+    letter-spacing:.01em !important;
+    text-transform:none !important;
+    padding:22px 24px !important;
+    width:100% !important;
+    cursor:pointer !important;
+    transition:transform .22s ease, filter .22s ease !important;
+  }
+  #_builder-form button[type=submit]:hover,
+  #_builder-form button.button-element:hover{ transform:translateY(-2px); filter:brightness(1.06); }
+  .relt-formslot #_builder-form{ width:100% !important; max-width:none !important; margin:0 !important; }
+  .relt-formslot iframe{ width:100%; height:520px; border:0; display:block; overflow:hidden; }
+  /* keep every native field inside the slot — no overflow / stretch on desktop or mobile */
+  #_builder-form,
+  #_builder-form .form-builder--item,
+  #_builder-form .form-builder--container,
+  #_builder-form input.form-control,
+  #_builder-form input.countryphone,
+  #_builder-form select,
+  #_builder-form textarea,
+  #_builder-form button{ max-width:100% !important; box-sizing:border-box !important; }
+  /* normalize GHL's column grid: force every field full-width so it stacks cleanly
+     (First/Last are half-width columns in the builder — this overrides that) */
+  #_builder-form .row,
+  #_builder-form .form-builder--row,
+  #_builder-form [class*="--row"]{ margin-left:0 !important; margin-right:0 !important; display:block !important; width:100% !important; }
+  #_builder-form [class*="col-"],
+  #_builder-form [class*="--col"],
+  #_builder-form .form-builder--item{ width:100% !important; max-width:100% !important; flex:0 0 100% !important; -ms-flex:0 0 100% !important; padding-left:0 !important; padding-right:0 !important; float:none !important; }
+  #_builder-form input.form-control,
+  #_builder-form input.countryphone,
+  #_builder-form select,
+  #_builder-form textarea{ width:100% !important; }
+
+  /* =========================== RESPONSIVE =========================== */
+  @media (max-width:900px){
+    #relt .relt-hero{ display:flex; flex-direction:column; min-height:0; }
+    #relt .relt-hero-inner{ order:2; max-width:none; }
+    #relt .relt-hero-copy{ padding:30px 24px 40px; order:2; text-align:center; display:flex; flex-direction:column; align-items:center; }
+    /* mobile-only stacking order: headline -> date/free box -> eyebrow -> CTA -> subcopy */
+    #relt .relt-hero-copy h1{ order:1; margin-top:0; }
+    #relt .relt-hero-copy .relt-pill{ order:2; margin-top:22px; }
+    #relt .relt-hero-copy .eyebrow{ order:3; margin-top:16px; }
+    #relt .relt-hero-copy .relt-cta-top{ order:4; }
+    #relt .relt-hero-copy p{ order:5; }
+    #relt .relt-hero-media{ position:relative; width:100%; order:1; min-height:0; aspect-ratio:4/3; }
+    #relt .relt-hero-pic{ position:relative; height:100%; }
+    #relt .relt-hero-pic img{ height:100%; object-fit:cover; object-position:center top; }
+    #relt .relt-hero-media .relt-scrim{ background:linear-gradient(0deg, var(--navy) 0%, var(--navy) 6%, rgba(10,37,64,.45) 20%, rgba(10,37,64,0) 40%); }
+    #relt .relt-hero h1{ font-size:clamp(18px,6.2vw,32px); letter-spacing:-.025em; }
+    #relt .relt-hero h1 .relt-hl1{ white-space:nowrap; }
+    #relt .eyebrow{ font-size:15px; letter-spacing:.24em; }
+    #relt .relt-pill{ flex-wrap:nowrap; gap:6px; padding:12px 14px; font-size:clamp(10.5px,3.2vw,13px); letter-spacing:0; white-space:nowrap; }
+    #relt .relt-pill .sep{ height:13px; }
+    #relt .relt-btn{ width:100%; }
+    #relt .relt-cta-top{ display:inline-flex; margin-top:22px; }
+    #relt .relt-cta-btm{ display:none; }
+    #relt .relt-stats-inner{ grid-template-columns:1fr 1fr; }
+    #relt .relt-stats .cell:nth-child(odd){ border-left:none; }
+    #relt .relt-stats .cell:nth-child(n+3){ border-top:1px solid rgba(10,37,64,.14); }
+    #relt .relt-signup{ padding:48px 24px 56px; }
+    #relt .relt-signup-grid{ grid-template-columns:1fr; gap:44px; }
+    #relt .relt-quote{ grid-template-columns:1fr; }
+    #relt .relt-quote .media{ min-height:320px; }
+    #relt .relt-footer{ padding:40px 24px 44px; }
+    #relt .relt-footer .grid{ grid-template-columns:1fr; gap:28px; }
+  }
+  @media (max-width:420px){
+    #relt .relt-cd{ gap:8px; }
+    #relt .relt-cd .box{ padding:18px 2px 12px; }
+    #relt .relt-cd .num{ font-size:38px; }
+    #relt .relt-list .txt{ font-size:18px; }
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    #relt [data-reveal], #relt .relt-btn{ animation:none !important; }
+    #relt .relt-marquee .track{ animation:none !important; }
+  }
+</style>
+
+<div id="relt">
+  <div class="relt-shell">
+
+    <!-- ============ HERO ============ -->
+    <section class="relt-hero">
+      <div class="relt-hero-inner">
+      <div class="relt-hero-copy" data-reveal>
+        <div class="eyebrow">REAL ESTATE LIVE TRAINING</div>
+
+        <div class="relt-pill">
+          <span>Sat, July 11</span>
+          <span class="sep"></span>
+          <span>12:00 PM EST</span>
+          <span class="sep"></span>
+          <span class="free">Free Access</span>
+        </div>
+
+        <h1>
+          <span class="relt-hl1">I'm Changing My</span><br>
+          <span class="relt-hl1"><strong>Real Estate Strategy</strong></span><br>
+          <em>RIGHT NOW.</em>
+        </h1>
+
+        <a href="#relt-form" class="relt-btn relt-cta-top">Register Free</a>
+
+        <p style="text-wrap:pretty">
+          <span class="a">On July 11th</span> <span class="b">I'll be showing you how the <span style="white-space:nowrap">Gov. is</span> making it easier to help regular people qualify for loans that <span style="white-space:nowrap">cash flow</span> <span style="white-space:nowrap">every single month</span></span>
+        </p>
+
+        <a href="#relt-form" class="relt-btn relt-cta-btm">Register Free</a>
+      </div>
+      </div>
+
+      <div class="relt-hero-media">
+        <!-- ===== HERO IMAGE (responsive) =====
+             Desktop = img src ; Mobile (<=900px) = <source> srcset.
+             Both are GHL gallery links — swap as needed. -->
+        <picture class="relt-hero-pic">
+          <source media="(max-width:900px)" srcset="https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/6a3d579b6c805c8eeb614749.png">
+          <img src="https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/6a3d428ae4daecfbb47e1024.png" alt="Grant Cardone">
+        </picture>
+        <div class="relt-scrim"></div>
+      </div>
+    </section>
+
+    <!-- ============ MARQUEE ============ -->
+    <section class="relt-marquee" aria-hidden="true">
+      <div class="track" id="relt-marquee-track"></div>
+    </section>
+
+    <!-- ============ STATS ============ -->
+    <section class="relt-stats" data-reveal style="animation-delay:.1s">
+      <div class="relt-stats-inner">
+        <div class="cell">
+          <div class="v"><span class="w">$</span><span class="serif" style="color:#13DDE2">5.3</span><span class="w">B</span></div>
+          <div class="k">BUILT ON THIS SYSTEM</div>
+        </div>
+        <div class="cell">
+          <div class="v"><span class="serif it" style="color:#13DDE2">9</span> <span class="w">Steps</span></div>
+          <div class="k">ONE DEAL MACHINE</div>
+        </div>
+        <div class="cell">
+          <div class="v"><span class="serif" style="color:#13DDE2">90</span> <span class="w">Min</span></div>
+          <div class="k">LIVE WITH GRANT</div>
+        </div>
+        <div class="cell">
+          <div class="v"><span class="serif it" style="color:#13DDE2">Free</span></div>
+          <div class="k">COST TO ATTEND</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SIGNUP ============ -->
+    <section class="relt-signup" id="relt-signup">
+      <h2 data-reveal>90 Minutes. Live. <em>With Grant Cardone.</em></h2>
+
+      <div class="relt-signup-grid">
+
+        <!-- LEFT: countdown + checklist -->
+        <div data-reveal style="animation-delay:.1s">
+          <div class="relt-kicker">EVENT STARTS IN</div>
+          <div class="relt-cd">
+            <div class="box"><div class="num" id="relt-days">00</div><div class="lbl">DAYS</div></div>
+            <div class="box"><div class="num" id="relt-hrs">00</div><div class="lbl">HRS</div></div>
+            <div class="box"><div class="num" id="relt-min">00</div><div class="lbl">MIN</div></div>
+            <div class="box"><div class="num" id="relt-sec">00</div><div class="lbl">SEC</div></div>
+          </div>
+
+          <div class="relt-kicker" style="margin-top:46px">HERE'S WHAT YOU LEAVE WITH</div>
+          <ul class="relt-list">
+            <li>
+              <span class="tick"><svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 7.5L5.5 11L12 3" stroke="#0A2540" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="txt"><strong>Why</strong> <em>most people never build wealth</em> using real estate.</span>
+            </li>
+            <li>
+              <span class="tick"><svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 7.5L5.5 11L12 3" stroke="#0A2540" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="txt"><strong>How to</strong> <em>find high-return deals</em> others miss.</span>
+            </li>
+            <li>
+              <span class="tick"><svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 7.5L5.5 11L12 3" stroke="#0A2540" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="txt"><strong>Fund deals</strong> with <em>little or no money down.</em></span>
+            </li>
+            <li>
+              <span class="tick"><svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 7.5L5.5 11L12 3" stroke="#0A2540" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="txt"><strong>Underwrite</strong> every deal for <em>maximum ROI.</em></span>
+            </li>
+            <li>
+              <span class="tick"><svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 7.5L5.5 11L12 3" stroke="#0A2540" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="txt"><strong>Scale a portfolio</strong> <em>without starting over</em> each time.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- RIGHT: signup panel — native GHL form gets teleported into the slot -->
+        <div class="relt-panel" id="relt-form" data-reveal style="animation-delay:.2s">
+          <div class="relt-kicker">SIGN UP NOW</div>
+          <div class="relt-formslot" data-form-slot>
+            <div class="relt-skel" aria-hidden="true"><i></i><i></i><i></i><i></i><i class="btn"></i></div>
+          </div>
+          <p class="relt-fine">Seats Are Disappearing Fast — Grant goes live Saturday. Don't wait.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ TESTIMONIAL ============ -->
+    <section class="relt-quote" data-reveal>
+      <div class="media">
+        <!-- ===== TESTIMONIAL IMAGE SLOT (bottom) =====
+             Paste your GHL gallery link in place of  PASTE_TESTIMONIAL_IMAGE_URL  below. -->
+        <div class="relt-imgslot">
+          <div class="relt-ph">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#13DDE2" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15l-5-5L5 21"/></svg>
+            <b>TESTIMONIAL IMAGE</b>
+            <span>Grant at the building. Replace PASTE_TESTIMONIAL_IMAGE_URL in the img src with your GHL gallery link.</span>
+          </div>
+          <img src="https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/6a39801871752c7f3e003ad8.jpg" alt="Grant Cardone at a property" onerror="this.style.display='none'">
+        </div>
+      </div>
+      <div class="body">
+        <div class="mark">&ldquo;</div>
+        <blockquote>
+          <em>I started with nothing —<br>no money, no name, no connections.</em><br>
+          The first system I built did $5.5M in 90 days. Scaled, it became $5.3B in assets.
+        </blockquote>
+        <div class="who">
+          <span class="name">GRANT CARDONE</span>&nbsp;&nbsp;<span class="role">| FOUNDER, CARDONE CAPITAL</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="relt-footer">
+      <div class="grid">
+        <div class="brand">
+          <!-- ===== FOOTER LOGO ===== replace PASTE_LOGO_URL with your GHL gallery link to the GC logo -->
+          <img class="relt-footer-logo" src="https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/6a3abffc109a1ab49dd2bbba.png" alt="Grant Cardone" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="relt-footer-fallback" style="display:none; align-items:center; gap:14px;">
+            <div class="mark">GC</div>
+            <div class="name">GRANT<br>CARDONE<sup>®</sup></div>
+          </div>
+        </div>
+        <nav>
+          <a href="https://grantcardone.com/customersupport/" target="_blank" rel="noopener noreferrer">Contact Us</a>
+          <a href="https://grantcardone.com/privacy-policy/" target="_blank" rel="noopener noreferrer">Privacy policy</a>
+          <a href="https://grantcardone.com/terms-and-conditions/" target="_blank" rel="noopener noreferrer">Terms &amp; Conditions</a>
+        </nav>
+        <div class="legal">
+          At Cardone Enterprises we believe that success is the result of hard work, education and persistence. Examples given should not be considered typical and there is never a guarantee of results. Information provided is educational in nature and is not legal or financial advice. By using this website or any related materials you agree to take full responsibility for your own results, or lack thereof. Our team is here to support you, but you should always do your own due diligence before making any investment or taking any risk. Success is your duty, obligation and responsibility.
+          <div class="addr">Cardone Training Technologies&nbsp;|&nbsp;1-800-368-5771&nbsp;|&nbsp;18909 NE 29th Ave Aventura FL 33180<br>© Cardone Enterprises. All Rights Reserved.</div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- 0. escape GHL host wrappers (sections paint a bg + cage width) ---------- */
+  var relt = document.getElementById("relt");
+  if(relt){
+    var an = relt.parentElement, hops = 0;
+    while(an && an !== document.documentElement && hops < 15){
+      an.style.setProperty("background", "transparent", "important");
+      an.style.setProperty("padding", "0", "important");
+      an.style.setProperty("max-width", "none", "important");
+      an.style.setProperty("width", "100%", "important");
+      an = an.parentElement; hops++;
+    }
+  }
+
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- 1. countdown — target Sat July 11, 2026, 12:00 PM EDT (EST label) ---------- */
+  var target = new Date("2026-07-11T12:00:00-04:00").getTime();
+  function pad(n){ return String(Math.max(0,n)).padStart(2,"0"); }
+  var elD = document.getElementById("relt-days"),
+      elH = document.getElementById("relt-hrs"),
+      elM = document.getElementById("relt-min"),
+      elS = document.getElementById("relt-sec");
+  function tick(){
+    var diff = Math.max(0, target - Date.now());
+    var s = Math.floor(diff/1000);
+    if(elD) elD.textContent = pad(Math.floor(s/86400));
+    if(elH) elH.textContent = pad(Math.floor((s%86400)/3600));
+    if(elM) elM.textContent = pad(Math.floor((s%3600)/60));
+    if(elS) elS.textContent = pad(s%60);
+  }
+  tick(); setInterval(tick, 1000);
+
+  /* ---------- 2. marquee (built in JS, duplicated for a seamless loop) ---------- */
+  (function(){
+    var track = document.getElementById("relt-marquee-track");
+    if(!track) return;
+    var items = ["FREE ACCESS NOW","GOING LIVE ON JULY 11, AT NOON"];
+    function half(){
+      var frag = document.createDocumentFragment();
+      for(var i=0;i<16;i++){
+        var span = document.createElement("span");
+        span.className = (i % 2) ? "s" : "c";
+        span.textContent = items[i % 2];
+        frag.appendChild(span);
+        var sep = document.createElement("span");
+        sep.className = "bar"; sep.textContent = "|";
+        frag.appendChild(sep);
+      }
+      return frag;
+    }
+    track.appendChild(half());
+    track.appendChild(half());
+  })();
+
+  /* ---------- 3. native GHL form: style + overlay into the panel (NON-destructive) ----------
+     The native Form element STAYS mounted exactly where GHL rendered it, so GHL keeps
+     full ownership: submit fires, hidden fields populate, the opt-in is tracked, and the
+     form/funnel redirect runs natively. We only (a) restyle it via the #_builder-form CSS
+     above and (b) translate its pixels so it visually sits inside the panel slot — we do
+     NOT move it in the DOM. Falls back to the widget iframe only when no inline Form
+     element exists (e.g. a standalone file preview). */
+  var WIDGET_BASE = "https://api.leadconnectorhq.com/widget/form/";
+  var PREVIEW_FORM_ID = "";
+
+  var formSlot = document.querySelector("[data-form-slot]");
+  var nativeSec = null, nativeRoot = null;
+
+  function deriveFormId(){
+    var root = document.getElementById("_builder-form");
+    if(root){
+      var el = root.querySelector('[id^="el_"]');
+      if(el){ var m = /^el_([A-Za-z0-9]{15,30})_/.exec(el.id); if(m) return m[1]; }
+    }
+    for(var i=0;i<document.scripts.length;i++){
+      var t = document.scripts[i].textContent || "";
+      var m2 = /widget\/form\/([A-Za-z0-9]{15,30})/.exec(t);
+      if(m2) return m2[1];
+    }
+    return null;
+  }
+  function clearSkeleton(){ var sk = formSlot && formSlot.querySelector(".relt-skel"); if(sk) sk.remove(); }
+  function anyFormWrapper(){ return !!document.querySelector("[class*=form-builder], [id*=builder-form], [class*=hl_form], [data-form-id]"); }
+
+  function placeNative(){
+    if(!nativeSec || !formSlot) return;
+    try{
+      var fh = nativeRoot.offsetHeight;
+      formSlot.style.minHeight = ((fh > 0 ? fh : 430) + 8) + "px";
+      if(!nativeSec.__reltDressed){
+        var p = nativeRoot;
+        while(p && p !== nativeSec){ p.style.margin="0"; p.style.padding="0"; p.style.width="100%"; p.style.maxWidth="none"; p = p.parentElement; }
+        nativeSec.style.margin="0";
+        nativeSec.style.padding="0";
+        nativeSec.style.background="transparent";
+        nativeSec.style.height="0";
+        nativeSec.style.overflow="visible";
+        nativeSec.style.position="relative";
+        nativeSec.style.zIndex="50";
+        nativeSec.__reltDressed = true;
+      }
+      nativeSec.style.width = formSlot.clientWidth + "px";
+      void nativeSec.offsetHeight;
+      var sr = formSlot.getBoundingClientRect();
+      var rr = nativeRoot.getBoundingClientRect();
+      var ddx = Math.round(sr.left - rr.left);
+      var ddy = Math.round(sr.top - rr.top);
+      if(Math.abs(ddx) < 2 && Math.abs(ddy) < 2) return;
+      var m = /translate\((-?\d+)px,\s*(-?\d+)px\)/.exec(nativeSec.style.transform || "");
+      var cx = m ? parseInt(m[1],10) : 0, cy = m ? parseInt(m[2],10) : 0;
+      nativeSec.style.transform = "translate(" + (cx + ddx) + "px," + (cy + ddy) + "px)";
+    }catch(e){}
+  }
+
+  function findNative(){
+    var root = document.getElementById("_builder-form");
+    if(!root) return false;
+    nativeRoot = root;
+    var reltEl = document.getElementById("relt");
+    var sec = root;
+    while(sec.parentElement && sec.parentElement !== document.body && !(reltEl && sec.parentElement.contains(reltEl))){
+      sec = sec.parentElement;
+    }
+    if(reltEl && sec.contains(reltEl)) sec = root.parentElement || root;
+    nativeSec = sec;
+    clearSkeleton();
+    placeNative();
+    var rsz; window.addEventListener("resize", function(){ clearTimeout(rsz); rsz = setTimeout(placeNative, 150); }, {passive:true});
+    window.addEventListener("load", function(){ setTimeout(placeNative, 300); }, {passive:true});
+    setTimeout(placeNative, 600);
+    setTimeout(placeNative, 1800);
+    setTimeout(placeNative, 3500);
+    return true;
+  }
+
+  function loadFallback(){
+    if(!formSlot || nativeSec || formSlot.querySelector("iframe")) return;
+    clearSkeleton();
+    var fid = deriveFormId();
+    if(!fid && (location.protocol === "file:" || location.hostname === "localhost")) fid = PREVIEW_FORM_ID;
+    if(!fid){
+      var note = document.createElement("p");
+      note.className = "relt-formnote";
+      note.innerHTML = "Form not detected. <b>Add a native GHL Form element to this same section</b> in the builder — it will be auto-styled and slotted in here.";
+      formSlot.appendChild(note);
+      return;
+    }
+    formSlot.style.background = "#fff";
+    var fb = document.createElement("iframe");
+    fb.title = "Registration form"; fb.setAttribute("scrolling","no");
+    var fqs = location.search.replace(/^\?/, "");
+    fb.src = WIDGET_BASE + fid + (fqs ? "?" + fqs : "");
+    formSlot.appendChild(fb);
+  }
+
+  if(formSlot && !findNative()){
+    var tries = 0;
+    var poll = setInterval(function(){
+      if(findNative()){ clearInterval(poll); return; }
+      tries++;
+      if(!anyFormWrapper() && tries === 16){ loadFallback(); }
+      if(tries > 80){ clearInterval(poll); loadFallback(); }
+    }, 250);
+  }
+
+  /* ---------- 4. CTA buttons: smooth-scroll straight to the form (desktop + mobile) ---------- */
+  Array.prototype.forEach.call(document.querySelectorAll('#relt a[href="#relt-form"]'), function(a){
+    a.addEventListener("click", function(e){
+      var t = document.getElementById("relt-form");
+      if(t){ e.preventDefault(); t.scrollIntoView({behavior:"smooth", block:"start"}); }
+    });
+  });
+
+})();
+</script>
