@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RELT — VIP Seat Secured (confirmation) · 3 variants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500;1,6..96,600;1,6..96,700&family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../themes/relt.css">
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#04121f;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;padding-top:46px}
+
+  /* ---------- variant tab bar (sketch chrome, not part of the design) ---------- */
+  #vbar{position:fixed;top:0;left:0;right:0;z-index:9999;display:flex;gap:6px;align-items:center;
+    background:#020a12;border-bottom:1px solid var(--rule);padding:7px 14px;font-family:'Inter',sans-serif}
+  #vbar .lbl{color:var(--on-navy-3);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-right:8px}
+  #vbar button{background:transparent;border:1px solid rgba(255,255,255,.16);color:#cfe0e8;font:600 12px/1 'Inter';
+    padding:7px 13px;cursor:pointer;letter-spacing:.02em}
+  #vbar button.active{background:var(--teal);border-color:var(--teal);color:#04222a}
+  .variant{display:none}
+  .variant.active{display:block}
+
+  /* ============================ SHARED PAGE SHELL ============================ */
+  .page{width:100%;background:var(--navy-800);color:var(--bone);overflow:hidden}
+  .page img{display:block;max-width:100%}
+  .wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+  .serif{font-family:'Bodoni Moda',serif;font-style:italic;font-weight:500;font-optical-sizing:auto;font-variation-settings:'opsz' 9;color:var(--teal)}
+  .eyebrow{font-family:'Inter';font-weight:700;text-transform:uppercase;letter-spacing:.24em;font-size:12px;color:var(--teal)}
+
+  /* ---------- MASTHEAD (shared across variants) ---------- */
+  .mast{position:relative;text-align:center;border-bottom:1px solid var(--rule-soft);
+    background:radial-gradient(circle at 78% -25%,rgba(30,197,218,.16),transparent 44%),
+               linear-gradient(180deg,var(--navy-800),var(--navy-900))}
+  .mast .wrap{padding-top:clamp(40px,5vw,64px);padding-bottom:clamp(36px,4vw,54px)}
+  .secured{display:inline-flex;align-items:center;gap:10px;padding:11px 22px;border:1px solid var(--teal);
+    background:var(--teal-soft);color:#fff;font-size:13px;font-weight:800;letter-spacing:.2em;text-transform:uppercase}
+  .secured .chk{display:grid;place-items:center;width:18px;height:18px;background:var(--teal);color:#04222a;font-size:12px;font-weight:900}
+  .mast h1{margin:22px auto 0;max-width:16ch;font-weight:800;letter-spacing:-.015em;line-height:1.04;
+    font-size:clamp(32px,5vw,54px);color:#fff;text-wrap:balance}
+  .mast h1 .serif{font-weight:600;display:inline-block}
+  .mast .sub{margin:18px auto 0;max-width:60ch;color:var(--on-navy-2);font-size:clamp(15px,1.7vw,18px);line-height:1.6;text-wrap:pretty}
+
+  /* countdown */
+  .cd{display:grid;grid-template-columns:repeat(4,minmax(0,110px));gap:12px;justify-content:center;margin:30px auto 0}
+  .cd .box{background:var(--bone);color:var(--navy-800);padding:18px 6px 12px;text-align:center}
+  .cd .num{font-weight:700;font-size:clamp(34px,4vw,48px);line-height:1;font-variant-numeric:tabular-nums}
+  .cd .lbl{margin-top:8px;font-size:10.5px;font-weight:700;letter-spacing:.16em;color:var(--ink-3)}
+  .cd-kick{margin:0 0 4px;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);text-align:center}
+
+  /* ---------- primary CTA (calendar) ---------- */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:19px 40px;
+    background:var(--teal);color:#04222a;font-weight:800;font-size:16px;letter-spacing:.02em;
+    border:none;cursor:pointer;text-decoration:none;text-transform:uppercase;
+    box-shadow:0 16px 34px -14px rgba(30,197,218,.7);transition:transform .22s,filter .22s;
+    animation:ctaPulse 2.4s ease-in-out infinite}
+  .btn:hover{transform:translateY(-2px);filter:brightness(1.06)}
+  .btn svg{flex:none}
+  @keyframes ctaPulse{0%,100%{box-shadow:0 16px 34px -14px rgba(30,197,218,.7),0 0 0 0 rgba(19,221,226,.5)}
+    60%{box-shadow:0 16px 34px -14px rgba(30,197,218,.7),0 0 0 16px rgba(19,221,226,0)}}
+
+  /* ---------- calendar visual (CSS, on-brand — replaces the stock clock photo) ---------- */
+  .calcard{width:100%;max-width:300px;background:var(--navy-700);border:1px solid var(--rule);overflow:hidden}
+  .calcard .cc-top{background:linear-gradient(90deg,var(--teal-deep),var(--teal));color:#04222a;text-align:center;
+    font-weight:800;letter-spacing:.22em;font-size:14px;text-transform:uppercase;padding:11px}
+  .calcard .cc-day{text-align:center;font-weight:800;font-size:clamp(72px,9vw,104px);line-height:1;color:#fff;padding:22px 0 6px}
+  .calcard .cc-meta{text-align:center;padding:0 0 22px;color:var(--on-navy-2);font-size:14px;font-weight:600;letter-spacing:.04em}
+  .calcard .cc-meta b{color:var(--teal)}
+
+  /* product image framing (shared) */
+  .prodwrap{background:var(--gray-zone);display:grid;place-items:center;padding:clamp(18px,2.4vw,34px)}
+  .prodwrap img{width:auto;max-width:100%;max-height:clamp(280px,32vw,420px);mix-blend-mode:multiply}
+
+  /* checklist reused in variant C */
+  .clist{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+  .clist li{display:grid;grid-template-columns:24px 1fr;gap:14px;align-items:start;padding:13px 0;
+    border-bottom:1px solid var(--rule);font-size:16px;color:var(--bone)}
+  .clist li:last-child{border-bottom:0}
+  .clist .tick{margin-top:2px;display:grid;place-items:center;width:22px;height:22px;background:var(--teal);color:#04222a;font-weight:900;font-size:12px}
+
+  /* ---------- FOOTER (shared) ---------- */
+  .foot{background:var(--paper);color:var(--ink);text-align:center;border-top:1px solid var(--paper-line)}
+  .foot .wrap{padding-top:44px;padding-bottom:46px}
+  .foot img{width:190px;margin:0 auto 18px}
+  .foot nav{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:center;margin-bottom:16px;font-weight:700;font-size:15px}
+  .foot nav a{color:var(--ink);text-decoration:none}
+  .foot nav a:hover{color:var(--teal-deep)}
+  .foot nav span{color:var(--ink-3)}
+  .foot .disc{max-width:760px;margin:0 auto;color:var(--ink-3);font-size:12px;line-height:1.6}
+  .foot .disc p{margin:0 0 8px}
+
+  /* =========================================================================
+     VARIANT A — alternating editorial rows (big teal serif step numerals)
+     ========================================================================= */
+  .a-steps{padding:clamp(48px,5vw,80px) 0}
+  .a-row{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,4vw,64px);align-items:center;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)}
+  .a-row + .a-row{margin-top:clamp(44px,5vw,72px);padding-top:clamp(44px,5vw,72px);border-top:1px solid var(--rule)}
+  .a-row.flip .a-media{order:2}
+  .a-num{font-family:'Bodoni Moda',serif;font-style:italic;font-weight:600;font-variation-settings:'opsz' 9;
+    color:var(--teal);font-size:clamp(56px,7vw,86px);line-height:.8}
+  .a-copy h3{margin:14px 0 0;font-weight:800;font-size:clamp(24px,2.6vw,34px);line-height:1.1;color:#fff;letter-spacing:-.01em}
+  .a-copy p{margin:16px 0 0;color:var(--on-navy-2);font-size:16px;line-height:1.65;max-width:46ch}
+  .a-copy .btn{margin-top:26px}
+  .a-media{display:grid;place-items:center}
+  .a-media .prodwrap,.a-media .calcard{width:100%}
+
+  /* =========================================================================
+     VARIANT B — stacked boxed step panels (teal STEP chip)
+     ========================================================================= */
+  .b-steps{padding:clamp(44px,5vw,72px) 0;display:grid;gap:clamp(20px,2.4vw,28px);max-width:960px;margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+  .b-panel{background:var(--navy-700);border:1px solid var(--rule);padding:clamp(26px,3vw,40px);
+    display:grid;grid-template-columns:auto 1fr;gap:clamp(24px,3vw,40px);align-items:center}
+  .b-panel .b-visual{width:clamp(180px,20vw,240px)}
+  .b-panel .b-visual .prodwrap{padding:16px}
+  .b-panel .b-visual .prodwrap img{max-height:220px}
+  .b-chip{display:inline-block;background:var(--teal);color:#04222a;font-weight:800;letter-spacing:.18em;
+    font-size:12px;text-transform:uppercase;padding:7px 14px}
+  .b-panel h3{margin:14px 0 0;font-weight:800;font-size:clamp(21px,2.3vw,28px);line-height:1.12;color:#fff}
+  .b-panel h3 .serif{font-weight:600}
+  .b-panel p{margin:12px 0 0;color:var(--on-navy-2);font-size:15.5px;line-height:1.62;max-width:52ch}
+  .b-panel .btn{margin-top:22px}
+  .b-panel.b-cal{grid-template-columns:1fr auto}
+  .b-panel.b-cal .b-visual{width:clamp(160px,18vw,220px);order:2}
+
+  /* =========================================================================
+     VARIANT C — product hero + compact numbered next-steps
+     ========================================================================= */
+  .c-hero{display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch}
+  .c-hero .c-media{background:var(--gray-zone);display:grid;place-items:center;padding:clamp(24px,3vw,48px)}
+  .c-hero .c-media img{width:auto;max-width:100%;max-height:clamp(300px,34vw,460px);mix-blend-mode:multiply}
+  .c-hero .c-body{background:var(--navy-700);border-left:1px solid var(--rule);padding:clamp(32px,4vw,60px);display:flex;flex-direction:column;justify-content:center}
+  .c-hero .c-body h2{margin:12px 0 0;font-weight:800;font-size:clamp(24px,2.6vw,34px);line-height:1.1;color:#fff}
+  .c-hero .c-body h2 .serif{font-weight:600}
+  .c-hero .c-body > p{margin:14px 0 0;color:var(--on-navy-2);font-size:15.5px;line-height:1.6}
+  .c-hero .clist{margin-top:22px}
+  .c-next{padding:clamp(44px,5vw,72px) 0;text-align:center}
+  .c-next h3{margin:0;font-weight:800;font-size:clamp(24px,2.8vw,36px);color:#fff}
+  .c-next h3 .serif{font-weight:600}
+  .c-steps{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,2.4vw,32px);max-width:900px;margin:34px auto 0;text-align:left}
+  .c-step{background:var(--navy-700);border:1px solid var(--rule);padding:clamp(24px,2.8vw,34px)}
+  .c-step .c-n{font-family:'Bodoni Moda',serif;font-style:italic;font-weight:600;font-variation-settings:'opsz' 9;color:var(--teal);font-size:46px;line-height:.8}
+  .c-step h4{margin:12px 0 0;font-weight:800;font-size:19px;color:#fff}
+  .c-step p{margin:10px 0 0;color:var(--on-navy-2);font-size:14.5px;line-height:1.6}
+  .c-step .btn{margin-top:18px;width:100%;padding:16px 20px;font-size:14px}
+  .c-next .btn{margin-top:30px}
+
+  /* ============================ RESPONSIVE ============================ */
+  @media (max-width:900px){
+    .a-row{grid-template-columns:1fr;gap:24px}
+    .a-row.flip .a-media{order:0}
+    .a-media{order:-1}
+    .b-panel{grid-template-columns:1fr;text-align:center;justify-items:center}
+    .b-panel.b-cal{grid-template-columns:1fr}
+    .b-panel.b-cal .b-visual{order:-1}
+    .b-panel .b-visual{order:-1}
+    .b-panel p{margin-left:auto;margin-right:auto}
+    .c-hero{grid-template-columns:1fr}
+    .c-hero .c-body{border-left:0;border-top:1px solid var(--rule)}
+    .c-steps{grid-template-columns:1fr}
+  }
+  @media (max-width:480px){
+    .cd{grid-template-columns:repeat(4,1fr);gap:7px}
+    .cd .num{font-size:30px}
+    .btn{width:100%}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none !important;scroll-behavior:auto !important}}
+</style>
+</head>
+<body>
+
+<!-- ===================== SKETCH VARIANT BAR (not part of design) ===================== -->
+<div id="vbar">
+  <span class="lbl">009 · VIP confirmation</span>
+  <button onclick="showVariant('a',this)">A · Editorial rows</button>
+  <button onclick="showVariant('b',this)">B · Boxed panels</button>
+  <button class="active" onclick="showVariant('c',this)">C · Product hero ★ Selected</button>
+</div>
+
+<!-- =================================================================================
+     VARIANT A — ALTERNATING EDITORIAL ROWS
+     ================================================================================= -->
+<div id="variant-a" class="variant">
+  <div class="page">
+    <!-- masthead -->
+    <header class="mast">
+      <div class="wrap">
+        <span class="secured"><span class="chk">&#10003;</span> VIP Seat Secured</span>
+        <h1>You're In. Here's <span class="serif">What Happens Next.</span></h1>
+        <p class="sub">Your VIP access to Grant Cardone's Real Estate Live Training on July 11th is locked in. Two quick steps below make sure you get everything you paid for.</p>
+        <div class="cd-kick" style="margin-top:30px">Training Goes Live In</div>
+        <div class="cd">
+          <div class="box"><div class="num cd-d">00</div><div class="lbl">DAYS</div></div>
+          <div class="box"><div class="num cd-h">00</div><div class="lbl">HRS</div></div>
+          <div class="box"><div class="num cd-m">00</div><div class="lbl">MIN</div></div>
+          <div class="box"><div class="num cd-s">00</div><div class="lbl">SEC</div></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- steps -->
+    <section class="a-steps">
+      <!-- step 1: email + product image -->
+      <div class="a-row">
+        <div class="a-media">
+          <div class="prodwrap"><img src="https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/6850838e42a2533da3e2f65d.jpeg" alt="Real Estate Home Study Manual + VIP Access"></div>
+        </div>
+        <div class="a-copy">
+          <div class="a-num">01</div>
+          <h3>Check your email for VIP access</h3>
+          <p>We just sent your private <strong>VIP Zoom Room</strong> link and your Real Estate Home Study Manual. The VIP room is where you get close-proximity Q&amp;A with Grant plus VIP-only bonuses. Add us to your contacts so nothing slips into spam.</p>
+        </div>
+      </div>
+      <!-- step 2: calendar -->
+      <div class="a-row flip">
+        <div class="a-media">
+          <div class="calcard">
+            <div class="cc-top">JUL &middot; 2026</div>
+            <div class="cc-day">11</div>
+            <div class="cc-meta"><b>12:00 PM ET</b> &nbsp;·&nbsp; Live with Grant</div>
+          </div>
+        </div>
+        <div class="a-copy">
+          <div class="a-num">02</div>
+          <h3>Add the event to your calendar</h3>
+          <p>Set an alarm, block the hour, tell your family you're busy — do whatever it takes to show up. Grant goes live Saturday, July 11th at 12:00 PM ET and you won't want to miss a minute.</p>
+          <a href="#" class="btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#04222a" stroke-width="2.2"><rect x="3" y="4.5" width="18" height="16" rx="1"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/></svg> Add to my calendar</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- footer -->
+    <footer class="foot">
+      <div class="wrap">
+        <img src="https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/67fa6818c7a01519fad4b370.png" alt="Grant Cardone">
+        <nav>
+          <a href="#">Contact Us</a><span>|</span>
+          <a href="#">Privacy Policy</a><span>|</span>
+          <a href="#">Terms &amp; Conditions</a>
+        </nav>
+        <div class="disc">
+          <p>At Cardone Enterprises we believe that success is the result of hard work, education and persistence. Examples given should not be considered typical and there is never a guarantee of results. Information provided is educational in nature and is not legal or financial advice.</p>
+          <p>Cardone Training Technologies | 1-800-368-5771 | 18909 NE 29th Ave Aventura FL 33180</p>
+          <p>&copy; Cardone Enterprises. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<!-- =================================================================================
+     VARIANT B — STACKED BOXED STEP PANELS
+     ================================================================================= -->
+<div id="variant-b" class="variant">
+  <div class="page">
+    <header class="mast">
+      <div class="wrap">
+        <span class="secured"><span class="chk">&#10003;</span> VIP Seat Secured</span>
+        <h1>You're All Set. <span class="serif">Two Steps To Go.</span></h1>
+        <p class="sub">Your VIP access to Grant Cardone's Real Estate Live Training on July 11th is confirmed. Knock out the two steps below and you're fully locked in.</p>
+        <div class="cd-kick" style="margin-top:30px">Training Goes Live In</div>
+        <div class="cd">
+          <div class="box"><div class="num cd-d">00</div><div class="lbl">DAYS</div></div>
+          <div class="box"><div class="num cd-h">00</div><div class="lbl">HRS</div></div>
+          <div class="box"><div class="num cd-m">00</div><div class="lbl">MIN</div></div>
+          <div class="box"><div class="num cd-s">00</div><div class="lbl">SEC</div></div>
+        </div>
+      </div>
+    </header>
+
+    <section class="b-steps">
+      <div class="b-panel">
+        <div class="b-visual"><div class="prodwrap"><img src="https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/6850838e42a2533da3e2f65d.jpeg" alt="Real Estate Home Study Manual + VIP Access"></div></div>
+        <div>
+          <span class="b-chip">Step 1</span>
+          <h3>Check your email for <span class="serif">VIP access</span></h3>
+          <p>We just sent your private VIP Zoom Room link and your Real Estate Home Study Manual. That room is where you get close-proximity Q&amp;A with Grant plus VIP-only bonuses. Add us to your contacts so nothing slips into spam.</p>
+        </div>
+      </div>
+      <div class="b-panel b-cal">
+        <div>
+          <span class="b-chip">Step 2</span>
+          <h3>Add the event to your <span class="serif">calendar</span></h3>
+          <p>Set an alarm, block the hour, do whatever it takes to show up. Grant goes live Saturday, July 11th at 12:00 PM ET — you won't want to miss a minute.</p>
+          <a href="#" class="btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#04222a" stroke-width="2.2"><rect x="3" y="4.5" width="18" height="16" rx="1"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/></svg> Add to my calendar</a>
+        </div>
+        <div class="b-visual">
+          <div class="calcard">
+            <div class="cc-top">JUL &middot; 2026</div>
+            <div class="cc-day">11</div>
+            <div class="cc-meta"><b>12:00 PM ET</b></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <div class="wrap">
+        <img src="https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/67fa6818c7a01519fad4b370.png" alt="Grant Cardone">
+        <nav><a href="#">Contact Us</a><span>|</span><a href="#">Privacy Policy</a><span>|</span><a href="#">Terms &amp; Conditions</a></nav>
+        <div class="disc">
+          <p>At Cardone Enterprises we believe that success is the result of hard work, education and persistence. Examples given should not be considered typical and there is never a guarantee of results. Information provided is educational in nature and is not legal or financial advice.</p>
+          <p>Cardone Training Technologies | 1-800-368-5771 | 18909 NE 29th Ave Aventura FL 33180</p>
+          <p>&copy; Cardone Enterprises. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<!-- =================================================================================
+     VARIANT C — PRODUCT HERO + COMPACT NEXT-STEPS
+     ================================================================================= -->
+<div id="variant-c" class="variant active">
+  <div class="page">
+    <header class="mast">
+      <div class="wrap">
+        <span class="secured"><span class="chk">&#10003;</span> VIP Seat Secured</span>
+        <h1>Congratulations — <span class="serif">You're a VIP.</span></h1>
+        <p class="sub">Your seat for Grant Cardone's Real Estate Live Training on July 11th is confirmed, and your VIP package is on its way to your inbox.</p>
+        <div class="cd-kick" style="margin-top:30px">Training Goes Live In</div>
+        <div class="cd">
+          <div class="box"><div class="num cd-d">00</div><div class="lbl">DAYS</div></div>
+          <div class="box"><div class="num cd-h">00</div><div class="lbl">HRS</div></div>
+          <div class="box"><div class="num cd-m">00</div><div class="lbl">MIN</div></div>
+          <div class="box"><div class="num cd-s">00</div><div class="lbl">SEC</div></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- product hero: what they now own -->
+    <section class="c-hero">
+      <div class="c-media"><img src="https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/6850838e42a2533da3e2f65d.jpeg" alt="Real Estate Home Study Manual + VIP Access"></div>
+      <div class="c-body">
+        <span class="eyebrow">Your VIP Package</span>
+        <h2>Real Estate Home Study Manual <span class="serif">+ VIP Access</span></h2>
+        <p>Everything below unlocks the moment your welcome email arrives:</p>
+        <ul class="clist">
+          <li><span class="tick">&#10003;</span><span>Private VIP Zoom Room — close-proximity Q&amp;A with Grant</span></li>
+          <li><span class="tick">&#10003;</span><span>The complete Real Estate Home Study Manual</span></li>
+          <li><span class="tick">&#10003;</span><span>VIP-only bonuses reserved for paid members</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- compact next steps -->
+    <section class="c-next">
+      <h3>Two quick things <span class="serif">before July 11th</span></h3>
+      <div class="c-steps">
+        <div class="c-step">
+          <div class="c-n">01</div>
+          <h4>Check your email for VIP access</h4>
+          <p>Look for your welcome email with your VIP Zoom Room link and Home Study Manual. Add us to your contacts so it never lands in spam.</p>
+        </div>
+        <div class="c-step">
+          <div class="c-n">02</div>
+          <h4>Add the event to your calendar</h4>
+          <p>Grant goes live Saturday, July 11th at 12:00 PM ET. Save it now so you don't miss a minute.</p>
+          <a href="#" class="btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#04222a" stroke-width="2.2"><rect x="3" y="4.5" width="18" height="16" rx="1"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/></svg> Add to calendar</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <div class="wrap">
+        <img src="https://assets.cdn.filesafe.space/FIWJhGH5AzdaZCNMxvft/media/67fa6818c7a01519fad4b370.png" alt="Grant Cardone">
+        <nav><a href="#">Contact Us</a><span>|</span><a href="#">Privacy Policy</a><span>|</span><a href="#">Terms &amp; Conditions</a></nav>
+        <div class="disc">
+          <p>At Cardone Enterprises we believe that success is the result of hard work, education and persistence. Examples given should not be considered typical and there is never a guarantee of results. Information provided is educational in nature and is not legal or financial advice.</p>
+          <p>Cardone Training Technologies | 1-800-368-5771 | 18909 NE 29th Ave Aventura FL 33180</p>
+          <p>&copy; Cardone Enterprises. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script>
+  function showVariant(id, el){
+    document.querySelectorAll('.variant').forEach(v=>v.classList.remove('active'));
+    document.getElementById('variant-'+id).classList.add('active');
+    document.querySelectorAll('#vbar button').forEach(b=>b.classList.remove('active'));
+    el.classList.add('active');
+    window.scrollTo(0,0);
+  }
+
+  /* shared countdown — targets every variant's boxes at once */
+  (function(){
+    var target = new Date("2026-07-11T12:00:00-04:00").getTime();
+    function pad(n){return String(Math.max(0,n)).padStart(2,"0");}
+    function set(cls,val){document.querySelectorAll(cls).forEach(function(e){e.textContent=val;});}
+    function tick(){
+      var s=Math.floor(Math.max(0,target-Date.now())/1000);
+      set('.cd-d',pad(Math.floor(s/86400)));
+      set('.cd-h',pad(Math.floor((s%86400)/3600)));
+      set('.cd-m',pad(Math.floor((s%3600)/60)));
+      set('.cd-s',pad(s%60));
+    }
+    tick(); setInterval(tick,1000);
+  })();
+</script>
+</body>
+</html>

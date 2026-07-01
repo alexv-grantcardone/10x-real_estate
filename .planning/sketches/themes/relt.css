@@ -1,0 +1,33 @@
+/* ============================================================================
+   RELT / Grant Cardone Real Estate Live Training — shared sketch theme
+   Locked navy/teal system inherited from the opt-in hero + VIP checkout blocks.
+   ============================================================================ */
+:root{
+  --navy-900:#06192c;   /* deepest base */
+  --navy-800:#0A2540;   /* primary navy */
+  --navy-700:#0B3C54;   /* elevated panel */
+  --navy-600:#0e455f;   /* hover / higher elevation */
+  --imgbg:#0a1d33;
+
+  --teal:#13DDE2;
+  --teal-deep:#10c6cb;
+  --teal-soft:rgba(19,221,226,.14);
+  --rule:rgba(19,221,226,.18);
+  --rule-soft:rgba(255,255,255,.08);
+
+  --bone:#EAEAEA;
+  --on-navy-2:rgba(234,234,234,.72);
+  --on-navy-3:rgba(234,234,234,.5);
+  --muted:#6f93a6;
+
+  --paper:#ffffff;
+  --paper-2:#f3f7f8;
+  --paper-line:#e3eaec;
+  --gray-zone:#f2f2f4;
+  --ink:#0A2540;
+  --ink-2:#3a4f63;
+  --ink-3:#5a6b78;
+
+  --maxw:1240px;
+  --pad:clamp(20px,4vw,72px);
+}
